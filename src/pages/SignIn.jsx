@@ -27,6 +27,7 @@ function SignIn() {
       </div>
     ) 
   } else {
+    nav("/")
     return (
       <>
         <div>It worked!</div>

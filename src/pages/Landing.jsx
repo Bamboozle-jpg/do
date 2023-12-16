@@ -28,7 +28,8 @@ function Landing() {
     nav("/signIn");
     return <div>uh</div>
   } else {
-    <div>huh?</div>
+    nav("/home");
+    return <div>huh?</div>
   }
 }
 
