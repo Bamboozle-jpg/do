@@ -13,7 +13,7 @@ const AddTask = () => {
       try{
         const user = auth.currentUser
         const userEmail = user ? user.email : '';
-        const taskRef = collection(db, 'tasks');
+        const taskRef = collection(db, userEmail);
         const newTask = {
           text: task,
           completed: false,
@@ -35,7 +35,7 @@ const AddTask = () => {
        onChange = {(e) => setTodoTask(e.target.value)}
        placeholder="Enter a to-do item"
        />
-       <button onClick={addTaskItem}>Add Task</button>
+       <button onClick={addTaskItem}>Add Task?</button>
     </div>
   );
 };
