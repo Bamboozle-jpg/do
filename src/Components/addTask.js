@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css"
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore"; 
-import { db } from "../Firebase/Firebase";
+import { db, auth } from "../Firebase/Firebase";
 
 const AddTask = () => {
   const [task, setTodoTask] = useState('');
@@ -11,10 +11,13 @@ const AddTask = () => {
   const addTaskItem = async () => {
     if (task.trim() !== ''){
       try{
+        const user = auth.currentUser
+        const userEmail = user ? user.email : '';
         const taskRef = collection(db, 'tasks');
         const newTask = {
           text: task,
           completed: false,
+          createdBy: userEmail,
         };
         await addDoc(taskRef, newTask);
         setTodoTask('');
