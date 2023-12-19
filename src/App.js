@@ -1,5 +1,4 @@
 import './App.css';
-
 import { Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { BrowserRouter } from "react-router-dom";
@@ -8,6 +7,7 @@ import { AuthContextProvider } from './Firebase/Context';
 import MainPage from './pages/Home';
 import SignIn from './pages/SignIn';
 import Landing from './pages/Landing'
+
 
 
 function App() {

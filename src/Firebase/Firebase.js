@@ -5,7 +5,6 @@ import { getAnalytics } from "firebase/analytics";
 // import firebase from 'firebase/compat/app';
 
 import 'firebase/compat/auth';
-
 import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,11 +24,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp( firebaseConfig );
 
-
 // eslint-disable-next-line
 const analytics = getAnalytics( app );
 
 export const auth = getAuth( app );
 // export const auth2 = firebase.auth();
 
-export const db = getFirestore( app );
+const db = getFirestore( app );
+
+export { db };
