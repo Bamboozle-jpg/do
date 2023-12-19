@@ -7,7 +7,8 @@ function Home() {
   const nav = useNavigate();
   const task = AddTask();
 
-  var err = SetUp();
+  // Sets up new user if necessary
+  SetUp();
 
   return (
     <div>

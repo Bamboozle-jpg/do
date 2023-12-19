@@ -8,28 +8,32 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const SetUp = () => {
   const [user] = useAuthState(auth)
-  const [task, setTodoTask] = useState('');
-  //new to do item to firebase
+ 
+  // For returning, and also 
   const userEmail = user ? user.email : '';
-  const err = user ? 0 : 1;
 
+  // This lets us use async stuff like query without async
   useEffect( () => {
+
+    // Makes sure we actually are using an email
     if (!(userEmail === '')) {
+
+      // Gets all entries (MAX OF 1) from userEmail collection
       const q = query(
         collection( db, userEmail ),
         limit( 1 )
       );
 
-      // what this???
+      // How you access query result 
       onSnapshot( q, ( QuerySnapshot ) => {
+
+        // Checks to see if there are no documents in collection
         if (QuerySnapshot.docs.length <= 0) {
           console.log("None found! Add config docs and holder docs for items here.")
         }
       });
     }
   });
-
-  return err;
 };
 
 export default SetUp
