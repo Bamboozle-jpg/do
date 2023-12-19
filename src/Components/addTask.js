@@ -13,7 +13,7 @@ const AddTask = () => {
       try{
         const user = auth.currentUser
         const userEmail = user ? user.email : '';
-        const taskRef = collection(db, userEmail);
+        const taskRef = collection(db, userEmail, 'tasks', 'tasksCollection');
         const newTask = {
           text: task,
           completed: false,
