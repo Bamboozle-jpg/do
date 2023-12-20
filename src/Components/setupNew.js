@@ -10,6 +10,8 @@ const SetUp = () => {
  
   // For returning, and also 
   const userEmail = user ? user.email : '';
+  console.log("here");
+  console.log(user)
 
   // This lets us use async stuff like query without async
   useEffect( () => {

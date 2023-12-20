@@ -9,6 +9,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
+
 function SignIn() {
   const nav = useNavigate();
   const handleGoogle = () => {

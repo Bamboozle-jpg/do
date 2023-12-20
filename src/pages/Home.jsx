@@ -12,11 +12,11 @@ function Home() {
 
   return (
     <div>
-        <h1>
-          Main Page
-        </h1>
-        {task}
-        <button onClick={ () => nav( "/" ) }>Landing Page</button>
+      <h1>
+        Main Page
+      </h1>
+      {task}
+      <button onClick={ () => nav( "/" ) }>Landing Page</button>
     </div>
   )
 }

@@ -26,9 +26,10 @@ function Landing() {
     //   </div>
     // ) 
     // <div>uh</div>
-    // nav("/signIn");
+    nav("/signIn");
     return <div>uh</div>
   } else {
+    console.log("going home")
     nav("/home");
     return <div>huh?</div>
   }
