@@ -30,7 +30,7 @@ function Layout1() {
     const allBlock = AllBlock(user);
     return (
         <div>
-            {allBlock}
+            {allBlock ? allBlock : <div>Loading...</div>}
             <button onClick={ () => nav( "/" ) }>Landing Page</button>
         </div>
     )
