@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../App.css"
-import { collection, limit, query, getDocs, where, orderBy } from "firebase/firestore"; 
+import { collection, limit, query, getDocs, where, orderBy, doc } from "firebase/firestore"; 
 import { db, auth } from "../Firebase/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -25,14 +25,15 @@ const AllBlock = (user) => {
     // console.log("2")
     // const userEmail = user ? user.email : '';
 
-    console.log(user)
+    console.log(user.email)
 
     const userEmail = user ? user.email : '';
 
-    const tasksRef = collection(db, userEmail, 'tasks', 'tasksCollection');
+    const tasksDocRef = doc(db, userEmail, 'tasks');
+    const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
 
     const q = query(
-        tasksRef,
+        tasksCollectionRef,
         limit( 100 )
     );
     const [tasks] = useCollectionData(q, {idField: 'id'});
