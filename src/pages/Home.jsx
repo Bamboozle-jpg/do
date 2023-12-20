@@ -17,6 +17,7 @@ function Home() {
       </h1>
       {task}
       <button onClick={ () => nav( "/" ) }>Landing Page</button>
+      <button onClick={ () => nav( "/layout1" ) }>Layout1</button>
     </div>
   )
 }
