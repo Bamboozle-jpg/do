@@ -9,7 +9,7 @@ import { db, auth } from "../Firebase/Firebase";
 
 function Layout1() {
     const auth = getAuth();
-    var user = auth.currentUser;
+    const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
     //is working correctly, but in allBlock, log(user.email) is null. Why?
     //to see null user.email log, change line 29 here back to allBlock = AllBlock(user)
@@ -21,12 +21,13 @@ function Layout1() {
             console.log('Current user:', user);
             console.log('User UID:', user.uid);
             console.log('User email:', user.email);
+            setUser(user)
         } else {
             console.log('No user is currently signed in.');
         }
     });
     const nav = useNavigate();
-    const allBlock = user ? AllBlock(user) : null;
+    const allBlock = AllBlock(user);
     return (
         <div>
             {allBlock}

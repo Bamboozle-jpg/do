@@ -10,24 +10,10 @@ let tasks = [];
 
 // A block of all the items
 const AllBlock = (user) => {
-    // var user = null;
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //         // User is signed in, see docs for a list of available properties
-    //         // https://firebase.google.com/docs/reference/js/auth.user
-    //         const uid = user.uid;
-    //     } else {
-    //       // User is signed out
-    //       // ...
-    //     }
-    // });
-
-    // console.log("2")
-    // const userEmail = user ? user.email : '';
 
     console.log(user.email)
 
-    const userEmail = user ? user.email : '';
+    const userEmail = user ? user.email : 'kevin@bachelorclan.com';
 
     const tasksDocRef = doc(db, userEmail, 'tasks');
     const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
