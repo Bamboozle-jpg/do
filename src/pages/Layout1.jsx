@@ -16,16 +16,19 @@ function Layout1() {
 
     //console.log(user);
     //console.log(user.email);
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            console.log('Current user:', user);
-            console.log('User UID:', user.uid);
-            console.log('User email:', user.email);
-            setUser(user)
-        } else {
-            console.log('No user is currently signed in.');
-        }
-    });
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('Current user:', user);
+                console.log('User UID:', user.uid);
+                console.log('User email:', user.email);
+                setUser(user)
+            } else {
+                console.log('No user is currently signed in.');
+            }
+        });
+        return unsubscribe;
+    },[])
     const nav = useNavigate();
     const allBlock = AllBlock(user);
     return (
