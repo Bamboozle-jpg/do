@@ -35,11 +35,12 @@ function TaskPretty(props) {
     const text = props.name;
     const desc = props.description;
     const key = props.firestoreKey;
-    return (<>
+    const completed = props.completed
+    return (<outer completed={completed} >
         <h1>{text}</h1>
         <div>{desc}</div>
         <div>{key}</div>
-    </>)
+    </outer>)
 }
 
 // Adds the firestore ID to the object
