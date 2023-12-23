@@ -44,6 +44,7 @@ const AddTask = () => {
                     Priority: parseInt(priority.value),
                     FromRepeat: false,
                     Completed: complete,
+                    Children: [],
                     Tag: tag,
                     CreatedBy: userEmail,
                 };
