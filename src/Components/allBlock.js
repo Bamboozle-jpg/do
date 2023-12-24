@@ -2,6 +2,7 @@ import "../App.css"
 import { collection, limit, query, where, orderBy, doc, updateDoc } from "firebase/firestore"; 
 import { db } from "../Firebase/Firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
+import "./allBlock.css"
 
 // A block of all the items
 const AllBlock = (user) => {
@@ -84,21 +85,23 @@ function addKeys(tasks) {
 // Builds object for TaskPretty to access
 function buildDiv(tasksList) {
     return (
-        <div>
-            { tasksList && tasksList.map( tsk => <TaskPretty 
-                firestoreKey={tsk.Key} 
-                name={tsk.Name}  
-                description={tsk.Description}
-                due={tsk.Due}
-                do={tsk.Do}
-                duration={tsk.Duration}
-                priority={tsk.Priority}
-                fromRepeat={tsk.Priority}
-                completed={tsk.Completed}
-                children={tsk.Children}
-                tag={tsk.Tag}
-                createdBy={tsk.CreatedBy}
-            /> ) }
+        <div class="glow-holder">
+            <article data-glow>
+                { tasksList && tasksList.map( tsk => <TaskPretty 
+                    firestoreKey={tsk.Key} 
+                    name={tsk.Name}  
+                    description={tsk.Description}
+                    due={tsk.Due}
+                    do={tsk.Do}
+                    duration={tsk.Duration}
+                    priority={tsk.Priority}
+                    fromRepeat={tsk.Priority}
+                    completed={tsk.Completed}
+                    children={tsk.Children}
+                    tag={tsk.Tag}
+                    createdBy={tsk.CreatedBy}
+                /> ) }
+            </article>
         </div>
     )
 }

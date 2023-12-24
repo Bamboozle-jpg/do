@@ -1,0 +1,58 @@
+:root {
+  --backdrop: hsl(0 0% 60% / 0.12);
+  --backup-border: var(--backdrop);
+  --size: 200;
+}
+
+body {
+	display: grid;
+    padding: 30px;
+	place-items: left;
+	min-height: 100vh;
+	background: hsl(0, 0%, 8%);
+    color: hsl(0, 0%, 72%);
+}
+
+.wrapper {
+	position: relative;
+}
+
+article {
+    border-left: 10px;
+    border-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 14px;
+    height: min-content;
+    width: 80vw;
+    grid-template-rows: 1fr auto;
+    box-shadow: 0px 0px 20px 10px hsl(294, 100%, 6%);
+    display: grid;
+    gap: 1rem;
+    backdrop-filter: blur(calc(var(--cardblur, 5) * 1px));
+}
+
+main {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    width: 120ch;
+    max-width: calc(100vw - 2rem);
+    position: relative;
+}
+
+/* Glow specific styles */
+[data-glow] {
+    background-color: hsl(300, 7%, 16%);
+    border: 3px solid var(--backup-border);
+    border-color: hsl(294, 100%, 20%);
+    position: relative;
+    touch-action: none;
+}
+
+.glow-holder {
+    padding-bottom: 50px;
+}
