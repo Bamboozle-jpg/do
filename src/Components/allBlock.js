@@ -1,5 +1,5 @@
 import "../App.css"
-import { collection, limit, query, where, orderBy, doc } from "firebase/firestore"; 
+import { collection, limit, query, where, orderBy, doc, updateDoc } from "firebase/firestore"; 
 import { db } from "../Firebase/Firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 
@@ -23,7 +23,8 @@ const AllBlock = (user) => {
     if (!loading) {
 
         // Add the firestore id to the object as the firestoreKey field
-        var tasksList = addKeys(tasks);
+        var tasksList = addKeys(tasks); 
+        console.log(tasksList)
 
         // Print it to the screen and make it look pretty :)
         return (buildDiv(tasksList));
@@ -32,15 +33,37 @@ const AllBlock = (user) => {
 
 // Actually puts things to the screen
 function TaskPretty(props) {
+    // Grabs them as variables out of props
     const text = props.name;
     const desc = props.description;
     const key = props.firestoreKey;
     const completed = props.completed
+    const author = props.createdBy;
+    console.log(author)
+
+    // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
     return (<outer completed={completed} >
-        <h1>{text}</h1>
+        <h2>{text}</h2>
         <div>{desc}</div>
         <div>{key}</div>
+        <div>Completed : {completed ? "true" : "false"}</div>
+        <label class="switch">
+            <input type="checkbox" checked={completed} onClick={ () => toggleComplete(key, author, completed) } />
+        </label>
     </outer>)
+}
+
+// Set a task to complete
+function toggleComplete(key, author, completed) {
+    // Set up document you're looking at
+    const outerDoc = doc(db, author, 'tasks');
+    const outerCollection = collection(outerDoc, 'tasksCollection');
+    const docToUpdate = doc(outerCollection, key);
+
+    // update complete field
+    updateDoc(docToUpdate, {
+        Completed: !completed
+    });
 }
 
 // Adds the firestore ID to the object
@@ -74,6 +97,7 @@ function buildDiv(tasksList) {
                 completed={tsk.Completed}
                 children={tsk.Children}
                 tag={tsk.Tag}
+                createdBy={tsk.CreatedBy}
             /> ) }
         </div>
     )

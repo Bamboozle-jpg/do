@@ -34,6 +34,7 @@ function Layout1() {
     return (
         <div>
             {allBlock}
+            {allBlock}
             <button onClick={ () => nav( "/" ) }>Landing Page</button>
         </div>
     )
