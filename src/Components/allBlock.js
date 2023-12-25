@@ -44,12 +44,13 @@ function TaskPretty(props) {
 
     // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
     return (<outer completed={completed} >
-        <h2>{text}</h2>
-        <div>{desc}</div>
-        <div>{key}</div>
-        <div>Completed : {completed ? "true" : "false"}</div>
+        <h2 class={ completed ? "completed" : "uncomplete"} >{text}</h2>
+        <div class={ completed ? "completed" : "uncomplete"} >{desc}</div>
+        <div class={ completed ? "completed" : "uncomplete"} >{key}</div>
+        <div class={ completed ? "completed" : "uncomplete"} >Completed : {completed ? "true" : "false"}</div>
         <label class="switch">
-            <input type="checkbox" checked={completed} onClick={ () => toggleComplete(key, author, completed) } />
+            <input type="checkbox" checked={completed} onClick={ () => toggleComplete(key, author, completed) }  />
+            {/* <label for="myCheckbox"></label> */}
         </label>
     </outer>)
 }
