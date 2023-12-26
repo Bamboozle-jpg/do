@@ -47,6 +47,7 @@ const AddTask = () => {
                     Children: [],
                     Tag: tag,
                     CreatedBy: userEmail,
+                    CompletedDate: complete ? Timestamp.fromDate(today) : null
                 };
                 await addDoc(taskRef, newTask);
                 setName('');

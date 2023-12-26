@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AllBlock from "../Components/allBlock"
+import AllBlock from "../Components/blocks"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'firebase/firestore';
 import { useAsync } from "react-async"

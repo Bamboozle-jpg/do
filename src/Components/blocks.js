@@ -1,5 +1,5 @@
 import "../App.css"
-import { collection, limit, query, where, orderBy, doc, updateDoc } from "firebase/firestore"; 
+import { collection, limit, query, where, orderBy, doc, updateDoc, Timestamp } from "firebase/firestore"; 
 import { db } from "../Firebase/Firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
@@ -11,21 +11,44 @@ const AllBlock = (user) => {
     const tasksDocRef = doc(db, userEmail, 'tasks');
     const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
 
-    // Get the items as a query
-    const q = query(
+    // Get the uncompleted items as a query
+    const q = query( 
+        tasksCollectionRef, 
+        where( "Completed", "==", true), 
+        orderBy("Completed" ),
+        orderBy("CompletedDate", "desc")
+    );
+
+    // Get the completed items query
+    const qComp = query(
         tasksCollectionRef,
-        limit( 100 )
+        limit( 100 ),
+        where( "Completed", "==", false),
+        orderBy( "Completed" ),
+        orderBy( "Due", "asc" )
     );
     
-    // Convert query to snapshot
-    const [tasks, loading] = useCollection(q)
+    // Convert querys to snapshots
+    const [tasks, loading, error] = useCollection(q)
+    const [compTasks, loadingC, errorComp] = useCollection(qComp)
     
     // Once the snapshot has returned
-    if (!loading) {
-
-        // Add the firestore id to the object as the firestoreKey field
-        var tasksList = addKeys(tasks); 
-        console.log(tasksList)
+    if (!loading && !loadingC) {
+        // The first time you do this for a new query
+        // you need to follow the link in the error message
+        // This only needs to be done once and then it works for all users
+        if (error) {
+            console.log("ERROR : ", error.message);
+        }
+        if (errorComp) {
+            console.log("ERROR : ", errorComp.message);
+        }
+        // Add the firestore id to the objects as the firestoreKey field
+        var uncompTasksList = addKeys(tasks); 
+        var compTasksList = addKeys(compTasks); 
+        
+        // Combine the lists into 1
+        var tasksList = compTasksList.concat(uncompTasksList)
 
         // Print it to the screen and make it look pretty :)
         return (buildDiv(tasksList));
@@ -67,9 +90,18 @@ function toggleComplete(key, author, completed) {
     const docToUpdate = doc(outerCollection, key);
 
     // update complete field
-    updateDoc(docToUpdate, {
-        Completed: !completed
-    });
+    if (completed) {
+        updateDoc(docToUpdate, {
+            Completed: false,
+            CompletedDate: null
+        });
+    } else {
+        const today = new Date();
+        updateDoc(docToUpdate, {
+            Completed: true,
+            CompletedDate: Timestamp.fromDate(today)
+        });
+    }
 }
 
 // Adds the firestore ID to the object
