@@ -59,32 +59,44 @@ main {
 .completed {
     color: hsl(0, 0%, 40%);
     text-decoration: line-through;
+    padding-left: 10px;
 }
 
 .uncomplete {
     color: hsl(0, 0%, 80%);
+    padding-left: 10px
 }
 
-.switch input[type="checkbox"] {
+
+.switch .hiddenCheckbox {
     display: none; /* Hide the default checkbox */
 }
   
-.switch label {
+.switch .customCheckboxOff {
     display: inline-block;
-    width: 20px; /* Width of your custom checkbox */
-    height: 20px; /* Height of your custom checkbox */
+    width: 30px; /* Width of your custom checkbox */
+    height: 30px; /* Height of your custom checkbox */
     cursor: pointer;
-    background-image: url('./checked.svg'); /* Replace with the path to your SVG file */
+    background-image: url('../assets/unchecked.svg');
     background-size: contain;
 }
+
+.switch .hiddenCheckbox {
+    width: 30px;
+    height: 30px;
+}
   
-/* Style the checked state of the checkbox */
-.switch input[type="checkbox"]:checked + label {
-    background-image: "./checked.svg";
-    /* For example, you can change the background color or add a different image */
+.switch .customCheckboxOn {
+    display: inline-block;
+    width: 30px; /* Width of your custom checkbox */
+    height: 30px; /* Height of your custom checkbox */
+    cursor: pointer;
+    background-image: url('../assets/checked.svg');
+    background-size: contain;
 }
 
-.switch input[type="checkbox"]:not(:checked) + label {
-    background-image: "../assets/unchecked.svg";
-    /* For example, you can change the background color or add a different image */
+.title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }

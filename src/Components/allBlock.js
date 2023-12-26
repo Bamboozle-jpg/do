@@ -37,27 +37,31 @@ function TaskPretty(props) {
     // Grabs them as variables out of props
     const text = props.name;
     const desc = props.description;
-    const key = props.firestoreKey;
+    const Key = props.firestoreKey;
     const completed = props.completed
     const author = props.createdBy;
-    console.log(author)
 
     // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
-    return (<outer completed={completed} >
-        <h2 class={ completed ? "completed" : "uncomplete"} >{text}</h2>
+    return (<outer completed={completed} Key={Key} >
+        <div class="title">
+            <label class="switch">
+                <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
+                <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+                </label>
+            </label>
+            <h2 class={ completed ? "completed" : "uncomplete"} >{text}</h2>
+        </div>
+        
         <div class={ completed ? "completed" : "uncomplete"} >{desc}</div>
-        <div class={ completed ? "completed" : "uncomplete"} >{key}</div>
+        <div class={ completed ? "completed" : "uncomplete"} >{Key}</div>
         <div class={ completed ? "completed" : "uncomplete"} >Completed : {completed ? "true" : "false"}</div>
-        <label class="switch">
-            <input type="checkbox" checked={completed} onClick={ () => toggleComplete(key, author, completed) }  />
-            {/* <label for="myCheckbox"></label> */}
-        </label>
     </outer>)
 }
 
 // Set a task to complete
 function toggleComplete(key, author, completed) {
     // Set up document you're looking at
+    console.log(key)
     const outerDoc = doc(db, author, 'tasks');
     const outerCollection = collection(outerDoc, 'tasksCollection');
     const docToUpdate = doc(outerCollection, key);
