@@ -5,7 +5,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
 
 // A block of all the items
-const AllBlock = (user) => {
+const AllByDueBlock = (user) => {
     // Setup email, and where it should find the items
     const userEmail = user ? user.email : 'kevin@bachelorclan.com';
     const tasksDocRef = doc(db, userEmail, 'tasks');
@@ -49,6 +49,41 @@ const AllBlock = (user) => {
         
         // Combine the lists into 1
         var tasksList = compTasksList.concat(uncompTasksList)
+
+        // Print it to the screen and make it look pretty :)
+        return (buildDiv(tasksList));
+    }
+}
+
+// A block of only incomplete items
+const UncompleteByDueBlock = (user) => {
+    // Setup email, and where it should find the items
+    const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+    const tasksDocRef = doc(db, userEmail, 'tasks');
+    const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
+
+    // Get the uncompleted items as a query
+    const q = query(
+        tasksCollectionRef,
+        limit( 100 ),
+        where( "Completed", "==", false),
+        orderBy( "Completed" ),
+        orderBy( "Due", "asc" )
+    );
+    
+    // Convert querys to snapshots
+    const [tasks, loading, error] = useCollection(q)
+    
+    // Once the snapshot has returned
+    if (!loading) {
+        // The first time you do this for a new query
+        // you need to follow the link in the error message
+        // This only needs to be done once and then it works for all users
+        if (error) {
+            console.log("ERROR : ", error.message);
+        }
+        // Add the firestore id to the objects as the firestoreKey field
+        var tasksList = addKeys(tasks);
 
         // Print it to the screen and make it look pretty :)
         return (buildDiv(tasksList));
@@ -143,4 +178,7 @@ function buildDiv(tasksList) {
     )
 }
 
-export default AllBlock
+export { 
+    AllByDueBlock,
+    UncompleteByDueBlock
+}

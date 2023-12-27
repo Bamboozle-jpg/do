@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AllBlock from "../Components/blocks"
+import { AllByDueBlock, UncompleteByDueBlock } from "../Components/blocks"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'firebase/firestore';
 import { useAsync } from "react-async"
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc } from 'firebase/firestore'
+import { useDocument } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
 
 function Layout1() {
@@ -29,15 +31,41 @@ function Layout1() {
         });
         return unsubscribe;
     },[])
+
+    // User email shenanigans
+    const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+
+    // Where to find config doc
+    const configDocRef = doc(db, userEmail, 'webConfig');
+    
+    // Get the doc
+    const [blocksGet, loading] = useDocument(configDocRef)
+
     const nav = useNavigate();
-    const allBlock = AllBlock(user);
-    return (
-        <div>
-            {allBlock}
-            {allBlock}
-            <button onClick={ () => nav( "/" ) }>Landing Page</button>
-        </div>
-    )
+    const allByDueBlock = AllByDueBlock(user);
+    const uncompleteByDueBlock = UncompleteByDueBlock(user);
+    const blocksDict = {
+        0: uncompleteByDueBlock,
+        1: allByDueBlock,
+    }
+
+    if (loading) {
+        return (
+            <h1 class="uncomplete">Loading</h1>
+        )
+    } else {
+        const layoutKey = blocksGet.data().layout1
+        var layout = []
+        for (var i = 0; i < layoutKey.length; i++) {
+            layout.push(blocksDict[layoutKey[i]]);
+        }
+        return (
+            <div>
+                {layout}
+                <button onClick={ () => nav( "/" ) }>Landing Page</button>
+            </div>
+        )
+    }
 }
 
 export default Layout1
