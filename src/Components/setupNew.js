@@ -10,6 +10,8 @@ const SetUp = () => {
  
   // For returning, and also 
   const userEmail = user ? user.email : '';
+  console.log("here");
+  console.log(user)
 
   // This lets us use async stuff like query without async
   useEffect( () => {
@@ -31,7 +33,7 @@ const SetUp = () => {
 
           // Set up the documents with their ids
           const accountConfig = doc(db, userEmail, 'accountConfig');
-          const accountDict = { dailyReset: 0 }
+          const accountDict = { dailyReset: 0, tags: [] }
 
           const webConfig = doc(db, userEmail, 'webConfig');
           const webDict = { layout1: [], layout2: [], layout3: [], darkMode: true, }

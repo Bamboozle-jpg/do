@@ -4,16 +4,22 @@ import { Redirect } from "react-router-dom";
 
 import { firestore, auth } from '../Firebase/Firebase'
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
+
 
 function SignIn() {
   const nav = useNavigate();
   const handleGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    console.log(provider)
+    try {
+        signInWithPopup(auth, provider)
+    } catch {
+        signInWithRedirect(auth, provider)
+    }
   }
 
   const [user] = useAuthState(auth)

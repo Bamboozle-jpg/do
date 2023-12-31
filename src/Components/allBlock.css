@@ -1,0 +1,102 @@
+:root {
+  --backdrop: hsl(0 0% 60% / 0.12);
+  --backup-border: var(--backdrop);
+  --size: 200;
+}
+
+body {
+	display: grid;
+    padding: 30px;
+	place-items: left;
+	min-height: 100vh;
+	background: hsl(0, 0%, 8%);
+}
+
+.wrapper {
+	position: relative;
+}
+
+article {
+    border-left: 10px;
+    border-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 14px;
+    height: min-content;
+    width: 80vw;
+    grid-template-rows: 1fr auto;
+    box-shadow: 0px 0px 20px 5px hsl(300, 50%, 10%);
+    display: grid;
+    gap: 1rem;
+    backdrop-filter: blur(calc(var(--cardblur, 5) * 1px));
+}
+
+main {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    width: 120ch;
+    max-width: calc(100vw - 2rem);
+    position: relative;
+}
+
+/* Glow specific styles */
+[data-glow] {
+    background-color: hsl(290, 7%, 16%);
+    border: 3px solid var(--backup-border);
+    border-color: hsl(300, 100%, 14%);
+    position: relative;
+    touch-action: none;
+}
+
+.glow-holder {
+    padding-bottom: 50px;
+}
+
+.completed {
+    color: hsl(0, 0%, 40%);
+    text-decoration: line-through;
+    padding-left: 10px;
+}
+
+.uncomplete {
+    color: hsl(0, 0%, 80%);
+    padding-left: 10px
+}
+
+
+.switch .hiddenCheckbox {
+    display: none; /* Hide the default checkbox */
+}
+  
+.switch .customCheckboxOff {
+    display: inline-block;
+    width: 30px; /* Width of your custom checkbox */
+    height: 30px; /* Height of your custom checkbox */
+    cursor: pointer;
+    background-image: url('../assets/unchecked.svg');
+    background-size: contain;
+}
+
+.switch .hiddenCheckbox {
+    width: 30px;
+    height: 30px;
+}
+  
+.switch .customCheckboxOn {
+    display: inline-block;
+    width: 30px; /* Width of your custom checkbox */
+    height: 30px; /* Height of your custom checkbox */
+    cursor: pointer;
+    background-image: url('../assets/checked.svg');
+    background-size: contain;
+}
+
+.title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
