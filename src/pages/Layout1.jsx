@@ -57,15 +57,29 @@ function Layout1() {
         const layoutKey = blocksGet.data().layout1
         var layout = []
         for (var i = 0; i < layoutKey.length; i++) {
-            layout.push(blocksDict[layoutKey[i]]);
+            var id = "blockNumber" + i;
+            console.log(id);
+            layout.push(<div id={id} onClick={scrollTo} >{blocksDict[layoutKey[i]]}</div>);
         }
         return (
-            <div>
+            <div id="blocksContainer">
                 {layout}
                 <button onClick={ () => nav( "/" ) }>Landing Page</button>
             </div>
         )
     }
 }
+
+const scrollTo = event => {
+    const element = document.getElementById(event.currentTarget.id);
+    // console.log(topPos);
+    // sleep(500).then(() => window.scrollTo({ top: topPos} ));
+    // sleep(500).then(() => console.log("ummm"));
+    element.scrollIntoView();
+};
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}  
 
 export default Layout1
