@@ -72,10 +72,18 @@ function Layout1() {
 
 const scrollTo = event => {
     const element = document.getElementById(event.currentTarget.id);
-    // console.log(topPos);
-    // sleep(500).then(() => window.scrollTo({ top: topPos} ));
-    // sleep(500).then(() => console.log("ummm"));
-    element.scrollIntoView();
+    var topPos = element.getBoundingClientRect().top
+    var newPos;
+
+    sleep(5)
+        .then(() => element.scrollIntoView())
+        .then(() => newPos = element.getBoundingClientRect().top)
+        .then(() => window.scrollBy(0, -1*topPos + newPos))
+        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos));
+
+    
+    // element.scrollIntoView()
+    // window.scrollBy(0, -1*topPos)
 };
 
 function sleep(ms) {
