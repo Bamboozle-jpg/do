@@ -80,10 +80,6 @@ const scrollTo = event => {
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
         .then(() => console.log("topPos : ", topPos, "newPos : ", newPos));
-
-    
-    // element.scrollIntoView()
-    // window.scrollBy(0, -1*topPos)
 };
 
 function sleep(ms) {
