@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AllByDueBlock, UncompleteByDueBlock } from "../Components/blocks"
+import { AllByDue, UncompleteByDue } from "../Components/blocks"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'firebase/firestore';
 import { useAsync } from "react-async"
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { doc } from 'firebase/firestore'
-import { useDocument } from "react-firebase-hooks/firestore";
+import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
+import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
 
 function Layout1() {
@@ -35,37 +35,97 @@ function Layout1() {
     // User email shenanigans
     const userEmail = user ? user.email : 'kevin@bachelorclan.com';
 
-    // Where to find config doc
+    // Get config doc
     const configDocRef = doc(db, userEmail, 'webConfig');
-    
-    // Get the doc
     const [blocksGet, loading] = useDocument(configDocRef)
 
-    const nav = useNavigate();
-    const allByDueBlock = AllByDueBlock(user);
-    const uncompleteByDueBlock = UncompleteByDueBlock(user);
-    const blocksDict = {
-        0: uncompleteByDueBlock,
-        1: allByDueBlock,
-    }
+    // Get tasks collection
+    const tasksDocRef = doc(db, userEmail, 'tasks');
+    const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
 
-    if (loading) {
+    // Get the uncompleted items as a query
+    const q = query( 
+        tasksCollectionRef, 
+        where( "Completed", "==", false), 
+        orderBy("Completed" ),
+        orderBy("CompletedDate", "desc")
+    );
+
+    // Get the completed items query
+    const qComp = query(
+        tasksCollectionRef,
+        limit( 100 ),
+        where( "Completed", "==", true),
+        orderBy( "Completed" ),
+        orderBy( "Due", "asc" )
+    );
+
+    // Convert querys to snapshots
+    const [tasks, loadingInc, error] = useCollection(q)
+    const [compTasks, loadingC, errorComp] = useCollection(qComp)
+    const nav = useNavigate();
+
+    
+    // Once the snapshot has returned
+    if (!loadingInc && !loadingC) {
+
+        // The first time you do this for a new query
+        // you need to follow the link in the error message
+        // This only needs to be done once and then it works for all users
+        if (error) {
+            console.log("ERROR : ", error.message);
+        }
+        if (errorComp) {
+            console.log("ERROR : ", errorComp.message);
+        }
+
+        // Add the firestore id to the objects as the firestoreKey field
+        var incompTasksList = addKeys(tasks); 
+        var compTasksList = addKeys(compTasks); 
+
+        // Check that it's ready
+        if (loading) {
+            return (
+                <h1 class="uncomplete">Loading</h1>
+            )
+        } else {
+
+            // get their blocks key
+            const layoutKey = blocksGet.data().layout1
+            var layout = []
+            // Loops through all blocks
+            for (var i = 0; i < layoutKey.length; i++) {
+
+                // Setup that block's information
+                var id = "blockNumber" + i;
+                var blockType = layoutKey[i];
+
+                // Figure out what that block is doing
+                switch(blockType) {
+                    case 0:
+                        layout.push(<div id={id} onClick={scrollTo} >{UncompleteByDue(compTasksList, incompTasksList)}</div>);
+                        break;
+                    case 1:
+                        layout.push(<div id={id} onClick={scrollTo} >{AllByDue(compTasksList, incompTasksList)}</div>);
+                        break;
+                    default:
+                        break;
+                }
+
+                
+                console.log(id);
+                
+            }
+            return (
+                <div id="blocksContainer">
+                    {layout}
+                    <button onClick={ () => nav( "/" ) }>Landing Page</button>
+                </div>
+            )
+        }
+    } else {
         return (
             <h1 class="uncomplete">Loading</h1>
-        )
-    } else {
-        const layoutKey = blocksGet.data().layout1
-        var layout = []
-        for (var i = 0; i < layoutKey.length; i++) {
-            var id = "blockNumber" + i;
-            console.log(id);
-            layout.push(<div id={id} onClick={scrollTo} >{blocksDict[layoutKey[i]]}</div>);
-        }
-        return (
-            <div id="blocksContainer">
-                {layout}
-                <button onClick={ () => nav( "/" ) }>Landing Page</button>
-            </div>
         )
     }
 }
@@ -87,3 +147,18 @@ function sleep(ms) {
 }  
 
 export default Layout1
+
+// Adds the firestore ID to the object
+function addKeys(tasks) {
+
+    // Copies into array of dicts
+    var taskList = []
+    tasks.docs.forEach((doc) => {
+
+        // Each document gets copied over, and so does it's key
+        const newDict = { ...doc.data() };
+        newDict['Key'] = doc._key.path.segments[doc._key.path.segments.length - 1];
+        taskList.push(newDict)
+    })
+    return taskList;
+}
