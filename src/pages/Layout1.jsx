@@ -94,10 +94,12 @@ function Layout1() {
             var layout = []
             // Loops through all blocks
             for (var i = 0; i < layoutKey.length; i++) {
-
+                
                 // Setup that block's information
                 var id = "blockNumber" + i;
-                var blockType = layoutKey[i];
+                var blockString = layoutKey[i];
+                var blockType = parseInt(blockString.substring(0, 3));
+                console.log(blockType)
 
                 // Figure out what that block is doing
                 switch(blockType) {
@@ -135,7 +137,7 @@ const scrollTo = event => {
     var newPos;
 
     // Scroll block to top of screen then scroll down however much the block was down
-    sleep(2)
+    sleep(4)
         .then(() => element.scrollIntoView())
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
