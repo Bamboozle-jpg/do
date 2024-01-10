@@ -89,7 +89,6 @@ function Layout1() {
                 <h1 class="uncomplete">Loading</h1>
             )
         } else {
-
             // get their blocks key
             const layoutKey = blocksGet.data().layout1
             var layout = []
@@ -111,11 +110,8 @@ function Layout1() {
                     default:
                         break;
                 }
-
-                
-                console.log(id);
-                
             }
+            // Return the blocks
             return (
                 <div id="blocksContainer">
                     {layout}
@@ -130,16 +126,31 @@ function Layout1() {
     }
 }
 
+// Silliness to make it so when you click a checkbox it keeps the screen centered on the block you're looking at
 const scrollTo = event => {
+    // Gets the position of the element
     const element = document.getElementById(event.currentTarget.id);
     var topPos = element.getBoundingClientRect().top
+    // Sets up to do some checking that the page being too short doesn't cause problems
     var newPos;
 
-    sleep(5)
+    // Scroll block to top of screen then scroll down however much the block was down
+    sleep(2)
         .then(() => element.scrollIntoView())
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
-        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos));
+        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
+    // Do 2 more times because otherwise it either jitters, or misses
+    .then(sleep(2))
+        .then(() => element.scrollIntoView())
+        .then(() => newPos = element.getBoundingClientRect().top)
+        .then(() => window.scrollBy(0, -1*topPos + newPos))
+        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
+    .then(sleep(2))
+        .then(() => element.scrollIntoView())
+        .then(() => newPos = element.getBoundingClientRect().top)
+        .then(() => window.scrollBy(0, -1*topPos + newPos))
+        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
 };
 
 function sleep(ms) {
