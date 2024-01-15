@@ -5,35 +5,41 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
 import { buildDiv } from "./blockBuilder"
 // A block of all the items
-const AllByDue = (compTasks, incompTasks, showIncomp, showComp, tasksLimit, index, extraParam, name) => {
+const ByDue = (compTasks, incompTasks, showComp, showDetails, tasksLimit, name, i) => {
+    // Takes for AAABCDDDnameAsString
+    // A = block type
+    // B = show incompletes
+    // C = show details
+    // D = tasks limit
+    var tasksList;
         
+    var retIncompTasks = incompTasks;
+
     // Combine the lists into 1
-    var tasksList = incompTasks.concat(compTasks)
+    if (showComp) {
+        tasksList = retIncompTasks.concat(compTasks)
+    } else {
+        tasksList = retIncompTasks
+    }
 
     // Print it to the screen and make it look pretty :)
-    return (buildDiv(tasksList));
+    return (buildDiv(tasksList, name, showDetails, i));
 }
 
-// A block of only incomplete items
-const UncompleteByDue = (compTasks, incompTasks, showIncomp, showComp, tasksLimit, index, extraParam, name) => {
+const OnlyItem = (compTasks, incompTasks, showComp, shown, tasksLimit, index, extraParam, name, i) => {
 
-    return buildDiv(incompTasks)
+    // Just have index mean index of task it's representing? Yes this is the best thing to do
+    return buildDiv (compTasks, name, shown, i)
 }
 
-const OnlyItem = (compTasks, incompTasks, showIncomp, showComp, tasksLimit, index, extraParam, name) => {
-
-    // placeholder, SET THE NAME TO THE ITEM's INDEX?? extra param is an integer.... hmmmmm
-    // Possibly no dual items, just have index mean index of task it's representing? Yes this is the best thing to do
-    return buildDiv (compTasks)
-}
-
-const OnlyTag = (compTasks, incompTasks, showIncomp, showComp, tasksLimit, index, extraParam, name) => {
+const OnlyTag = (compTasks, incompTasks, showComp, shown, tasksLimit, index, extraParam, name, i) => {
 
     // placeholder, TAG IS extraParam, it's an index
-    return buildDiv (compTasks)
+    return buildDiv (compTasks, name, shown, i)
 }
 
 export { 
-    AllByDue,
-    UncompleteByDue
+    ByDue,
+    OnlyItem,
+    OnlyTag
 }

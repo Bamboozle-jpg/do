@@ -45,7 +45,7 @@ main {
 
 /* Glow specific styles */
 [data-glow] {
-    background-color: hsl(290, 7%, 16%);
+    background-color: hsl(290, 10%, 16%);
     border: 3px solid var(--backup-border);
     border-color: hsl(300, 100%, 14%);
     position: relative;
@@ -60,11 +60,35 @@ main {
     color: hsl(0, 0%, 40%);
     text-decoration: line-through;
     padding-left: 10px;
+    font-size: 17px;
+}
+
+.completedTitle {
+    color: hsl(0, 0%, 40%);
+    text-decoration: line-through;
+    padding-left: 10px;
+    font-size: 27px;
+    font-weight: normal;
 }
 
 .uncomplete {
     color: hsl(0, 0%, 80%);
-    padding-left: 10px
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.uncompleteTitle {
+    color: hsl(0, 0%, 80%);
+    padding-left: 10px;
+    font-size: 27px;
+    font-weight: normal;
+}
+
+.blockTitle {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: bold;
 }
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AllByDue, UncompleteByDue } from "../Components/blocks"
+import { ByDue, OnlyItem, OnlyTag } from "../Components/blocks"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'firebase/firestore';
 import { useAsync } from "react-async"
@@ -99,16 +99,23 @@ function Layout1() {
                 var id = "blockNumber" + i;
                 var blockString = layoutKey[i];
                 var blockType = parseInt(blockString.substring(0, 3));
-                console.log(blockType)
 
+            
                 // Figure out what that block is doing
+                // compTasks, incompTasks, showComp, tasksLimit, index, extraParam, name
+                console.log("umm")
                 switch(blockType) {
                     case 0:
-                        layout.push(<div id={id} onClick={scrollTo} >{UncompleteByDue(compTasksList, incompTasksList)}</div>);
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5))
+                        var tasksLimit = parseInt(blockString.substring(5, 8));
+                        var name = blockString.substring(8);
+                        console.log("block Type :", blockType, "\nShow Comp :", showComp, "\nTasks Limit :", tasksLimit, "\nIndex :", index, "\nExtra Parameter :", extraParam, "\nName :", name, "\nShown", showDetails);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit   , name, i)}</div>);
                         break;
-                    case 1:
-                        layout.push(<div id={id} onClick={scrollTo} >{AllByDue(compTasksList, incompTasksList)}</div>);
-                        break;
+                    case 2:
+                        var index = blockString.substring(8, 28);
+                        var extraParam = parseInt(blockString.substring(28, 31));
                     default:
                         break;
                 }
