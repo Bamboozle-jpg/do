@@ -11,7 +11,10 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db, auth } from "../Firebase/Firebase";
 
 const AddTask = () => {
-    const today = new Date();
+    const temp = new Date();
+    console.log(temp.getFullYear());
+    const today = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate())
+    
 
     const [name, setName] = useState('');
     const [complete, setComplete] = useState(false);
