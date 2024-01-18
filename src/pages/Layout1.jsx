@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
+import "./Layout.css"
 
 function Layout1() {
     const auth = getAuth();
@@ -111,7 +112,7 @@ function Layout1() {
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
                         console.log("block Type :", blockType, "\nShow Comp :", showComp, "\nTasks Limit :", tasksLimit, "\nIndex :", index, "\nExtra Parameter :", extraParam, "\nName :", name, "\nShown", showDetails);
-                        layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit   , name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
                         break;
                     case 2:
                         var index = blockString.substring(8, 28);
@@ -124,7 +125,7 @@ function Layout1() {
             return (
                 <div id="blocksContainer">
                     {layout}
-                    <button onClick={ () => nav( "/" ) }>Landing Page</button>
+                    <button class="defaultButton" onClick={ () => nav( "/" ) }>Landing Page</button>
                 </div>
             )
         }

@@ -24,7 +24,6 @@ article {
     padding-left: 20px;
     border-radius: 14px;
     height: min-content;
-    width: 80vw;
     grid-template-rows: 1fr auto;
     box-shadow: 0px 0px 20px 5px hsl(300, 50%, 10%);
     display: grid;
@@ -45,7 +44,16 @@ main {
 
 /* Glow specific styles */
 [data-glow] {
-    background-color: hsl(290, 10%, 16%);
+    background-color: hsl(300, 10%, 16%);
+    border: 3px solid var(--backup-border);
+    border-color: hsl(300, 100%, 14%);
+    position: relative;
+    touch-action: none;
+    width: 80vw;
+}
+
+[data-glow-popup] {
+    background-color: hsl(300, 10%, 16%);
     border: 3px solid var(--backup-border);
     border-color: hsl(300, 100%, 14%);
     position: relative;
@@ -89,6 +97,72 @@ main {
     padding-top: 10px;
     font-size: 27px;
     font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+}
+
+.blockTitle:hover {
+    color: hsl(300, 50%, 80%);
+    cursor: pointer;
+}
+
+.popupBlockTitle {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.popupBackground {
+    border-left: 10px;
+    border-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-radius: 14px;
+    height: min-content;
+    box-shadow: 0px 0px 15px 15px hsl(300, 100%, 14%);
+    background-color: transparent;
+    /* background-color: hsl(300, 10%, 16%); */
+    border: 3px solid var(--backup-border);
+    border-color: hsl(300, 100%, 14%);
+} 
+
+.defaultButton {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 3px;
+    border: solid 2px hsl(300, 100%, 20%);
+    color: hsl(0, 0%, 80%);
+    background-image: linear-gradient(to bottom right, hsl(300, 10%, 26%), hsl(300, 10%, 16%));
+    font-size: 17px;
+    font-weight: bold;
+    outline: none;
+}
+
+.defaultButton:active {
+    background-image: linear-gradient(to bottom right, hsl(300, 10%, 16%), hsl(300, 10%, 22%));
+}
+
+.rowWrapperSplit {
+    padding-top: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.gone {
+    background-color: transparent;
 }
 
 
