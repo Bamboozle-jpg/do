@@ -7,34 +7,30 @@ import { buildDiv } from "./blockBuilder"
 // A block of all the items
 // Parameter taken by buildDiv can either be null, "due", "do", "priority", or "duration"
 
-const ByDue = (compTasks, incompTasks, showComp, showDetails, tasksLimit, name, i) => {
+const ByDue = (compTasks, incompleteTasks, showComp, showDetails, tasksLimit, name, i) => {
     // Takes for AAABCDDDnameAsString
     // A = block type
-    // B = show incompletes
+    // B = show incomplete tasks
     // C = show details
     // D = tasks limit
     let tasksList;
-        
-    let retIncompTasks = incompTasks;
+    let retTasks = incompleteTasks;
 
-    console.log(retIncompTasks[0])
-    retIncompTasks.sort((a, b) => {
-        // First, compare by 'duration'
+    // Sorts tasks
+    retTasks.sort((a, b) => {
+        // First, descending order by priority (unless ties)
         if (a.Priority !== b.Priority) {
             return b.Priority - a.Priority; // Descending order based on 'duration'
         }
-        
-        // // If 'do' is the same, break ties by 'age'
-        return a.Due - b.Due; // Ascending order based on 'age'
+        // If ties, sort by due (ascending)
+        return a.Due - b.Due;
     });
-
-    console.log(retIncompTasks)
 
     // Combine the lists into 1
     if (showComp) {
-        tasksList = retIncompTasks.concat(compTasks)
+        tasksList = retTasks.concat(compTasks)
     } else {
-        tasksList = retIncompTasks
+        tasksList = retTasks
     }
 
     // Print it to the screen and make it look pretty :)
