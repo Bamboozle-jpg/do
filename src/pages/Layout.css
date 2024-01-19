@@ -1,3 +1,7 @@
+:root {
+    --userColor: 100
+}
+
 .defaultButton {
     padding-left: 10px;
     padding-right: 10px;
@@ -6,14 +10,14 @@
     width: fit-content;
     border-radius: 10px;
     border-width: 3px;
-    border: solid 3px hsl(300, 100%, 20%);
+    border: solid 3px hsl(var(--userColor), 100%, 20%);
     color: hsl(0, 0%, 80%);
-    background-image: linear-gradient(to bottom right, hsl(300, 10%, 26%), hsl(300, 10%, 16%));
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
     font-size: 17px;
     font-weight: bold;
     outline: none;
 }
 
 .defaultButton:active {
-    background-image: linear-gradient(to bottom right, hsl(300, 10%, 16%), hsl(300, 10%, 22%));
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
 }

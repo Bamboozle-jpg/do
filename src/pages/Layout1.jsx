@@ -38,7 +38,7 @@ function Layout1() {
 
     // Get config doc
     const configDocRef = doc(db, userEmail, 'webConfig');
-    const [blocksGet, loading] = useDocument(configDocRef)
+    const [webConfig, loading] = useDocument(configDocRef)
 
     // Get tasks collection
     const tasksDocRef = doc(db, userEmail, 'tasks');
@@ -91,7 +91,10 @@ function Layout1() {
             )
         } else {
             // get their blocks key
-            const layoutKey = blocksGet.data().layout1
+            const layoutKey = webConfig.data().layout1
+            var root = document.querySelector(':root');
+            console.log(webConfig.data())
+            root.style.setProperty('--userColor', webConfig.data().color)
             var layout = []
             // Loops through all blocks
             for (var i = 0; i < layoutKey.length; i++) {
@@ -117,6 +120,7 @@ function Layout1() {
                     case 2:
                         var index = blockString.substring(8, 28);
                         var extraParam = parseInt(blockString.substring(28, 31));
+                        break;
                     default:
                         break;
                 }

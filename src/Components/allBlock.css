@@ -2,6 +2,7 @@
   --backdrop: hsl(0 0% 60% / 0.12);
   --backup-border: var(--backdrop);
   --size: 200;
+  --userColor: 100
 }
 
 body {
@@ -25,7 +26,7 @@ article {
     border-radius: 14px;
     height: min-content;
     grid-template-rows: 1fr auto;
-    box-shadow: 0px 0px 20px 5px hsl(300, 50%, 10%);
+    box-shadow: 0px 0px 20px 5px hsl(var(--userColor), 50%, 10%);
     display: grid;
     gap: 1rem;
     backdrop-filter: blur(calc(var(--cardblur, 5) * 1px));
@@ -44,18 +45,18 @@ main {
 
 /* Glow specific styles */
 [data-glow] {
-    background-color: hsl(300, 10%, 16%);
+    background-color: hsl(var(--userColor), 10%, 16%);
     border: 3px solid var(--backup-border);
-    border-color: hsl(300, 100%, 14%);
+    border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
     width: 80vw;
 }
 
 [data-glow-popup] {
-    background-color: hsl(300, 10%, 16%);
+    background-color: hsl(var(--userColor), 10%, 16%);
     border: 3px solid var(--backup-border);
-    border-color: hsl(300, 100%, 14%);
+    border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
     max-height: 80vh;
@@ -104,7 +105,7 @@ main {
 }
 
 .blockTitle:hover {
-    color: hsl(300, 50%, 80%);
+    color: hsl(var(--userColor), 50%, 80%);
     cursor: pointer;
 }
 
@@ -126,11 +127,11 @@ main {
     padding-left: 20px;
     border-radius: 14px;
     height: min-content;
-    box-shadow: 0px 0px 15px 15px hsl(300, 100%, 14%);
+    box-shadow: 0px 0px 15px 15px hsl(var(--userColor), 100%, 14%);
     background-color: transparent;
-    /* background-color: hsl(300, 10%, 16%); */
+    /* background-color: hsl(var(--userColor), 10%, 16%); */
     border: 3px solid var(--backup-border);
-    border-color: hsl(300, 100%, 14%);
+    border-color: hsl(var(--userColor), 100%, 14%);
 } 
 
 .defaultButton {
@@ -141,9 +142,9 @@ main {
     width: fit-content;
     border-radius: 10px;
     border-width: 3px;
-    border: solid 2px hsl(300, 100%, 20%);
+    border: solid 2px hsl(var(--userColor), 100%, 20%);
     color: hsl(0, 0%, 80%);
-    background-image: linear-gradient(to bottom right, hsl(300, 10%, 26%), hsl(300, 10%, 16%));
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
     font-size: 17px;
     font-weight: bold;
     outline: none;
@@ -151,11 +152,11 @@ main {
 
 .defaultButton:hover {
     cursor: pointer;
-    background-image: linear-gradient(to bottom right, hsl(300, 10%, 26%), hsl(300, 10%, 20%))
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 20%))
 }
 
 .defaultButton:active {
-    background-image: linear-gradient(to bottom right, hsl(300, 10%, 16%), hsl(300, 10%, 22%));
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
 }
 
 .rowWrapperSplit {
@@ -217,18 +218,18 @@ main {
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: hsl(300, 10%, 10%);
+    background: hsl(var(--userColor), 10%, 10%);
     border-radius: 10px;
     position: absolute;
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: hsl(300, 20%, 40%);
+    background: hsl(var(--userColor), 20%, 40%);
     border-radius: 10px
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(300, 20%, 30%);
+    background: hsl(var(--userColor), 20%, 30%);
   }

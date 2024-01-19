@@ -1,15 +1,19 @@
-- Create schedule blocks
-- Create graph blocks
-- Tags
-    - Each tag has a name and color and index in config file
-    - Any task that has that tag merely references it's index
-- Allow users to customize color
-    - It's just stored as an integer in webconfig, and that number is used as the h, in the hsl colors in css
-- Add task as button on layout 1 page
-- Add block logic and then as button on layout 1 page
-- Figure out filtering logic for blocks
-- Figure out block editing stuff
-- Figure out task editing stuff (similar to add task logic?)
+William
 - Create scheduling stuff
-- Figure out subtasks
-- Repeating tasks
+
+- Kevin
+    - Create schedule blocks
+    - Create graph blocks
+    - Tags
+        - Each tag has a name and color and index in config file
+        - Any task that has that tag merely references it's index
+    - Add task as button on layout 1 page
+    - Add block logic and then as button on layout 1 page
+    - Figure out filtering logic for blocks
+    - Figure out block editing stuff
+    - Figure out task editing stuff (similar to add task logic?)
+    - Figure out subtasks
+    - Repeating tasks
+    Working on RN
+    - Allow users to customize color
+        - It's just stored as an integer in webconfig, and that number is used as the h, in the hsl colors in css
