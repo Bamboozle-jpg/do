@@ -135,22 +135,24 @@ function buildDiv(tasksList, name, showDetails, i, detail) {
                                             Close
                                     </button>
                                 </div>
-                                { tasksList && tasksList.map( tsk => <TaskPretty 
-                                    firestoreKey={tsk.Key} 
-                                    name={tsk.Name}  
-                                    description={tsk.Description}
-                                    due={tsk.Due}
-                                    do={tsk.Do}
-                                    duration={tsk.Duration}
-                                    priority={tsk.Priority}
-                                    fromRepeat={tsk.Priority}
-                                    completed={tsk.Completed}
-                                    children={tsk.Children}
-                                    tag={tsk.Tag}
-                                    createdBy={tsk.CreatedBy}
-                                    showDetails={true}
-                                    detail={detail}
-                                /> ) }
+                                <div class="scrolling">
+                                    { tasksList && tasksList.map( tsk => <TaskPretty 
+                                        firestoreKey={tsk.Key} 
+                                        name={tsk.Name}  
+                                        description={tsk.Description}
+                                        due={tsk.Due}
+                                        do={tsk.Do}
+                                        duration={tsk.Duration}
+                                        priority={tsk.Priority}
+                                        fromRepeat={tsk.Priority}
+                                        completed={tsk.Completed}
+                                        children={tsk.Children}
+                                        tag={tsk.Tag}
+                                        createdBy={tsk.CreatedBy}
+                                        showDetails={true}
+                                        detail={detail}
+                                    /> ) }
+                                </div>
                             </article>
                             </div>
                             

@@ -58,6 +58,7 @@ main {
     border-color: hsl(300, 100%, 14%);
     position: relative;
     touch-action: none;
+    max-height: 80vh;
 }
 
 .glow-holder {
@@ -148,6 +149,11 @@ main {
     outline: none;
 }
 
+.defaultButton:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, hsl(300, 10%, 26%), hsl(300, 10%, 20%))
+}
+
 .defaultButton:active {
     background-image: linear-gradient(to bottom right, hsl(300, 10%, 16%), hsl(300, 10%, 22%));
 }
@@ -198,3 +204,31 @@ main {
     justify-content: left;
     align-items: center;
 }
+
+.scrolling {
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+    border-right: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: hsl(300, 10%, 10%);
+    border-radius: 10px;
+    position: absolute;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: hsl(300, 20%, 40%);
+    border-radius: 10px
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(300, 20%, 30%);
+  }
