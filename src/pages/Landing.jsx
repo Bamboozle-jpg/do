@@ -8,7 +8,6 @@ import { auth } from '../Firebase/Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-
 function Landing() {
   const nav = useNavigate();
   const [user] = useAuthState(auth)

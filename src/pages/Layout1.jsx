@@ -9,8 +9,10 @@ import { doc, collection, limit, query, where, orderBy } from 'firebase/firestor
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
 import "./Layout.css"
+import AddTask from "../Components/addTask"
 
 function Layout1() {
+    const task = AddTask();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
