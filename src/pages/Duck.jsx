@@ -7,7 +7,9 @@ const bruh = [
     {id: 'will',
     name: 'morning'},
     {id: 'kevin',
-    name: 'greeting'}
+    name: 'greeting'},
+    {id: 'jimothy',
+    name: 'arrivederci'}    
 ]
 
 const Duck = () => {
