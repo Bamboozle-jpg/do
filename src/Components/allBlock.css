@@ -2,6 +2,7 @@
   --backdrop: hsl(0 0% 60% / 0.12);
   --backup-border: var(--backdrop);
   --size: 200;
+  --userColor: 100
 }
 
 body {
@@ -24,9 +25,8 @@ article {
     padding-left: 20px;
     border-radius: 14px;
     height: min-content;
-    width: 80vw;
     grid-template-rows: 1fr auto;
-    box-shadow: 0px 0px 20px 5px hsl(300, 50%, 10%);
+    box-shadow: 0px 0px 20px 5px hsl(var(--userColor), 50%, 10%);
     display: grid;
     gap: 1rem;
     backdrop-filter: blur(calc(var(--cardblur, 5) * 1px));
@@ -45,11 +45,21 @@ main {
 
 /* Glow specific styles */
 [data-glow] {
-    background-color: hsl(290, 7%, 16%);
+    background-color: hsl(var(--userColor), 10%, 16%);
     border: 3px solid var(--backup-border);
-    border-color: hsl(300, 100%, 14%);
+    border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
+    width: 80vw;
+}
+
+[data-glow-popup] {
+    background-color: hsl(var(--userColor), 10%, 16%);
+    border: 3px solid var(--backup-border);
+    border-color: hsl(var(--userColor), 100%, 14%);
+    position: relative;
+    touch-action: none;
+    max-height: 80vh;
 }
 
 .glow-holder {
@@ -60,11 +70,106 @@ main {
     color: hsl(0, 0%, 40%);
     text-decoration: line-through;
     padding-left: 10px;
+    font-size: 17px;
+}
+
+.completedTitle {
+    color: hsl(0, 0%, 40%);
+    text-decoration: line-through;
+    padding-left: 10px;
+    font-size: 27px;
+    font-weight: normal;
 }
 
 .uncomplete {
     color: hsl(0, 0%, 80%);
-    padding-left: 10px
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.uncompleteTitle {
+    color: hsl(0, 0%, 80%);
+    padding-left: 10px;
+    font-size: 27px;
+    font-weight: normal;
+}
+
+.blockTitle {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+}
+
+.blockTitle:hover {
+    color: hsl(var(--userColor), 50%, 80%);
+    cursor: pointer;
+}
+
+.popupBlockTitle {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.popupBackground {
+    border-left: 10px;
+    border-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-radius: 14px;
+    height: min-content;
+    box-shadow: 0px 0px 15px 15px hsl(var(--userColor), 100%, 14%);
+    background-color: transparent;
+    /* background-color: hsl(var(--userColor), 10%, 16%); */
+    border: 3px solid var(--backup-border);
+    border-color: hsl(var(--userColor), 100%, 14%);
+} 
+
+.defaultButton {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 3px;
+    border: solid 2px hsl(var(--userColor), 100%, 20%);
+    color: hsl(0, 0%, 80%);
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
+    font-size: 17px;
+    font-weight: bold;
+    outline: none;
+}
+
+.defaultButton:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 20%))
+}
+
+.defaultButton:active {
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
+}
+
+.rowWrapperSplit {
+    padding-top: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.gone {
+    background-color: transparent;
 }
 
 
@@ -100,3 +205,31 @@ main {
     justify-content: left;
     align-items: center;
 }
+
+.scrolling {
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+    border-right: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--userColor), 10%, 10%);
+    border-radius: 10px;
+    position: absolute;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--userColor), 20%, 40%);
+    border-radius: 10px
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--userColor), 20%, 30%);
+  }
