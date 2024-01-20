@@ -9,7 +9,7 @@ body {
     padding: 30px;
 	place-items: left;
 	min-height: 100vh;
-	background: hsl(0, 0%, 8%);
+	background: hsl(0, 0%, 100%);
 }
 
 .wrapper {
