@@ -16,7 +16,6 @@ function TaskPretty(props) {
     const completed = props.completed
     const author = props.createdBy;
     const showDetails = props.showDetails;
-    console.log(showDetails);
     const detail = props.detail;
     const duration = props.duration;
     const dueDate = props.due.toDate();
@@ -48,7 +47,6 @@ function TaskPretty(props) {
             title = title + ": " + priority.toString()
             break;
         default:
-            console.log(detail)
             break;
     }
 
@@ -91,7 +89,6 @@ function TaskPretty(props) {
 // Set a task to complete
 function toggleComplete(key, author, completed) {
     // Set up document you're looking at
-    console.log(key)
     const outerDoc = doc(db, author, 'tasks');
     const outerCollection = collection(outerDoc, 'tasksCollection');
     const docToUpdate = doc(outerCollection, key);

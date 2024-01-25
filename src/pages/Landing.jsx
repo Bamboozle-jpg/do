@@ -29,7 +29,7 @@ function Landing() {
     return <div>uh</div>
   } else {
     console.log("going home")
-    nav("/home");
+    nav("/layout1");
     return <div>huh?</div>
   }
 }
