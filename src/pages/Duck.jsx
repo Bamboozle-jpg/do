@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const bruh = [
+const dnd = [
     {id: 'john',
     name: 'hello'},
     {id: 'will',
@@ -13,13 +13,21 @@ const bruh = [
 ]
 
 const Duck = () => {
+  const [names, updateNames] = useState(dnd);
+  const handleOnDragEnd = (result) => {
+    const items = Array.from(names);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    updateNames(items);
+  }
+
   return(
     <div>
-      <DragDropContext>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId='elements'>
           {(provided)=>(
             <ul className='elements' {...provided.droppableProps} ref={provided.innerRef}>
-              {bruh.map(({id, name}, index)=>{
+              {dnd.map(({id, name}, index)=>{
               return (
                 <Draggable  key = {id} draggableId = {id} index = {index}>
                     {(provided) => (
