@@ -9,22 +9,19 @@ import { doc, collection, limit, query, where, orderBy } from 'firebase/firestor
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
 import "./Layout.css"
+import AddTask from "../Components/addTask"
 
 function Layout1() {
+    const task = AddTask();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
     //is working correctly, but in allBlock, log(user.email) is null. Why?
     //to see null user.email log, change line 29 here back to allBlock = AllBlock(user)
 
-    //console.log(user);
-    //console.log(user.email);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-                console.log('Current user:', user);
-                console.log('User UID:', user.uid);
-                console.log('User email:', user.email);
                 setUser(user)
             } else {
                 console.log('No user is currently signed in.');
@@ -49,7 +46,7 @@ function Layout1() {
         tasksCollectionRef, 
         where( "Completed", "==", false), 
         orderBy("Completed" ),
-        orderBy("CompletedDate", "desc")
+        orderBy("Due", "desc")
     );
 
     // Get the completed items query
@@ -58,7 +55,7 @@ function Layout1() {
         limit( 100 ),
         where( "Completed", "==", true),
         orderBy( "Completed" ),
-        orderBy( "Due", "asc" )
+        orderBy( "CompletedDate", "desc" )
     );
 
     // Convert querys to snapshots
@@ -93,7 +90,6 @@ function Layout1() {
             // get their blocks key
             const layoutKey = webConfig.data().layout1
             var root = document.querySelector(':root');
-            console.log(webConfig.data())
             root.style.setProperty('--userColor', webConfig.data().color)
             var layout = []
             // Loops through all blocks
@@ -107,14 +103,13 @@ function Layout1() {
             
                 // Figure out what that block is doing
                 // compTasks, incompTasks, showComp, tasksLimit, index, extraParam, name
-                console.log("umm")
                 switch(blockType) {
                     case 0:
                         var showComp = parseInt(blockString.substring(3, 4));
                         var showDetails = parseInt(blockString.substring(4, 5))
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        console.log("block Type :", blockType, "\nShow Comp :", showComp, "\nTasks Limit :", tasksLimit, "\nIndex :", index, "\nExtra Parameter :", extraParam, "\nName :", name, "\nShown", showDetails);
+                        // console.log("block Type :", blockType, "\nShow Comp :", showComp, "\nTasks Limit :", tasksLimit, "\nIndex :", index, "\nExtra Parameter :", extraParam, "\nName :", name, "\nShown", showDetails);
                         layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
                         break;
                     case 2:
@@ -127,9 +122,12 @@ function Layout1() {
             }
             // Return the blocks
             return (
-                <div id="blocksContainer">
-                    {layout}
-                    <button class="defaultButton" onClick={ () => nav( "/" ) }>Landing Page</button>
+                <div>
+                    {task} <br></br>
+                    <div id="blocksContainer">
+                        {layout}
+                        <button class="defaultButton" onClick={ () => nav( "/home" ) }>Add task testing</button>
+                    </div>
                 </div>
             )
         }
@@ -153,18 +151,15 @@ const scrollTo = event => {
         .then(() => element.scrollIntoView())
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
-        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
     // Do 2 more times because otherwise it either jitters, or misses
     .then(sleep(2))
         .then(() => element.scrollIntoView())
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
-        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
     .then(sleep(2))
         .then(() => element.scrollIntoView())
         .then(() => newPos = element.getBoundingClientRect().top)
         .then(() => window.scrollBy(0, -1*topPos + newPos))
-        .then(() => console.log("topPos : ", topPos, "newPos : ", newPos))
 };
 
 function sleep(ms) {

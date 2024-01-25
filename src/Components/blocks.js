@@ -35,7 +35,6 @@ const ByDue = (compTasks, incompleteTasks, showComp, showDetails, tasksLimit, na
 
     // Print it to the screen and make it look pretty :)
     // build div takes in the tasks, name of block, whether or not the details will be shown, index for backend stuff, and extra detail to show
-    console.log(showDetails)
     return (buildDiv(tasksList, name, showDetails, i, "priority"));
 }
 
