@@ -6,6 +6,10 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import dots from "./../assets/info.svg";
+import trash from "./../assets/trash.svg";
+import AddTask from './addTask';
+import RemoveTask from './removeTask';
 
 // Actually puts things to the screen
 function TaskPretty(props) {
@@ -16,7 +20,6 @@ function TaskPretty(props) {
     const completed = props.completed
     const author = props.createdBy;
     const showDetails = props.showDetails;
-    console.log(showDetails);
     const detail = props.detail;
     const duration = props.duration;
     const dueDate = props.due.toDate();
@@ -32,6 +35,8 @@ function TaskPretty(props) {
     const Do = `${Dmonth}/${Dday}/${Dyear}`;
 
     const priority = props.priority;
+    const task = AddTask( props );
+    const remover = RemoveTask( props );
 
     // See what we add to title
     switch(detail) {
@@ -48,40 +53,58 @@ function TaskPretty(props) {
             title = title + ": " + priority.toString()
             break;
         default:
-            console.log(detail)
             break;
     }
 
     
+    console.log(Do)
 
     // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
     if (showDetails) {
     return (<outer completed={completed} Key={Key} >
-        <div class="title">
-            <label class="switch">
-                <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
-                <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
-                </label>
-            </label>
-            <div class={ completed ? "completedTitle" : "uncompleteTitle"} onClick={() => console.log("uh oh stinky") }>{title}</div>
+        <div> 
+            <div class="buttons">
+                <div class="title">
+                    <label class="switch">
+                        <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
+                        <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+                        </label>
+                    </label>
+                    <div class={ completed ? "completedTitle" : "uncompleteTitle"} onClick={() => console.log("uh oh stinky") }>{title}</div>
+                </div>
+
+                <div class="title"> 
+                    { task }
+                    { remover }
+                </div>
+            </div>
         </div>
         
         <div class={ completed ? "completed" : "uncomplete"} >{desc}</div>
         <div class={ completed ? "completed" : "uncomplete"} >Duration : {duration}</div>
         <div class={ completed ? "completed" : "uncomplete"} >Priority : {priority}</div>
-        <div class={ completed ? "completed" : "uncomplete"} >Due : {due}</div>
-        <div class={ completed ? "completed" : "uncomplete"} >Do : {Do}</div>
+        
+        { due != "1/1/3000" ? <div class={ completed ? "completed" : "uncomplete"} >Due : {due}</div> : <div class={ completed ? "completed" : "uncomplete"} >NO DUE DATE</div> }
+        { Do != "1/1/3000" ? <div class={ completed ? "completed" : "uncomplete"} >Do : {Do}</div> : <div class={ completed ? "completed" : "uncomplete"} >NO DO DATE</div> }
+        
 
     </outer>)
     } else {
         return (<outer completed={completed} Key={Key} >
-            <div class="title">
-                <label class="switch">
-                    <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
-                    <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+            <div class="buttons">
+                <div class="title">
+                    <label class="switch">
+                        <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
+                        <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+                        </label>
                     </label>
-                </label>
-                <div class={ completed ? "completedTitle" : "uncompleteTitle"} >{title}</div>
+                    <div class={ completed ? "completedTitle" : "uncompleteTitle"} >{title}</div>
+                </div>
+
+                <div class = "title"> 
+                    { task }
+                    { remover }
+                </div>
             </div>
 
         </outer>)
@@ -91,7 +114,6 @@ function TaskPretty(props) {
 // Set a task to complete
 function toggleComplete(key, author, completed) {
     // Set up document you're looking at
-    console.log(key)
     const outerDoc = doc(db, author, 'tasks');
     const outerCollection = collection(outerDoc, 'tasksCollection');
     const docToUpdate = doc(outerCollection, key);
@@ -147,8 +169,9 @@ function buildDiv(tasksList, name, showDetails, i, detail) {
                                         fromRepeat={tsk.Priority}
                                         completed={tsk.Completed}
                                         children={tsk.Children}
-                                        tag={tsk.Tag}
+                                        tags={tsk.Tags}
                                         createdBy={tsk.CreatedBy}
+                                        completedDate={tsk.CompletedDate}
                                         showDetails={true}
                                         detail={detail}
                                     /> ) }

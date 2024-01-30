@@ -8,7 +8,6 @@ import { auth } from '../Firebase/Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-
 function Landing() {
   const nav = useNavigate();
   const [user] = useAuthState(auth)
@@ -30,7 +29,7 @@ function Landing() {
     return <div>uh</div>
   } else {
     console.log("going home")
-    nav("/home");
+    nav("/layout1");
     return <div>huh?</div>
   }
 }

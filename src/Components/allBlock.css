@@ -60,6 +60,7 @@ main {
     position: relative;
     touch-action: none;
     max-height: 80vh;
+    /* align-items: center; */
 }
 
 .glow-holder {
@@ -112,6 +113,7 @@ main {
 .popupBlockTitle {
     color: hsl(0, 0%, 80%);
     padding-top: 10px;
+    padding-right: 20px;
     font-size: 27px;
     font-weight: bold;
     background-color: transparent;
@@ -133,6 +135,11 @@ main {
     border: 3px solid var(--backup-border);
     border-color: hsl(var(--userColor), 100%, 14%);
 } 
+
+.popupContent {
+    display: flex;
+    align-items: center;
+}
 
 .defaultButton {
     padding-left: 10px;
@@ -159,6 +166,32 @@ main {
     background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
 }
 
+.addTaskButton {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 3px;
+    border: solid 3px hsl(var(--userColor), 100%, 20%);
+    color: hsl(0, 0%, 80%);
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
+    font-size: 27px;
+    font-weight: bold;
+    outline: none;
+}
+
+.addTaskButton:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 20%));
+    border-color: hsl(var(--userColor), 100%, 40%);
+}
+
+.addTaskButton:active {
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
+}
+
 .rowWrapperSplit {
     padding-top: 20px;
     padding-right: 20px;
@@ -168,13 +201,36 @@ main {
     align-items: flex-start;
 }
 
+.popupBlockSubtitle {
+    color: hsl(0, 0%, 80%);
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+
+.rowWrapperClose {
+    height: 30px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .gone {
     background-color: transparent;
 }
 
 
 .switch .hiddenCheckbox {
-    display: none; /* Hide the default checkbox */
+    display: none; /*Hide the default checkbox*/
 }
   
 .switch .customCheckboxOff {
@@ -206,9 +262,48 @@ main {
     align-items: center;
 }
 
+.dots {
+    border-radius: 30px;
+    background-color: hsl(var(--userColor), 10%, 20%);
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.trash {
+    border-radius: 30px;
+    background-color: hsl(var(--userColor), 10%, 20%);
+    padding: 4px;
+    margin-top: -10px;
+    margin-bottom: -6px;
+    margin-right: 10px;
+}
+
+.dots:hover {
+    background-color: hsl(var(--userColor), 10%, 26%);
+    cursor: pointer;
+}
+
+.trash:hover {
+    background-color: hsl(var(--userColor), 10%, 26%);
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.path {
+    fill: green
+}
+
 .scrolling {
     max-height: 800px;
     overflow-y: auto;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+    display: grid;  
 }
 
 ::-webkit-scrollbar {
@@ -232,4 +327,9 @@ main {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--userColor), 20%, 30%);
+  }
+
+  .centerContents {
+    display: flex;
+    justify-content: space-around;
   }
