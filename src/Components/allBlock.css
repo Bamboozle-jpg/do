@@ -262,9 +262,48 @@ main {
     align-items: center;
 }
 
+.dots {
+    border-radius: 30px;
+    background-color: hsl(var(--userColor), 10%, 20%);
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.trash {
+    border-radius: 30px;
+    background-color: hsl(var(--userColor), 10%, 20%);
+    padding: 4px;
+    margin-top: -10px;
+    margin-bottom: -6px;
+    margin-right: 10px;
+}
+
+.dots:hover {
+    background-color: hsl(var(--userColor), 10%, 26%);
+    cursor: pointer;
+}
+
+.trash:hover {
+    background-color: hsl(var(--userColor), 10%, 26%);
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.path {
+    fill: green
+}
+
 .scrolling {
     max-height: 800px;
     overflow-y: auto;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+    display: grid;  
 }
 
 ::-webkit-scrollbar {

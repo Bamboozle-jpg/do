@@ -6,6 +6,10 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import dots from "./../assets/info.svg";
+import trash from "./../assets/trash.svg";
+import AddTask from './addTask';
+import RemoveTask from './removeTask';
 
 // Actually puts things to the screen
 function TaskPretty(props) {
@@ -31,6 +35,8 @@ function TaskPretty(props) {
     const Do = `${Dmonth}/${Dday}/${Dyear}`;
 
     const priority = props.priority;
+    const task = AddTask( props );
+    const remover = RemoveTask( props );
 
     // See what we add to title
     switch(detail) {
@@ -51,35 +57,54 @@ function TaskPretty(props) {
     }
 
     
+    console.log(Do)
 
     // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
     if (showDetails) {
     return (<outer completed={completed} Key={Key} >
-        <div class="title">
-            <label class="switch">
-                <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
-                <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
-                </label>
-            </label>
-            <div class={ completed ? "completedTitle" : "uncompleteTitle"} onClick={() => console.log("uh oh stinky") }>{title}</div>
+        <div> 
+            <div class="buttons">
+                <div class="title">
+                    <label class="switch">
+                        <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
+                        <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+                        </label>
+                    </label>
+                    <div class={ completed ? "completedTitle" : "uncompleteTitle"} onClick={() => console.log("uh oh stinky") }>{title}</div>
+                </div>
+
+                <div class="title"> 
+                    { task }
+                    { remover }
+                </div>
+            </div>
         </div>
         
         <div class={ completed ? "completed" : "uncomplete"} >{desc}</div>
         <div class={ completed ? "completed" : "uncomplete"} >Duration : {duration}</div>
         <div class={ completed ? "completed" : "uncomplete"} >Priority : {priority}</div>
-        <div class={ completed ? "completed" : "uncomplete"} >Due : {due}</div>
-        <div class={ completed ? "completed" : "uncomplete"} >Do : {Do}</div>
+        
+        { due != "1/1/3000" ? <div class={ completed ? "completed" : "uncomplete"} >Due : {due}</div> : <div class={ completed ? "completed" : "uncomplete"} >NO DUE DATE</div> }
+        { Do != "1/1/3000" ? <div class={ completed ? "completed" : "uncomplete"} >Do : {Do}</div> : <div class={ completed ? "completed" : "uncomplete"} >NO DO DATE</div> }
+        
 
     </outer>)
     } else {
         return (<outer completed={completed} Key={Key} >
-            <div class="title">
-                <label class="switch">
-                    <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
-                    <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+            <div class="buttons">
+                <div class="title">
+                    <label class="switch">
+                        <label class={completed ? "customCheckboxOn" : "customCheckboxOff"}>
+                        <input type="checkbox" checked={completed} onClick={ () => toggleComplete(Key, author, completed) } class="hiddenCheckbox"  />
+                        </label>
                     </label>
-                </label>
-                <div class={ completed ? "completedTitle" : "uncompleteTitle"} >{title}</div>
+                    <div class={ completed ? "completedTitle" : "uncompleteTitle"} >{title}</div>
+                </div>
+
+                <div class = "title"> 
+                    { task }
+                    { remover }
+                </div>
             </div>
 
         </outer>)
@@ -144,8 +169,9 @@ function buildDiv(tasksList, name, showDetails, i, detail) {
                                         fromRepeat={tsk.Priority}
                                         completed={tsk.Completed}
                                         children={tsk.Children}
-                                        tag={tsk.Tag}
+                                        tags={tsk.Tags}
                                         createdBy={tsk.CreatedBy}
+                                        completedDate={tsk.CompletedDate}
                                         showDetails={true}
                                         detail={detail}
                                     /> ) }

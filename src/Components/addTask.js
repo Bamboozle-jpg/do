@@ -8,37 +8,39 @@ import { useState } from "react";
 import "../App.css"
 import 'firebase/firestore';
 import Popup from 'reactjs-popup';
-import { collection, addDoc, Timestamp } from "firebase/firestore"; 
+import { collection, addDoc, Timestamp, doc, setDoc } from "firebase/firestore"; 
 import { db, auth } from "../Firebase/Firebase";
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import "./addTask.css"
 import { newTheme } from "./dateTheme"
+import dots from "./../assets/info.svg"
 
-const AddTask = () => {
-    const temp = new Date();
-    const today = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate())
+const AddTask = (task = null) => {
+
     
-
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [dueDate, setDue] = React.useState(null);
-    const [doDate, setDo] = React.useState(null);
-    const [duration, setDuration] = useState(1);
-    const [tag, setTag] = useState('');
-    //new to do item to firebase
+    const [name, setName] = useState(task ? task.name : '');
+    const [description, setDescription] = useState(task ? task.description : '');
+    const [dueDate, setDue] = React.useState(task ? task.due : null);
+    const [doDate, setDo] = React.useState(task ? task.do : null);
+    const [duration, setDuration] = useState(task ? task.duration : 1);
+    const [tags, setTags] = useState(task ? task.tags : []);
 
     const reset = () => {
-        console.log("resetting!");
-        setName('');
-        setDescription('');
-        setTag('');
-        setDue(null);
-        setDo(null);
-        setDuration(1);
+        setName(task ? task.name : '');
+        setDescription(task ? task.description : '');
+        const descriptionDoc = document.getElementById("descrpitionText")
+        descriptionDoc.value = description;
+        setDue(task && task.due.seconds != 32503708800 ? dayjs(task.due.seconds * 1000) : null);
+        setDo(task && task.do.seconds != 32503708800 ? dayjs(task.do.seconds * 1000) : null);
+        setDuration(task ? task.duration : 1);
+        setTags(task ? task.tags : []);
+
+        let priorityElement = document.getElementById("prioritySelector");
+        priorityElement.value = task? task.priority : 3;
     }
 
+
     const addTaskItem = async () => {
-        reset();
         if (name.trim() !== ''){
             try{
                 const priority = document.getElementById("prioritySelector");
@@ -49,18 +51,50 @@ const AddTask = () => {
                 const newTask = {
                     Name: name,
                     Description: description.value,
-                    Due: dueDate ? Timestamp.fromDate(dueDate.toDate()) : Timestamp.fromDate(new Date(2000, 0, 1)),
-                    Do: doDate ? Timestamp.fromDate(doDate.toDate()) : Timestamp.fromDate(new Date(2000, 0, 1)),
+                    Due: dueDate ? Timestamp.fromDate(dueDate.toDate()) : Timestamp.fromDate(new Date(3000, 0, 1)),
+                    Do: doDate ? Timestamp.fromDate(doDate.toDate()) : Timestamp.fromDate(new Date(3000, 0, 1)),
                     Duration: duration,
                     Priority: parseInt(priority.value),
                     FromRepeat: false,
                     Completed: false,
                     Children: [],
-                    Tag: tag,
+                    Tags: tags,
                     CreatedBy: userEmail,
                     CompletedDate: null
                 };
                 await addDoc(taskRef, newTask);
+            }catch(error){
+                console.error('Error adding document:', error);
+            }
+        }
+        reset();
+    };
+
+    const updateTaskItem = async (task) => {
+        if (name.trim() !== ''){
+            try{
+                const priority = document.getElementById("prioritySelector");
+                const description = document.getElementById("descrpitionText")
+                const user = auth.currentUser
+                const userEmail = user ? user.email : '';
+                const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', task.firestoreKey);
+                console.log(name)
+                console.log(task)
+                await setDoc(taskRef, {
+                    Name: name,
+                    Description: description.value,
+                    Due: dueDate ? Timestamp.fromDate(dueDate.toDate()) : Timestamp.fromDate(new Date(3000, 0, 1)),
+                    Do: doDate ? Timestamp.fromDate(doDate.toDate()) : Timestamp.fromDate(new Date(3000, 0, 1)),
+                    Duration: duration,
+                    Priority: parseInt(priority.value),
+                    FromRepeat: task.fromRepeat,
+                    Completed: task.completed,
+                    Children: task.children,
+                    Tags: task.children ? task.children : null,
+                    CreatedBy: userEmail,
+                    CompletedDate: task.completedDate ? task.completedDate : null
+                });
+                console.log("success")
             }catch(error){
                 console.error('Error adding document:', error);
             }
@@ -216,8 +250,8 @@ const AddTask = () => {
     return (
         <div>
             <Popup trigger= 
-                {<div class ="defaultButton"> Add Task </div>} 
-                modal nested onClose={() => reset()}
+                {task ? <img class="dots" width="60" height="16" src={dots} /> : <div class ="defaultButton" > Add Task </div> } 
+                modal nested onOpen={() => reset()}
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {
                     close => (
@@ -296,12 +330,16 @@ const AddTask = () => {
 
                                     {/* <input 
                                         type = "text"
-                                        value = {tag}
-                                        onChange = {(e) => setTag(e.target.value)}
-                                        placeholder="Tag"
+                                        value = {tags}
+                                        onChange = {(e) => setTags(e.target.value)}
+                                        placeholder="Tags"
                                     /> */}
                                     <div class="centerContents">
-                                        <button class="addTaskButton" onClick={() => addTaskItem().then( () => close())}>Add Task?</button>
+                                        {task == null ? 
+                                            <button class="addTaskButton" onClick={() => addTaskItem().then( () => close())}>Add Task</button> : 
+                                            <button class="addTaskButton" onClick={() => updateTaskItem(task).then( () => close())}>Update Task</button>
+                                        }
+                                        
                                         <button class="addTaskButton" onClick=
                                         {() => close()}>
                                             Cancel
