@@ -8,7 +8,7 @@ import MainPage from './pages/Home';
 import SignIn from './pages/SignIn';
 import Landing from './pages/Landing'
 import Layout1 from './pages/Layout1'
-import Duck from './pages/Duck'
+import Duck from './pages/Dnd'
 
 
 
