@@ -1,22 +1,29 @@
-William
-- Create scheduling stuff
+Items for v0.1
+- Filtering logic for blocks
+- Basic scheduling page - WILL WORKING
+- Add blocks - KEVIN WORKING
+- Edit blocks
+- Remove blocks
+- Something with color?
+- Blocks have a ... if there's more than they can show without clicking on them
 
-- Kevin
-    - Create schedule blocks
-    - Create graph blocks
-    - Tags
-        - Each tag has a name and color and index in config file
-        - Any task that has that tag merely references it's index
-        - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
-    - Add block logic and then as button on layout 1 page
-    - Figure out filtering logic for blocks
-    - Figure out block editing stuff
-    - Figure out task editing stuff (similar to add task logic?)
-    - Figure out subtasks
-    - Repeating tasks
-    Working on RN
-    - Allow users to customize color
-        - It's just stored as an integer in webconfig, and that number is used as the h, in the hsl colors in css
+Items for v1.0
+- Create schedule blocks
+- Create graph blocks
+- Tags
+    - Each tag has a name and color and index in config file
+    - Any task that has that tag merely references it's index
+    - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
+- User settings menu
+- Subtasks
+- Repeating tasks
+
+Ideas
+- How long until it deletes completed items?
+    - Paid users can say infinite?
+- How many does a block display before doing the ...
 
 Complete
 - Add task as button on layout 1 page
+- Color customization
+- Figure out task editing stuff (similar to add task logic?)
