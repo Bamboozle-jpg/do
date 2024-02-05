@@ -288,7 +288,6 @@ const AddTask = (task = null) => {
                                                 </ThemeProvider>
                                             </DemoContainer>
                                         </LocalizationProvider>
-                                        <div><br/></div>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DemoContainer components={['DatePicker', 'DatePicker']}>
                                                 <ThemeProvider theme={newerTheme}>
@@ -301,30 +300,36 @@ const AddTask = (task = null) => {
                                             </DemoContainer>
                                         </LocalizationProvider>
                                     </div>
-                                    <div><br/></div>
-                                    <div class="rowWrapperClose">
-                                        <div class="popupBlockSubtitle">Task Duration: </div>
-                                        <input 
-                                            class = "defaultNum"
-                                            type = "number"
-                                            min = "0"
-                                            step = "0.5"
-                                            value = {duration}
-                                            onChange = {(e) => setDuration(e.target.value)}
-                                            placeholder="Task Duration (hrs)"
-                                        />
-                                        <div class="popupBlockSubtitle"> hrs</div>
+                                    <div><br></br></div>
+                                    <div class="rowWrapperClose" style={{marginTop: -15 + 'px'}}>
+                                        <button class="defaultButton" onClick={() => setDue(null)} style={{marginLeft: 90 + 'px'}}>Clear Due Date</button>
+                                        <button class="defaultButton" onClick={() => setDo(null)} style={{marginLeft: 220 + 'px'}}>Clear Do Date</button>
                                     </div>
                                     <div><br/></div>
-                                    <div class="rowWrapperClose">
-                                        <div class="popupBlockSubtitle">Priority: </div>
-                                        <select class="defaultSelector" name="dropdown" id="prioritySelector">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3" selected="selected">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
+                                    <div class="rowWrapperClose" style={{marginBottom: 60 + 'px'}}>
+                                        <div class="rowWrapperClose" style={{marginRight: 120 + 'px'}}>
+                                            <div class="popupBlockSubtitle">Task Duration: </div>
+                                            <input 
+                                                class = "defaultNum"
+                                                type = "number"
+                                                min = "0"
+                                                step = "0.5"
+                                                value = {duration}
+                                                onChange = {(e) => setDuration(e.target.value)}
+                                                placeholder="Task Duration (hrs)"
+                                            />
+                                            <div class="popupBlockSubtitle"> hrs</div>
+                                        </div>
+                                        <div class="rowWrapperClose">
+                                            <div class="popupBlockSubtitle">Priority: </div>
+                                            <select class="defaultSelector" name="dropdown" id="prioritySelector">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3" selected="selected">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div><br/></div>
 
