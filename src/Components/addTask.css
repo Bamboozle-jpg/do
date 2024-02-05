@@ -14,6 +14,31 @@
     outline: none;
 }
 
+.wideButton {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 3px;
+    border: solid 2px hsl(var(--userColor), 100%, 20%);
+    color: hsl(0, 0%, 80%);
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
+    font-size: 17px;
+    font-weight: bold;
+    outline: none;
+}
+
+.wideButton:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 20%))
+}
+
+.wideButton:active {
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 16%), hsl(var(--userColor), 10%, 22%));
+}
+
 .defaultInput {
     display: inline-block;
     padding-left: 10px;

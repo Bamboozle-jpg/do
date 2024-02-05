@@ -13,29 +13,52 @@ const ByDue = (compTasks, incompleteTasks, showComp, showDetails, tasksLimit, na
     // B = show incomplete tasks
     // C = show details
     // D = tasks limit
-    let tasksList;
-    let retTasks = incompleteTasks;
+    let retTasks;
 
-    // Sorts tasks
-    retTasks.sort((a, b) => {
-        // First, descending order by priority (unless ties)
-        if (a.Priority !== b.Priority) {
-            return b.Priority - a.Priority; // Descending order based on 'duration'
-        }
-        // If ties, sort by due (ascending)
+    // Sorts tasks by due date
+    incompleteTasks.sort((a, b) => {
         return a.Due - b.Due;
     });
 
     // Combine the lists into 1
     if (showComp) {
-        tasksList = retTasks.concat(compTasks)
+        retTasks = incompleteTasks.concat(compTasks)
     } else {
-        tasksList = retTasks
+        retTasks = incompleteTasks
     }
 
     // Print it to the screen and make it look pretty :)
     // build div takes in the tasks, name of block, whether or not the details will be shown, index for backend stuff, and extra detail to show
-    return (buildDiv(tasksList, name, showDetails, i, "priority"));
+    return (buildDiv(retTasks, name, showDetails, tasksLimit, i, "due"));
+}
+
+const ByPriority = (compTasks, incompleteTasks, showComp, showDetails, tasksLimit, name, i) => {
+    // Takes for AAABCDDDEnameAsString
+    // A = block type
+    // B = show incomplete tasks
+    // C = show details
+    // D = tasks limit
+    // E = Priority cutoff
+    let retTasks;
+
+    incompleteTasks.sort((a, b) => {
+        // First, descending order by priority (unless ties)
+        if (a.Priority !== b.Priority) {
+            return b.Priority - a.Priority; // Descending order based on 'priority'
+        }
+        // If ties, sort by due (ascending)
+        return a.Due - b.Due;
+    });
+
+    // Filter out tasks with a priority of less than i 
+
+    if (showComp) {
+        retTasks = incompleteTasks.concat(compTasks)
+    } else {
+        retTasks = incompleteTasks
+    }
+
+    return (buildDiv(retTasks, name, showDetails, tasksLimit, i, "priority"));
 }
 
 const OnlyItem = (compTasks, incompTasks, showComp, showDetails, tasksLimit, index, extraParam, name, i) => {
@@ -53,5 +76,6 @@ const OnlyTag = (compTasks, incompTasks, showComp, shown, tasksLimit, index, ext
 export { 
     ByDue,
     OnlyItem,
-    OnlyTag
+    OnlyTag,
+    ByPriority
 }

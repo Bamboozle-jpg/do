@@ -10,9 +10,11 @@ import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, auth } from "../Firebase/Firebase";
 import "./Layout.css"
 import AddTask from "../Components/addTask"
+import AddBlock from '../Components/addBlock';
 
 function Layout1() {
     const task = AddTask();
+    const block = AddBlock();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
@@ -127,7 +129,9 @@ function Layout1() {
                     <div id="blocksContainer">
                         {layout}
                         <button class="defaultButton" onClick={ () => nav( "/home" ) }>Add task testing</button>
+                        { block }
                     </div>
+                    
                 </div>
             )
         }

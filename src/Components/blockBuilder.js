@@ -41,23 +41,20 @@ function TaskPretty(props) {
     // See what we add to title
     switch(detail) {
         case "due":
-            title = title + ": " + due.toString()
+            title = title + " | " + due.toString()
             break;
         case "do":
-            title = title + ": " + Do.toString()
+            title = title + " | " + Do.toString()
             break;
         case "duration":
-            title = title + ": " + duration.toString()
+            title = title + " | " + duration.toString()
             break;
         case "priority":
-            title = title + ": " + priority.toString()
+            title = title + " | " + priority.toString()
             break;
         default:
             break;
     }
-
-    
-    console.log(Do)
 
     // The line with toggleComplete, creates a check box that watches if complete is true or false, and also can set it to be so
     if (showDetails) {
@@ -136,9 +133,10 @@ function toggleComplete(key, author, completed) {
 
 
 // Builds object for TaskPretty to access
-function buildDiv(tasksList, name, showDetails, i, detail) {
+function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
     const contentStyle = { background: 'transparent', border: '0px' };
     const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
+    const limitedTasks = tasksList.slice(0, tasksLimit);
     return (
         <div class="glow-holder">
             <article data-glow>
@@ -182,7 +180,7 @@ function buildDiv(tasksList, name, showDetails, i, detail) {
                         )
                     }
                 </Popup>
-                { tasksList && tasksList.map( tsk => <TaskPretty 
+                { limitedTasks && limitedTasks.map( tsk => <TaskPretty 
                     firestoreKey={tsk.Key} 
                     name={tsk.Name}  
                     description={tsk.Description}
