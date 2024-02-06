@@ -17,7 +17,9 @@ Items for v0.2
 - User settings menu
     - Something with color?
 - Move empty blocks to end
-- Change 
+- Change tasks to NOT list description unless clicked on
+    - Have it show due and do date on one line and then priority and duration on another
+- Reorder blocks
 
 Items for v0.3
 - Delete old tasks (how long till it does it?)
