@@ -10,20 +10,18 @@ import {
     OnlyItem,
     onlyCompletes
 } from "../Components/blocks"
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import 'firebase/firestore';
-import { useAsync } from "react-async"
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
-import { db, auth } from "../Firebase/Firebase";
+import { db } from "../Firebase/Firebase";
 import "./Layout.css"
 import AddTask from "../Components/addTask"
 import AddBlock from '../Components/addBlock';
 
 function Layout1() {
     const task = AddTask();
-    const block = AddBlock();
+    // const block = AddBlock();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
@@ -75,6 +73,7 @@ function Layout1() {
     const nav = useNavigate();
 
     
+
     // Once the snapshot has returned
     if (!loadingInc && !loadingC) {
 
@@ -94,12 +93,15 @@ function Layout1() {
 
         // Check that it's ready
         if (loading) {
+            const block = AddBlock(null);
             return (
                 <h1 class="uncomplete">Loading</h1>
             )
         } else {
             // get their blocks key
             const layoutKey = webConfig.data().layout1
+            const block = AddBlock(layoutKey);
+
             var root = document.querySelector(':root');
             root.style.setProperty('--userColor', webConfig.data().color)
             var layout = []
@@ -137,7 +139,6 @@ function Layout1() {
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var priorityLimit = parseInt(blockString.substring(8, 9));
                         var name = blockString.substring(9);
-                        console.log("Name: ", name)
                         layout.push(<div id={id} onClick={scrollTo} >{ByPriority(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, priorityLimit, i)}</div>);
                         break;
                     case 3:
@@ -180,12 +181,13 @@ function Layout1() {
                         break;
                 }
             }
+
             // Return the blocks
             return (
                 <div>
                     {task} <br></br>
                     <div id="blocksContainer">
-                        {layout}
+                        { layout }
                         <button class="defaultButton" onClick={ () => nav( "/home" ) }>Add task testing</button>
                         { block }
                     </div>
@@ -194,6 +196,7 @@ function Layout1() {
             )
         }
     } else {
+        const block = AddBlock(null);
         return (
             <h1 class="uncomplete">Loading</h1>
         )

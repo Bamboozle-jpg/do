@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import "../App.css"
 import { collection, doc, updateDoc, Timestamp, toDate } from "firebase/firestore"; 
 import { db } from "../Firebase/Firebase";
-import { useCollection } from "react-firebase-hooks/firestore";
 import "./allBlock.css"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -137,6 +136,7 @@ function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
     const contentStyle = { background: 'transparent', border: '0px' };
     const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
     const limitedTasks = tasksList.slice(0, tasksLimit);
+    const cutOff = limitedTasks.length < tasksList.length ? true : false;
     return (
         <div class="glow-holder">
             <article data-glow>
@@ -196,6 +196,7 @@ function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
                     showDetails={showDetails}
                     detail={detail}
                 /> ) }
+                { cutOff ? <div class="uncompleteTitle" style= {{fontSize: 150 + "px", marginTop: -120 + "px", marginBottom: -20 + "px", marginLeft: -15 + "px"}}>. . . </div> : <></> }
             </article>
         </div>
     )

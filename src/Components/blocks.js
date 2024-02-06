@@ -165,7 +165,6 @@ const MissingDo = (compTasks, incompleteTasks, showComp, showDetails, tasksLimit
     // Filter only tasks with today's do date
     let empty = new Date(3000, 0, 1);
     var emptyDate = dayjs(empty).startOf('day')
-    console.log(emptyDate);
     retTasks = retTasks.filter(task => dayjs(task.Do.toDate()).isSame(emptyDate));
     retTasks = retTasks.filter(task => !dayjs(task.Due.toDate()).isSame(emptyDate));
 
