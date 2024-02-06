@@ -46,7 +46,7 @@ const RemoveTask = (task) => {
     return (
         <div>
             <Popup trigger= 
-                {task ? <img class="trash" width="40" height="40" src={trash} /> : <div class ="defaultButton" > Add Task </div> } 
+                {task ? <img class="trash" width="35" height="35" src={trash} /> : <div class ="defaultButton" > Add Task </div> } 
                 modal nested
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {

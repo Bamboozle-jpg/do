@@ -41,16 +41,16 @@ function TaskPretty(props) {
     // See what we add to title
     switch(detail) {
         case "due":
-            title = title + " | " + due.toString()
+            title = title + " | Due : " + due.toString()
             break;
         case "do":
-            title = title + " | " + Do.toString()
+            title = title + " | Do : " + Do.toString()
             break;
         case "duration":
-            title = title + " | " + duration.toString()
+            title = title + " | Duration : " + duration.toString()
             break;
         case "priority":
-            title = title + " | " + priority.toString()
+            title = title + " | Priority : " + priority.toString()
             break;
         default:
             break;

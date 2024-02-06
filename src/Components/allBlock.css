@@ -270,12 +270,13 @@ main {
 }
 
 .trash {
-    border-radius: 30px;
+    border-radius: 20px;
     background-color: hsl(var(--userColor), 10%, 20%);
     padding: 4px;
     margin-top: -10px;
     margin-bottom: -6px;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .dots:hover {
