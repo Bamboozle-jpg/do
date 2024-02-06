@@ -1,0 +1,24 @@
+.main{
+align-items: right;
+justify-content: right;
+width: 30ch;
+height: 100vh;
+margin-left: auto;
+position: relative;
+}
+
+.task{
+    height: 50px;
+    width: 30ch;
+    padding: 10px;
+}
+
+.field{
+    font-size: 17px;
+}
+
+tasks {
+    height: 200px;
+    width: 100px;
+    padding: 10px;
+}

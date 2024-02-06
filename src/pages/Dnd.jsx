@@ -1,54 +1,89 @@
-import React, { useState } from 'react'
-import initialData from '../Components/Dnd/initial-data'
-import Column from '../Components/Dnd/Column'
-import { DragDropContext } from 'react-beautiful-dnd';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import 'firebase/firestore';
+import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
+import { useDocument, useCollection } from "react-firebase-hooks/firestore";
+import { db } from '../Firebase/Firebase';
+import "../Components/Dnd/block.css";
+import { block } from '../Components/Dnd/block';
+import AddTask from '../Components/addTask';
 
+function Dnd() {
+  const task = AddTask();
+  const auth = getAuth();
+  const [user, setUser] = useState('');
+  //these two logs return null on refresh, so it shows onAuthStateChanged 
+  //is working correctly, but in allBlock, log(user.email) is null. Why?
+  //to see null user.email log, change line 29 here back to allBlock = AllBlock(user)
 
-class Dnd extends React.Component{
-  state = initialData;
+  useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+          if (user) {
+              setUser(user)
+          } else {
+              console.log('No user is currently signed in.');
+          }
+      });
+      return unsubscribe;
+  },[])
 
-  onDragEnd = result =>{
-    const {destination, source, draggableId } = result
-    if(!destination){
-      return;
+  // User email shenanigans
+  const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+
+  // Get config doc
+  const configDocRef = doc(db, userEmail, 'webConfig');
+  const [webConfig, loading] = useDocument(configDocRef)
+
+  // Get tasks collection
+  const tasksDocRef = doc(db, userEmail, 'tasks');
+  const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
+
+  // Get the uncompleted items as a query
+  const q = query( 
+      tasksCollectionRef, 
+      where( "Completed", "==", false), 
+      orderBy("Completed" ),
+      orderBy("Due", "desc")
+  );
+  const [tasks, loadingInc, error] = useCollection(q)
+
+  if(!loadingInc) {
+    if (error) {
+      console.log("ERROR : ", error.message);
     }
-    if(destination.droppableId === source.droppableId && destination.index === source.index){
-      return;
+    var TaskList = addKeys(tasks);
+    if (loading) {
+      return (
+          <h1 class="uncomplete">Loading</h1>
+      )
+    } else{
+      var root = document.querySelector(':root');
+      root.style.setProperty('--userColor', webConfig.data().color)
+      var layout = []
     }
-    const column = this.state.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-    
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
-    };
-
-    const newState = {
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newColumn.id]: newColumn,
-      },
-    };
-    this.setState(newState);
-    //call endpoint here to update firestore
-  };
-
-  render(){
-    return( 
-      <DragDropContext onDragEnd={this.onDragEnd}
-      >
-      {this.state.columnOrder.map(columnId => {
-      const column = this.state.columns[columnId];
-      const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-
-      return <Column key = {column.id} column={column} tasks= {tasks} />;
-    })}
-      </DragDropContext>
-    );
+    layout.push(<div class = "main">{block(TaskList)}</div>);
   }
+
+  return (
+    <div>
+      { layout }
+    </div>
+  )
 }
 
 export default Dnd
+
+function addKeys(tasks) {
+
+  // Copies into array of dicts
+  var taskList = []
+  tasks.docs.forEach((doc) => {
+
+      // Each document gets copied over, and so does it's key
+      const newDict = { ...doc.data() };
+      newDict['Key'] = doc._key.path.segments[doc._key.path.segments.length - 1];
+      taskList.push(newDict)
+  })
+  return taskList;
+}
