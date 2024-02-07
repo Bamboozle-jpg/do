@@ -196,7 +196,7 @@ function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
                     showDetails={showDetails}
                     detail={detail}
                 /> ) }
-                { cutOff ? <div class="uncompleteTitle" style= {{fontSize: 150 + "px", marginTop: -120 + "px", marginBottom: -20 + "px", marginLeft: -15 + "px"}}>. . . </div> : <></> }
+                { cutOff ? <div class="uncompleteTitle" style= {{fontSize: 150 + "px", marginTop: -120 + "px", marginBottom: -20 + "px", marginLeft: 5 + "px"}}>. . . </div> : <></> }
             </article>
         </div>
     )
