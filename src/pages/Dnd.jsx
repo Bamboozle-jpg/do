@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import 'firebase/firestore';
-import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
+import { doc, collection, limit, query, where, orderBy, setDoc, updateDoc, Timestamp } from 'firebase/firestore'
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db } from '../Firebase/Firebase';
 import "../Components/Dnd/block.css";
 import { block } from '../Components/Dnd/block';
 import AddTask from '../Components/addTask';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Days } from '../Components/Dnd/days';
+
 
 function Dnd() {
-  const task = AddTask();
+
   const auth = getAuth();
   const [user, setUser] = useState('');
+  const [items, setItems] = useState(TaskList || []);
+
   //these two logs return null on refresh, so it shows onAuthStateChanged 
   //is working correctly, but in allBlock, log(user.email) is null. Why?
   //to see null user.email log, change line 29 here back to allBlock = AllBlock(user)
@@ -43,32 +48,71 @@ function Dnd() {
   const q = query( 
       tasksCollectionRef, 
       where( "Completed", "==", false), 
-      orderBy("Completed" ),
-      orderBy("Due", "desc")
+      //orderBy("Completed" ),
+      //orderBy("Due", "desc")
   );
   const [tasks, loadingInc, error] = useCollection(q)
 
-  if(!loadingInc) {
-    if (error) {
-      console.log("ERROR : ", error.message);
-    }
-    var TaskList = addKeys(tasks);
-    if (loading) {
-      return (
-          <h1 class="uncomplete">Loading</h1>
-      )
-    } else{
-      var root = document.querySelector(':root');
-      root.style.setProperty('--userColor', webConfig.data().color)
-      var layout = []
-    }
-    layout.push(<div class = "main">{block(TaskList)}</div>);
+  
+
+
+if(!loadingInc) {
+  if (error) {
+    console.log("ERROR : ", error.message);
+  }
+  var TaskList = addKeys(tasks);
+  if (items.length == 0) {
+    setItems(TaskList)
+  }
+  if (loading) {
+    return (
+        <h1 class="uncomplete">Loading</h1>
+    )
+  } else{
+    var root = document.querySelector(':root');
+    root.style.setProperty('--userColor', webConfig.data().color)
+    var layout = []
+  }
+  layout.push(<div class = "noDo">{block(items)}</div>);
+}
+const onDragEnd = result => {
+  const{destination, source, draggableId} = result;
+  if(!destination) {
+      return;
   }
 
+  if(
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+  ){
+      return;
+  }   
+  const start = source.droppableId;
+  const finish = destination.droppableId;
+
+
+  const newItems = Array.from(items);
+  if(start === finish){
+    const [removed] = newItems.splice(source.index, 1);
+    newItems.splice(destination.index, 0, removed);
+    setItems(newItems);
+    return;
+  }
+  //upon dropping into a day block, update the task's Do field
+  else{ 
+    const taskId = draggableId;
+    const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
+    updateDoc(taskRef, {
+      Do: strToTimestamp(finish)
+    });
+    return;
+  }
+};
   return (
-    <div>
-      { layout }
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+    <Days taskList = {TaskList} />
+    { layout }
+    </DragDropContext>
   )
 }
 
@@ -87,3 +131,16 @@ function addKeys(tasks) {
   })
   return taskList;
 }
+
+//convert to timstamp
+const strToTimestamp = (dateString) => {
+  const dateParts = dateString.split('/');
+  const month = parseInt(dateParts[0], 10) - 1; 
+  const day = parseInt(dateParts[1], 10);
+  const year = parseInt(dateParts[2], 10);
+  const dateObject = new Date(year, month, day);
+
+  const timestamp = Timestamp.fromDate(dateObject);
+
+  return timestamp;
+};

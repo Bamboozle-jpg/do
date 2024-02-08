@@ -19,11 +19,19 @@ function Tasks( props ){
     const priority = props.priority;
     const index = props.index;
 
+    const doDate = props.do.toDate();
+    const Dmonth = doDate.getMonth() + 1;
+    const Dday = doDate.getDate();
+    const Dyear = doDate.getFullYear();
+    const Do = `${Dmonth}/${Dday}/${Dyear}`;
+
+
+
     return(
-        <Draggable key = {Key} draggableId= {Key} index={index}>
+        <Draggable key = {Key} draggableId= {Key} index={index} >
             {(provided) => (
-                <div Key = {Key} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                    <div class = "field">{title}</div>
+                <div  class = "task" Key = {Key} Do = {Do} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                    <div class = "title">{title}</div>
                     <div class = "field">{desc}</div>
                     <div class = "field">{priority}</div>
                     
@@ -36,29 +44,12 @@ function Tasks( props ){
 
 function block(tasksList) {
 
-    const onDragEnd = result => {
-        const{destination, source, draggableId} = result;
-
-        if(!destination) {
-            return;
-        }
-
-        if(
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ){
-            return;
-        }
-
-
-    };
-
     return (
         //the div that contains the incompleted tasks
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId='main'>
+        //droppableId needs to be made to scale with future blocks, probably with calendar ids
+            <Droppable droppableId='NoDo'>
                 {(provided) => (
-                    <div class = "main" className='main' {...provided.droppableProps} ref={provided.innerRef}>
+                    <div class = "tasks" className='tasks' {...provided.droppableProps} ref={provided.innerRef}>
                         <div>
                         { tasksList && tasksList.map( (tsk, index) => <Tasks
                             firestoreKey = {tsk.Key}
@@ -67,13 +58,13 @@ function block(tasksList) {
                             description = {tsk.Description}
                             priority={tsk.Priority}
                             due={tsk.Due}
+                            do = {tsk.Do}
                         />)}
                         </div>
                         {provided.placeholder}
                     </div>
                 )}       
             </Droppable>
-        </DragDropContext>
     )
 }
 
