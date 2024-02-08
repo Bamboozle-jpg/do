@@ -16,6 +16,7 @@ function Tasks( props ){
     const day = dueDate.getDate();
     const year = dueDate.getFullYear();
     const due = `${month}/${day}/${year}`;
+
     const priority = props.priority;
     const index = props.index;
 
@@ -35,15 +36,17 @@ function Tasks( props ){
                     <div class = "field">{desc}</div>
                     <div class = "field">{priority}</div>
                     
-                    { due != "1/1/3000" ? <div>Due : {due}</div> : <div>NO DUE DATE</div> }
+                    { Do != "1/1/3000" ? <div>Do : {Do}</div> : <div>NO DO DATE</div> }
                 </div>
             )}
         </Draggable>
         );
 }
+export {
+    Tasks
+}
 
 function block(tasksList) {
-
     return (
         //the div that contains the incompleted tasks
         //droppableId needs to be made to scale with future blocks, probably with calendar ids

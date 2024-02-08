@@ -6,7 +6,7 @@ float: right;
 }
 
 .task{
-    width: auto;
+    width: 80px;
     padding: 2px;
 }
 
@@ -22,7 +22,6 @@ tasks {
 
 .days{
     float: left;
-    align-items: stretch;
     display: flex;
     width: 85%;
     height: 80vh;

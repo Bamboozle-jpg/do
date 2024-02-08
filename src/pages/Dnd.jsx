@@ -16,7 +16,7 @@ function Dnd() {
 
   const auth = getAuth();
   const [user, setUser] = useState('');
-  const [items, setItems] = useState(TaskList || []);
+  const [items, setItems] = useState([]);
 
   //these two logs return null on refresh, so it shows onAuthStateChanged 
   //is working correctly, but in allBlock, log(user.email) is null. Why?
@@ -43,24 +43,32 @@ function Dnd() {
   // Get tasks collection
   const tasksDocRef = doc(db, userEmail, 'tasks');
   const tasksCollectionRef = collection(tasksDocRef,  'tasksCollection');
-
   // Get the uncompleted items as a query
-  const q = query( 
-      tasksCollectionRef, 
-      where( "Completed", "==", false), 
-      //orderBy("Completed" ),
-      //orderBy("Due", "desc")
-  );
+
+    const q = query( 
+    tasksCollectionRef, 
+    where( "Completed", "==", false), 
+    //orderBy("Do" ),
+    //orderBy("Due", "desc")
+    );
   const [tasks, loadingInc, error] = useCollection(q)
-
-  
-
 
 if(!loadingInc) {
   if (error) {
     console.log("ERROR : ", error.message);
   }
   var TaskList = addKeys(tasks);
+
+  //get list of tasks with no do date
+  var NewList = [];
+
+  for(let i = 0; i < TaskList.length; i++){
+    if(TaskList[i]["Do"]["seconds"] == "32503708800"){
+      NewList.push(TaskList[i]);
+    }
+  }
+
+  //should replace this with on input/on change
   if (items.length == 0) {
     setItems(TaskList)
   }
@@ -92,6 +100,7 @@ const onDragEnd = result => {
 
 
   const newItems = Array.from(items);
+  console.log(TaskList)
   if(start === finish){
     const [removed] = newItems.splice(source.index, 1);
     newItems.splice(destination.index, 0, removed);
@@ -100,17 +109,20 @@ const onDragEnd = result => {
   }
   //upon dropping into a day block, update the task's Do field
   else{ 
+    console.log(result)
     const taskId = draggableId;
     const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
     updateDoc(taskRef, {
       Do: strToTimestamp(finish)
     });
+
+
     return;
   }
 };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-    <Days taskList = {TaskList} />
+    <Days tasksList = {items} />
     { layout }
     </DragDropContext>
   )
