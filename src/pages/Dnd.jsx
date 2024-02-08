@@ -60,13 +60,6 @@ if(!loadingInc) {
   var TaskList = addKeys(tasks);
 
   //get list of tasks with no do date
-  var NewList = [];
-
-  for(let i = 0; i < TaskList.length; i++){
-    if(TaskList[i]["Do"]["seconds"] == "32503708800"){
-      NewList.push(TaskList[i]);
-    }
-  }
 
   //should replace this with on input/on change
   if (items.length == 0) {
@@ -100,7 +93,8 @@ const onDragEnd = result => {
 
 
   const newItems = Array.from(items);
-  console.log(TaskList)
+  console.log()
+
   if(start === finish){
     const [removed] = newItems.splice(source.index, 1);
     newItems.splice(destination.index, 0, removed);
@@ -108,17 +102,24 @@ const onDragEnd = result => {
     return;
   }
   //upon dropping into a day block, update the task's Do field
-  else{ 
-    console.log(result)
+  else if (finish != "NoDo"){ 
     const taskId = draggableId;
     const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
     updateDoc(taskRef, {
       Do: strToTimestamp(finish)
     });
-
-
     return;
   }
+  
+  else if (finish == "NoDo"){
+    const taskId = draggableId;
+    const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
+    updateDoc(taskRef, {
+      Do: strToTimestamp("1/1/3000")
+    });
+    return;
+  }
+
 };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
