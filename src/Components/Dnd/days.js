@@ -6,16 +6,24 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tasks } from './block';
 
 function Days({tasksList}) {
+    
+    const [currentDate, setCurrentDate] = useState(new Date());
+
+    const changeDate = (increment) => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(newDate.getDate() + increment);
+        setCurrentDate(newDate);
+
+    }
+    
     const days = []
-    var newList = []
     console.log(tasksList)
 
     for(let i = 0; i < 7; i++){
-        const date = new Date();
-        let day = date.getDate() + i;
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-        const formattedDate = `${month}/${day}/${year}`;
+        const date = new Date(currentDate);
+        date.setDate(date.getDate() + i)
+
+        const formattedDate = `${date.getMonth()+ 1}/${date.getDate()}/${date.getFullYear()}`;
 
         const newList = tasksList.filter(tsk => {
             const doDate = tsk.Do.toDate();
@@ -49,7 +57,11 @@ function Days({tasksList}) {
          );
     }
     return (
-        <div class = 'days'> {days} </div>
+        <div class = 'days'>
+            <button onClick={() => changeDate(-1)}>Previous Day</button>
+            <button onClick={() => changeDate(1)}>Next Day</button>
+             {days} 
+             </div>
     )
 }
 
