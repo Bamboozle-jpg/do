@@ -11,7 +11,6 @@ import AddTask from '../Components/addTask';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Days } from '../Components/Dnd/days';
 
-
 function Dnd() {
 
   const auth = getAuth();
@@ -76,7 +75,7 @@ if(!loadingInc) {
   }
   layout.push(<div class = "noDo">{block(items)}</div>);
 }
-const onDragEnd = result => {
+const onDragEnd = async (result) => {
   const{destination, source, draggableId} = result;
   if(!destination) {
       return;
@@ -93,7 +92,6 @@ const onDragEnd = result => {
 
 
   const newItems = Array.from(items);
-  console.log()
 
   if(start === finish){
     const [removed] = newItems.splice(source.index, 1);
@@ -105,19 +103,19 @@ const onDragEnd = result => {
   else if (finish != "NoDo"){ 
     const taskId = draggableId;
     const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
-    updateDoc(taskRef, {
-      Do: strToTimestamp(finish)
-    });
-    return;
+      await updateDoc(taskRef, {
+        Do: strToTimestamp(finish)
+      });
+    setItems(TaskList)
   }
   
   else if (finish == "NoDo"){
     const taskId = draggableId;
     const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
-    updateDoc(taskRef, {
+    await updateDoc(taskRef, {
       Do: strToTimestamp("1/1/3000")
     });
-    return;
+    setItems(TaskList)
   }
 
 };
