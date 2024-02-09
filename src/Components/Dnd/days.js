@@ -17,7 +17,6 @@ function Days({tasksList}) {
     }
     
     const days = []
-    console.log(tasksList)
 
     for(let i = 0; i < 7; i++){
         const date = new Date(currentDate);

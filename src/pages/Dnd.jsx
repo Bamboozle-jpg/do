@@ -90,7 +90,6 @@ const onDragEnd = async (result) => {
   const start = source.droppableId;
   const finish = destination.droppableId;
 
-
   const newItems = Array.from(items);
 
   if(start === finish){
@@ -106,7 +105,25 @@ const onDragEnd = async (result) => {
       await updateDoc(taskRef, {
         Do: strToTimestamp(finish)
       });
+    
+      
+
+    const finishTime = strToTimestamp(finish)
     setItems(TaskList)
+    const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
+    TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
+
+    console.log("new Item : ", newTerm[0])
+    newTerm[0]["Do"] = finishTime
+    TaskList.push(newTerm)
+
+
+    console.log(TaskList)
+    console.log(items)
+    console.log(draggableId)
+    console.log(destination.droppableId)
+
+    return;
   }
   
   else if (finish == "NoDo"){
@@ -116,6 +133,7 @@ const onDragEnd = async (result) => {
       Do: strToTimestamp("1/1/3000")
     });
     setItems(TaskList)
+    return;
   }
 
 };
