@@ -1,19 +1,41 @@
+* {
+    color: #ffffff
+  }
+
+body{
+    overflow: hidden;
+}
+
+:root {
+    --backdrop: hsl(0 0% 60% / 0.12);
+    --backup-border: var(--backdrop);
+    --size: 200;
+    --userColor: 100
+  }
+
 .noDo{
 width: 12%;
 height: 80vh;
 position: relative;
 float: right;
 min-height: 200px;
+display: flex;
+border-radius: 5px;
+border: 1px solid var(--backup-border);
+border-color: hsl(var(--userColor), 100%, 14%);
+
 }
 
 .task{
     width: 150px;
-    padding-left: 6px;
+    padding: 3px;
     margin-left: 10px;
     margin-top: 5px;
-    border: 2px dotted black;
+    margin-bottom: 10px;
+    margin-right: 10px;
+
     border-radius: 10px;
-    background-color: white;
+    box-shadow: 0px 0px 8px 1px hsl(var(--userColor), 50%, 10%);    
 }
 
 .task:hover {
@@ -33,10 +55,12 @@ min-height: 200px;
 
 .days{
     float: left;
-    width: 88%;
+    width: 87.8%;
     height: 80vh;
     display: flex;
     flex-direction: row;
+    
+    
 }
 
 .day{
@@ -48,6 +72,10 @@ min-height: 200px;
     min-width: 0; 
     margin-right: 5px;
     border-radius: 5px;
+    background-color: hsl(var(--userColor), 10%, 16%);
+    border: 1px solid var(--backup-border);
+    border-color: hsl(var(--userColor), 100%, 14%);
+
 
 }
 
@@ -56,20 +84,45 @@ min-height: 200px;
     font-style: italic;
 }
 
-.bruhcontainer{
+.bruhcontainer {
     position: fixed;
-    bottom: 20px;
+    width: calc(84%); /* Adjusted width to fit four items with gaps */
+    bottom: 10vh;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-57.1%);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.left-buttons, .right-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
-.bruh{
+
+.navButton {
+    position: fixed;
+    bottom: 10vh;
+    right: 0%;
+    transform: translateX(-80%);
+    height: 30px; /* Adjust the height as needed */
     font-size: 12px;
     padding: 5px 10px;
     border: 1px solid black;
     cursor: pointer;
     border-radius: 5px;
-    background-color: aliceblue;
+    background-color: hsl(var(--userColor), 10%, 16%);
+}
+
+
+.bruhcontainer button {
+    width: 100%; /* Make buttons fill their respective grid cells */
+    height: 30px; /* Adjust the height as needed */
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: hsl(var(--userColor), 10%, 16%);
 }
