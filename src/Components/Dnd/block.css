@@ -80,16 +80,25 @@ border-color: hsl(var(--userColor), 100%, 14%);
     font-style: italic;
 }
 
-.bruhcontainer{
+.bruhcontainer {
     position: fixed;
+    width: calc(84%); /* Adjusted width to fit four items with gaps */
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-57.1%);
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-buttons, .right-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
-.bruh{
+
+.bruhcontainer button {
+    width: 100%; /* Make buttons fill their respective grid cells */
+    height: 30px; /* Adjust the height as needed */
     font-size: 12px;
     padding: 5px 10px;
     border: 1px solid black;
