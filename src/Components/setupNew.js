@@ -36,7 +36,7 @@ const SetUp = () => {
           const accountDict = { dailyReset: 0, tags: [], deleteAfter: 7 }
 
           const webConfig = doc(db, userEmail, 'webConfig');
-          const webDict = { layout1: [], layout2: [], layout3: [], darkMode: true, }
+          const webDict = { layout1: [], layout2: [], layout3: [], darkMode: true, color: 310 }
 
           const appConfig = doc(db, userEmail, 'appConfig');
           const appDict = { layout1: [], layout2: [], layout3: [], darkMode: true, }

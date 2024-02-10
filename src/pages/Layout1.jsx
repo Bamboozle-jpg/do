@@ -18,8 +18,12 @@ import { db } from "../Firebase/Firebase";
 import "./Layout.css"
 import AddTask from "../Components/addTask"
 import ChooseBlock from '../Components/chooseBlock';
+import SetUp from '../Components/setupNew';
 
 function Layout1() {
+
+    SetUp();
+
     const task = AddTask();
     const auth = getAuth();
     const [user, setUser] = useState('');
@@ -70,8 +74,6 @@ function Layout1() {
     const [tasks, loadingInc, error] = useCollection(q)
     const [compTasks, loadingC, errorComp] = useCollection(qComp)
     const nav = useNavigate();
-
-    
 
     // Once the snapshot has returned
     if (!loadingInc && !loadingC) {

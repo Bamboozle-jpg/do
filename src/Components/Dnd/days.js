@@ -27,6 +27,11 @@ function Days({tasksList}) {
         date.setDate(date.getDate() + i)
 
         const formattedDate = `${date.getMonth()+ 1}/${date.getDate()}/${date.getFullYear()}`;
+        const day = date.getDay();
+
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        const dayOfWeek = daysOfWeek[day];
 
         const newList = tasksList.filter(tsk => {
             const doDate = tsk.Do.toDate();
@@ -45,8 +50,9 @@ function Days({tasksList}) {
                     day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}
                     style={{
                         ...provided.droppableProps.style,
-                        backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : (fcurrDate == formattedDate ?  "hsl(var(--userColor), 20%, 20%)" :"hsl(var(--userColor), 10%, 20%)") ,
+                        backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : (fcurrDate == formattedDate ?  "hsl(var(--userColor), 40%, 20%)" :"hsl(var(--userColor), 10%, 20%)") ,
                         transition: 'background-color 0.4s ease'}}>
+                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-20px'}}>{dayOfWeek}</h4>
                             <h4 style={{textAlign: 'center', fontSize: '20px'}}>{formattedDate}</h4>
                             <div>
                                 { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
