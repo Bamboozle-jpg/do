@@ -9,6 +9,7 @@ import dots from "./../assets/info.svg";
 import trash from "./../assets/trash.svg";
 import AddTask from './addTask';
 import RemoveTask from './removeTask';
+import RemoveBlock from './removeBlock';
 
 // Actually puts things to the screen
 function TaskPretty(props) {
@@ -132,54 +133,59 @@ function toggleComplete(key, author, completed) {
 
 
 // Builds object for TaskPretty to access
-function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
+function buildDiv(tasksList, name, showDetails, tasksLimit, itemString, detail) {
     const contentStyle = { background: 'transparent', border: '0px' };
     const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
     const limitedTasks = tasksList.slice(0, tasksLimit);
     const cutOff = limitedTasks.length < tasksList.length ? true : false;
+    const trash = RemoveBlock(itemString, name)
+
     return (
         <div class="glow-holder">
             <article data-glow>
-                <Popup trigger=
-                    {<div class ="blockTitle"> {name} </div>} 
-                    modal nested
-                    {...{contentStyle, overlayStyle}}>
-                    {
-                        close => (
-                            <div class="glow-holder">
-                            <article data-glow-popup>
-                                <div class="rowWrapperSplit">
-                                    <div class="popupBlockTitle"> {name}</div>
-                                    <button class="defaultButton" onClick=
-                                        {() => close()}>
-                                            Close
-                                    </button>
+                <div class="rowWrapperClose">
+                    <Popup trigger=
+                        {<div class ="blockTitle"> {name} </div>} 
+                        modal nested
+                        {...{contentStyle, overlayStyle}}>
+                        {
+                            close => (
+                                <div class="glow-holder">
+                                <article data-glow-popup>
+                                    <div class="rowWrapperSplit">
+                                        <div class="popupBlockTitle"> {name}</div>
+                                        <button class="defaultButton" onClick=
+                                            {() => close()}>
+                                                Close
+                                        </button>
+                                    </div>
+                                    <div class="scrolling">
+                                        { tasksList && tasksList.map( tsk => <TaskPretty 
+                                            firestoreKey={tsk.Key} 
+                                            name={tsk.Name}  
+                                            description={tsk.Description}
+                                            due={tsk.Due}
+                                            do={tsk.Do}
+                                            duration={tsk.Duration}
+                                            priority={tsk.Priority}
+                                            fromRepeat={tsk.Priority}
+                                            completed={tsk.Completed}
+                                            children={tsk.Children}
+                                            tags={tsk.Tags}
+                                            createdBy={tsk.CreatedBy}
+                                            completedDate={tsk.CompletedDate}
+                                            showDetails={true}
+                                            detail={detail}
+                                        /> ) }
+                                    </div>
+                                </article>
                                 </div>
-                                <div class="scrolling">
-                                    { tasksList && tasksList.map( tsk => <TaskPretty 
-                                        firestoreKey={tsk.Key} 
-                                        name={tsk.Name}  
-                                        description={tsk.Description}
-                                        due={tsk.Due}
-                                        do={tsk.Do}
-                                        duration={tsk.Duration}
-                                        priority={tsk.Priority}
-                                        fromRepeat={tsk.Priority}
-                                        completed={tsk.Completed}
-                                        children={tsk.Children}
-                                        tags={tsk.Tags}
-                                        createdBy={tsk.CreatedBy}
-                                        completedDate={tsk.CompletedDate}
-                                        showDetails={true}
-                                        detail={detail}
-                                    /> ) }
-                                </div>
-                            </article>
-                            </div>
-                            
-                        )
-                    }
-                </Popup>
+                                
+                            )
+                        }
+                    </Popup>
+                    { trash }
+                </div>
                 { limitedTasks && limitedTasks.map( tsk => <TaskPretty 
                     firestoreKey={tsk.Key} 
                     name={tsk.Name}  
