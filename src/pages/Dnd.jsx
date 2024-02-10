@@ -6,7 +6,7 @@ import { doc, collection, limit, query, where, orderBy, setDoc, updateDoc, Times
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db } from '../Firebase/Firebase';
 import "../Components/Dnd/block.css";
-import { block } from '../Components/Dnd/block';
+import { block } from '../Components/Dnd/calendItems';
 import AddTask from '../Components/addTask';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Days } from '../Components/Dnd/days';

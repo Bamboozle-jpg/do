@@ -3,7 +3,7 @@ import { collection, doc, updateDoc, Timestamp, toDate } from "firebase/firestor
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from '../../Firebase/Firebase';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Tasks } from './block';
+import { Tasks } from './calendItems';
 import './block.css'
 
 function Days({tasksList}) {
@@ -14,9 +14,11 @@ function Days({tasksList}) {
         const newDate = new Date(currentDate);
         newDate.setDate(newDate.getDate() + increment);
         setCurrentDate(newDate);
-
     }
-    
+
+    const currDate = new Date();
+    const fcurrDate = `${currDate.getMonth()+1}/${currDate.getDate()}/${currDate.getFullYear()}`
+    console.log(fcurrDate)
     const days = []
 
     for(let i = 0; i < 7; i++){
@@ -33,33 +35,67 @@ function Days({tasksList}) {
             const formattedDate1 = `${month1}/${day1}/${year1}`;
             return formattedDate === formattedDate1;
         });
+        //for having a unique color for the current day
+        console.log(formattedDate)
+        if(fcurrDate == formattedDate){
+            days.push(
+                <Droppable droppableId = {formattedDate}>
+                    {(provided, snapshot) => (
+                        <div class = "day" className = 'day' key = {i} 
+                        day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}
+                        style={{
+                            ...provided.droppableProps.style,
+                            backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : "hsl(var(--userColor), 30%, 20%)",
+                            transition: 'background-color 0.4s ease'}}>
+                                <h4 style={{textAlign: 'center', fontSize: '20px'}}>{formattedDate}</h4>
+                                <div>
+                                    { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
+                                    firestoreKey = {tsk.Key}
+                                    index = {index}
+                                    name = {tsk.Name}
+                                    description = {tsk.Description}
+                                    priority={tsk.Priority}
+                                    due={tsk.Due}
+                                    do = {tsk.Do}
+                                    duration = {tsk.Duration}
+                                    />)}
+                                </div>
+                            {provided.placeholder}
+                        </div> 
+                    )}
+                </Droppable>
+             );
+        }
+        else{
+            days.push(
+                <Droppable droppableId = {formattedDate}>
+                    {(provided, snapshot) => (
+                        <div class = "day" className = 'day' key = {i} 
+                        day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}
+                        style={{
+                            ...provided.droppableProps.style,
+                            backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : "hsl(var(--userColor), 10%, 20%)",
+                            transition: 'background-color 0.4s ease'}}>
+                                <h4 style={{textAlign: 'center', fontSize: '20px'}}>{formattedDate}</h4>
+                                <div>
+                                    { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
+                                    firestoreKey = {tsk.Key}
+                                    index = {index}
+                                    name = {tsk.Name}
+                                    description = {tsk.Description}
+                                    priority={tsk.Priority}
+                                    due={tsk.Due}
+                                    do = {tsk.Do}
+                                    duration = {tsk.Duration}
+                                    />)}
+                                </div>
+                            {provided.placeholder}
+                        </div> 
+                    )}
+                </Droppable>
+             );            
+        }
 
-        days.push(
-            <Droppable droppableId = {formattedDate}>
-                {(provided, snapshot) => (
-                    <div class = "day" className = 'day' key = {i} 
-                    day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}
-                    style={{
-                        ...provided.droppableProps.style,
-                        backgroundColor: snapshot.isDraggingOver ? "skyblue" : "white",
-                        transition: 'background-color 0.4s ease'}}>
-                            <h4 style={{textAlign: 'center'}}>{formattedDate}</h4>
-                            <div>
-                                { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
-                                firestoreKey = {tsk.Key}
-                                index = {index}
-                                name = {tsk.Name}
-                                description = {tsk.Description}
-                                priority={tsk.Priority}
-                                due={tsk.Due}
-                                do = {tsk.Do}
-                                />)}
-                            </div>
-                        {provided.placeholder}
-                    </div> 
-                )}
-            </Droppable>
-         );
     }
     return (
             <div class = 'days'>
