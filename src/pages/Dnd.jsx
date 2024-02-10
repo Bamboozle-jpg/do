@@ -87,6 +87,7 @@ const onDragEnd = async (result) => {
   ){
       return;
   }   
+
   const start = source.droppableId;
   const finish = destination.droppableId;
 

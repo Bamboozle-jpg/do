@@ -1,5 +1,9 @@
+body{
+    background-color: white;
+}
+
 .noDo{
-width: 15%;
+width: 12%;
 height: 80vh;
 position: relative;
 float: right;
@@ -7,10 +11,13 @@ min-height: 200px;
 }
 
 .task{
-    width: 100px;
-    padding: 2px;
-    border: 2px solid black;
-    border-style: dotted;
+    width: 150px;
+    padding-left: 6px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border: 2px dotted black;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .field{
@@ -25,12 +32,10 @@ min-height: 200px;
 
 .days{
     float: left;
-    display: flex;
-    width: 85%;
+    width: 88%;
     height: 80vh;
     display: flex;
     flex-direction: row;
-
 }
 
 .day{
@@ -38,8 +43,11 @@ min-height: 200px;
     border: 1px solid black; 
     overflow-y: auto; 
     max-height: 800px; 
-    width: 0; /* Add this line to set the initial width to zero */
-    min-width: 0; /* Add this line to allow the width to shrink if necessary */
+    width: 0; 
+    min-width: 0; 
+    margin-right: 5px;
+    border-radius: 5px;
+
 }
 
 .title{
@@ -49,13 +57,18 @@ min-height: 200px;
 
 .bruhcontainer{
     position: fixed;
-    bottom: 10px;
-    left: 10px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 5px;
+    grid-gap: 15px;
 }
 .bruh{
     font-size: 12px;
     padding: 5px 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: aliceblue;
 }

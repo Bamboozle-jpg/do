@@ -35,34 +35,35 @@ function Days({tasksList}) {
         });
 
         days.push(
-        <Droppable droppableId = {formattedDate}>
-            {(provided) => (
-                <div class = "day" className = 'day' key = {i} day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}>
-                    <div>
-                        {formattedDate}
-                        { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
-                        firestoreKey = {tsk.Key}
-                        index = {index}
-                        name = {tsk.Name}
-                        description = {tsk.Description}
-                        priority={tsk.Priority}
-                        due={tsk.Due}
-                        do = {tsk.Do}
-                        />)}
-                    </div>
-                    {provided.placeholder}
-                </div> 
-            )}
-         </Droppable>
+            <Droppable droppableId = {formattedDate}>
+                {(provided, snapshot) => (
+                    <div class = "day" className = 'day' key = {i} 
+                    day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}>
+                            <h4 style={{textAlign: 'center'}}>{formattedDate}</h4>
+                            <div>
+                                { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
+                                firestoreKey = {tsk.Key}
+                                index = {index}
+                                name = {tsk.Name}
+                                description = {tsk.Description}
+                                priority={tsk.Priority}
+                                due={tsk.Due}
+                                do = {tsk.Do}
+                                />)}
+                            </div>
+                        {provided.placeholder}
+                    </div> 
+                )}
+            </Droppable>
          );
     }
     return (
             <div class = 'days'>
                 <div class = 'bruhcontainer'>               
-                    <button class = 'bruh' onClick={() => changeDate(-7)}>Previous Week</button>
-                    <button class = 'bruh' onClick={() => changeDate(7)}>Next Week</button>
-                    <button class = 'bruh' onClick={() => changeDate(-1)}>Previous Day</button>
-                    <button class = 'bruh' onClick={() => changeDate(1)}>Next Day</button>  
+                    <button class = 'bruh' onClick={() => changeDate(-7)}>&#8592;&#8592;</button>
+                    <button class = 'bruh' onClick={() => changeDate(7)}>&#8594;&#8594;</button>
+                    <button class = 'bruh' onClick={() => changeDate(-1)}>&#8592;</button>
+                    <button class = 'bruh' onClick={() => changeDate(1)}>&#8594;</button>  
                 </div>
                 {days} 
              </div>

@@ -26,16 +26,19 @@ function Tasks( props ){
     const Dday = doDate.getDate();
     const Dyear = doDate.getFullYear();
     const Do = `${Dmonth}/${Dday}/${Dyear}`;
-
+    //different bg color if it is overdue/urgent/not urgent
     return(
         <Draggable key = {Key} draggableId= {Key} index={index} >
-            {(provided) => (
-                <div  class = "task" Key = {Key} Do = {Do} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+            {(provided, snapshot) => (
+                <div className = "task" style={{ 
+                    backgroundColor: snapshot.isDragging ? 'blue' : 'white'
+                 }}
+                {...provided.draggableProps} {...provided.dragHandleProps} 
+                ref={provided.innerRef} >
                     <div class = "title">{title}</div>
                     <div class = "field">{desc}</div>
                     <div class = "field">{priority}</div>
-                    
-                    { Do != "1/1/3000" ? <div>Do : {Do}</div> : <div>NO DO DATE</div> }
+                    { due != "1/1/3000" ? <div>Due : {due}</div> : <div>NO DUE DATE</div> }
                 </div>
             )}
         </Draggable>
@@ -61,6 +64,7 @@ function block(tasksList) {
             <Droppable droppableId='NoDo'>
                 {(provided) => (
                     <div class = "tasks" className='tasks' {...provided.droppableProps} ref={provided.innerRef}>
+                        <h4>No Do</h4>
                         <div>
                         { NewList && NewList.map( (tsk, index) => <Tasks
                             firestoreKey = {tsk.Key}
