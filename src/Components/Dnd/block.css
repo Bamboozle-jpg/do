@@ -2,6 +2,10 @@
     color: #ffffff
   }
 
+body{
+    overflow: hidden;
+}
+
 :root {
     --backdrop: hsl(0 0% 60% / 0.12);
     --backup-border: var(--backdrop);
@@ -83,18 +87,34 @@ border-color: hsl(var(--userColor), 100%, 14%);
 .bruhcontainer {
     position: fixed;
     width: calc(84%); /* Adjusted width to fit four items with gaps */
-    bottom: 20px;
+    bottom: 10vh;
     left: 50%;
     transform: translateX(-57.1%);
     display: flex;
     justify-content: space-between;
 }
 
+
 .left-buttons, .right-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
+
+.navButton {
+    position: fixed;
+    bottom: 10vh;
+    right: 0%;
+    transform: translateX(-80%);
+    height: 30px; /* Adjust the height as needed */
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: hsl(var(--userColor), 10%, 16%);
+}
+
 
 .bruhcontainer button {
     width: 100%; /* Make buttons fill their respective grid cells */
