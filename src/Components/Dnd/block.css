@@ -3,18 +3,21 @@ width: 15%;
 height: 80vh;
 position: relative;
 float: right;
+min-height: 200px;
 }
 
 .task{
-    width: 80px;
+    width: 100px;
     padding: 2px;
+    border: 2px solid black;
+    border-style: dotted;
 }
 
 .field{
     font-size: 17px;
 }
 
-tasks {
+.tasks {
     height: 80vh;
     width: 100px;
     padding: 10px;
@@ -27,14 +30,32 @@ tasks {
     height: 80vh;
     display: flex;
     flex-direction: row;
+
 }
 
 .day{
     flex-grow: 1;
-    flex: display;
+    border: 1px solid black; 
+    overflow-y: auto; 
+    max-height: 800px; 
+    width: 0; /* Add this line to set the initial width to zero */
+    min-width: 0; /* Add this line to allow the width to shrink if necessary */
 }
 
 .title{
     font-size: 20px;
     font-style: italic;
+}
+
+.bruhcontainer{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+}
+.bruh{
+    font-size: 12px;
+    padding: 5px 10px;
 }

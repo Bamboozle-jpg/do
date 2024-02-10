@@ -4,6 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from '../../Firebase/Firebase';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tasks } from './block';
+import './block.css'
 
 function Days({tasksList}) {
     
@@ -56,10 +57,14 @@ function Days({tasksList}) {
          );
     }
     return (
-        <div class = 'days'>
-            <button onClick={() => changeDate(-1)}>Previous Day</button>
-            <button onClick={() => changeDate(1)}>Next Day</button>
-             {days} 
+            <div class = 'days'>
+                <div class = 'bruhcontainer'>               
+                    <button class = 'bruh' onClick={() => changeDate(-7)}>Previous Week</button>
+                    <button class = 'bruh' onClick={() => changeDate(7)}>Next Week</button>
+                    <button class = 'bruh' onClick={() => changeDate(-1)}>Previous Day</button>
+                    <button class = 'bruh' onClick={() => changeDate(1)}>Next Day</button>  
+                </div>
+                {days} 
              </div>
     )
 }

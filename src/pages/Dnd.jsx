@@ -105,9 +105,6 @@ const onDragEnd = async (result) => {
       await updateDoc(taskRef, {
         Do: strToTimestamp(finish)
       });
-    
-      
-
     const finishTime = strToTimestamp(finish)
     setItems(TaskList)
     const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
@@ -116,13 +113,10 @@ const onDragEnd = async (result) => {
     console.log("new Item : ", newTerm[0])
     newTerm[0]["Do"] = finishTime
     TaskList.push(newTerm)
-
-
-    console.log(TaskList)
-    console.log(items)
-    console.log(draggableId)
-    console.log(destination.droppableId)
-
+    //console.log(TaskList)
+    //console.log(items)
+    //console.log(draggableId)
+    //console.log(destination.droppableId)
     return;
   }
   
@@ -132,7 +126,14 @@ const onDragEnd = async (result) => {
     await updateDoc(taskRef, {
       Do: strToTimestamp("1/1/3000")
     });
+    const finishTime = strToTimestamp("1/1/3000")
     setItems(TaskList)
+    const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
+    TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
+
+    console.log("new Item : ", newTerm[0])
+    newTerm[0]["Do"] = finishTime
+    TaskList.push(newTerm)
     return;
   }
 
