@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ByDue, OnlyItem, OnlyTag } from "../Components/blocks"
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { 
+    ByDue,
+    ByDo,
+    ByPriority,
+    Today,
+    DueOverdue,
+    MissingDo,
+    OnlyItem,
+    onlyCompletes
+} from "../Components/blocks"
+import { getAuth } from "firebase/auth";
 import 'firebase/firestore';
-import { useAsync } from "react-async"
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, collection, limit, query, where, orderBy } from 'firebase/firestore'
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
-import { db, auth } from "../Firebase/Firebase";
+import { db } from "../Firebase/Firebase";
 import "./Layout.css"
 import AddTask from "../Components/addTask"
+import AddBlock from '../Components/addBlock';
 
 function Layout1() {
     const task = AddTask();
+    // const block = AddBlock();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
@@ -64,6 +73,7 @@ function Layout1() {
     const nav = useNavigate();
 
     
+
     // Once the snapshot has returned
     if (!loadingInc && !loadingC) {
 
@@ -83,12 +93,15 @@ function Layout1() {
 
         // Check that it's ready
         if (loading) {
+            const block = AddBlock(null);
             return (
                 <h1 class="uncomplete">Loading</h1>
             )
         } else {
             // get their blocks key
             const layoutKey = webConfig.data().layout1
+            const block = AddBlock(layoutKey);
+
             var root = document.querySelector(':root');
             root.style.setProperty('--userColor', webConfig.data().color)
             var layout = []
@@ -100,38 +113,90 @@ function Layout1() {
                 var blockString = layoutKey[i];
                 var blockType = parseInt(blockString.substring(0, 3));
 
-            
-                // Figure out what that block is doing
-                // compTasks, incompTasks, showComp, tasksLimit, index, extraParam, name
+                // Figure out which block to add and fill with parameters from the string
+                // OnlyItem,
                 switch(blockType) {
                     case 0:
+                        // ByDue
                         var showComp = parseInt(blockString.substring(3, 4));
-                        var showDetails = parseInt(blockString.substring(4, 5))
+                        var showDetails = parseInt(blockString.substring(4, 5));
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        // console.log("block Type :", blockType, "\nShow Comp :", showComp, "\nTasks Limit :", tasksLimit, "\nIndex :", index, "\nExtra Parameter :", extraParam, "\nName :", name, "\nShown", showDetails);
                         layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
                         break;
-                    case 2:
-                        var index = blockString.substring(8, 28);
-                        var extraParam = parseInt(blockString.substring(28, 31));
+                    case 1:
+                        // ByDo
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5));
+                        var tasksLimit = parseInt(blockString.substring(5, 8));
+                        var name = blockString.substring(8);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
                         break;
+                    case 2:
+                        // ByPriority
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5));
+                        var tasksLimit = parseInt(blockString.substring(5, 8));
+                        var priorityLimit = parseInt(blockString.substring(8, 9));
+                        var name = blockString.substring(9);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByPriority(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, priorityLimit, i)}</div>);
+                        break;
+                    case 3:
+                        // Today
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5));
+                        var tasksLimit = parseInt(blockString.substring(5, 8));
+                        var name = blockString.substring(8);
+                        layout.push(<div id={id} onClick={scrollTo} >{Today(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        break;
+                    case 4:
+                        // DueOverdue
+                        var showDetails = parseInt(blockString.substring(3, 4));
+                        var tasksLimit = parseInt(blockString.substring(4, 7));
+                        var name = blockString.substring(7);
+                        layout.push(<div id={id} onClick={scrollTo} >{DueOverdue(incompTasksList, showDetails, tasksLimit, name, i)}</div>);
+                        break;
+                    case 5:
+                        // MissingDo
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5));
+                        var tasksLimit = parseInt(blockString.substring(5, 8));
+                        var name = blockString.substring(8);
+                        layout.push(<div id={id} onClick={scrollTo} >{MissingDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        break;
+                    case 6:
+                        // OnlyItem
+                        var showComp = parseInt(blockString.substring(3, 4));
+                        var showDetails = parseInt(blockString.substring(4, 5));
+                        var itemID = blockString.substring(5, 25);
+                        var name = blockString.substring(25);
+                        layout.push(<div id={id} onClick={scrollTo} >{OnlyItem(compTasksList, incompTasksList, showComp, showDetails, itemID, name, i)}</div>);
+                    case 7:
+                        // OnlyCompletes
+                        var showDetails = parseInt(blockString.substring(3, 4));
+                        var tasksLimit = parseInt(blockString.substring(4, 7));
+                        var name = blockString.substring(7);
+                        layout.push(<div id={id} onClick={scrollTo} >{onlyCompletes(compTasksList, showDetails, tasksLimit, name, i)}</div>);
                     default:
                         break;
                 }
             }
+
             // Return the blocks
             return (
                 <div>
                     {task} <br></br>
                     <div id="blocksContainer">
-                        {layout}
+                        { layout }
                         <button class="defaultButton" onClick={ () => nav( "/home" ) }>Add task testing</button>
+                        { block }
                     </div>
+                    
                 </div>
             )
         }
     } else {
+        const block = AddBlock(null);
         return (
             <h1 class="uncomplete">Loading</h1>
         )

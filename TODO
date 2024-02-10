@@ -1,22 +1,52 @@
-William
-- Create scheduling stuff
-
-- Kevin
-    - Create schedule blocks
-    - Create graph blocks
-    - Tags
-        - Each tag has a name and color and index in config file
-        - Any task that has that tag merely references it's index
-        - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
-    - Add block logic and then as button on layout 1 page
-    - Figure out filtering logic for blocks
-    - Figure out block editing stuff
-    - Figure out task editing stuff (similar to add task logic?)
-    - Figure out subtasks
-    - Repeating tasks
-    Working on RN
-    - Allow users to customize color
-        - It's just stored as an integer in webconfig, and that number is used as the h, in the hsl colors in css
-
 Complete
 - Add task as button on layout 1 page
+- Color customization
+- Figure out task editing stuff (similar to add task logic?)
+- Edit tasks
+- Delete tasks
+- New blocks
+- Blocks have a ... if there's more than they can show without clicking on them
+
+Items for v0.1
+- Basic scheduling page - WILL WORKING
+- Add block button - KEVIN WORKING
+- Edit blocks
+- Remove blocks
+
+Items for v0.2
+- User settings menu
+    - Something with color?
+- Move empty blocks to end
+- Change tasks to NOT list description unless clicked on
+    - Have it show due and do date on one line and then priority and duration on another
+- Reorder blocks
+
+Items for v0.3
+- Delete old tasks (how long till it does it?)
+- Max tasks per block (user setting?)
+
+Items for v0.4
+- Create schedule blocks
+- Create graph blocks
+
+Items for v0.5
+- Tags
+    - Each tag has a name and color and index in config file
+    - Any task that has that tag merely references it's index
+    - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
+
+Items for v0.6
+- Subtasks
+
+Items for v0.7
+- Repeating tasks
+
+Items for v1.0
+- Better visuals
+- Different pages
+    - Diff page for just generally all tasks
+- Cool css animation for marking task as complete?
+
+Ideas
+- How long until it deletes completed items?
+    - Paid users can say infinite?

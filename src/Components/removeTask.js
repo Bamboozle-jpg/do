@@ -1,10 +1,4 @@
 import * as React from 'react';
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from "react";
 import "../App.css"
 import 'firebase/firestore';
 import Popup from 'reactjs-popup';
@@ -46,7 +40,7 @@ const RemoveTask = (task) => {
     return (
         <div>
             <Popup trigger= 
-                {task ? <img class="trash" width="40" height="40" src={trash} /> : <div class ="defaultButton" > Add Task </div> } 
+                {task ? <img class="trash" width="35" height="35" src={trash} /> : <div class ="defaultButton" > Add Task </div> } 
                 modal nested
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {
