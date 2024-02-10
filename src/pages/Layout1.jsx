@@ -17,11 +17,10 @@ import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../Firebase/Firebase";
 import "./Layout.css"
 import AddTask from "../Components/addTask"
-import AddBlock from '../Components/addBlock';
+import ChooseBlock from '../Components/chooseBlock';
 
 function Layout1() {
     const task = AddTask();
-    // const block = AddBlock();
     const auth = getAuth();
     const [user, setUser] = useState('');
     //these two logs return null on refresh, so it shows onAuthStateChanged 
@@ -93,14 +92,14 @@ function Layout1() {
 
         // Check that it's ready
         if (loading) {
-            const block = AddBlock(null);
+            const block = ChooseBlock(null);
             return (
                 <h1 class="uncomplete">Loading</h1>
             )
         } else {
             // get their blocks key
             const layoutKey = webConfig.data().layout1
-            const block = AddBlock(layoutKey);
+            const block = ChooseBlock(layoutKey);
 
             var root = document.querySelector(':root');
             root.style.setProperty('--userColor', webConfig.data().color)
@@ -122,7 +121,7 @@ function Layout1() {
                         var showDetails = parseInt(blockString.substring(4, 5));
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByDue(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, blockString)}</div>);
                         break;
                     case 1:
                         // ByDo
@@ -130,7 +129,7 @@ function Layout1() {
                         var showDetails = parseInt(blockString.substring(4, 5));
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        layout.push(<div id={id} onClick={scrollTo} >{ByDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, blockString)}</div>);
                         break;
                     case 2:
                         // ByPriority
@@ -139,7 +138,7 @@ function Layout1() {
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var priorityLimit = parseInt(blockString.substring(8, 9));
                         var name = blockString.substring(9);
-                        layout.push(<div id={id} onClick={scrollTo} >{ByPriority(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, priorityLimit, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{ByPriority(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, priorityLimit, blockString)}</div>);
                         break;
                     case 3:
                         // Today
@@ -147,14 +146,14 @@ function Layout1() {
                         var showDetails = parseInt(blockString.substring(4, 5));
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        layout.push(<div id={id} onClick={scrollTo} >{Today(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{Today(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, blockString)}</div>);
                         break;
                     case 4:
                         // DueOverdue
                         var showDetails = parseInt(blockString.substring(3, 4));
                         var tasksLimit = parseInt(blockString.substring(4, 7));
                         var name = blockString.substring(7);
-                        layout.push(<div id={id} onClick={scrollTo} >{DueOverdue(incompTasksList, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{DueOverdue(incompTasksList, showDetails, tasksLimit, name, blockString)}</div>);
                         break;
                     case 5:
                         // MissingDo
@@ -162,7 +161,7 @@ function Layout1() {
                         var showDetails = parseInt(blockString.substring(4, 5));
                         var tasksLimit = parseInt(blockString.substring(5, 8));
                         var name = blockString.substring(8);
-                        layout.push(<div id={id} onClick={scrollTo} >{MissingDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{MissingDo(compTasksList, incompTasksList, showComp, showDetails, tasksLimit, name, blockString)}</div>);
                         break;
                     case 6:
                         // OnlyItem
@@ -170,13 +169,13 @@ function Layout1() {
                         var showDetails = parseInt(blockString.substring(4, 5));
                         var itemID = blockString.substring(5, 25);
                         var name = blockString.substring(25);
-                        layout.push(<div id={id} onClick={scrollTo} >{OnlyItem(compTasksList, incompTasksList, showComp, showDetails, itemID, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{OnlyItem(compTasksList, incompTasksList, showComp, showDetails, itemID, name, blockString)}</div>);
                     case 7:
                         // OnlyCompletes
                         var showDetails = parseInt(blockString.substring(3, 4));
                         var tasksLimit = parseInt(blockString.substring(4, 7));
                         var name = blockString.substring(7);
-                        layout.push(<div id={id} onClick={scrollTo} >{onlyCompletes(compTasksList, showDetails, tasksLimit, name, i)}</div>);
+                        layout.push(<div id={id} onClick={scrollTo} >{onlyCompletes(compTasksList, showDetails, tasksLimit, name, blockString)}</div>);
                     default:
                         break;
                 }
@@ -185,10 +184,14 @@ function Layout1() {
             // Return the blocks
             return (
                 <div>
-                    {task} <br></br>
+                    <div class="rowWrapperSplit">
+                        {task}
+                        <button class="defaultButton" onClick={ () => nav( "/calendar" ) }>Assign Do Dates</button>
+                    </div>
+                    <br></br>
                     <div id="blocksContainer">
                         { layout }
-                        <button class="defaultButton" onClick={ () => nav( "/home" ) }>Add task testing</button>
+                        
                         { block }
                     </div>
                     
@@ -196,7 +199,7 @@ function Layout1() {
             )
         }
     } else {
-        const block = AddBlock(null);
+        const block = ChooseBlock(null);
         return (
             <h1 class="uncomplete">Loading</h1>
         )

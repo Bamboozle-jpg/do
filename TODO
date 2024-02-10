@@ -5,40 +5,43 @@ Complete
 - Edit tasks
 - Delete tasks
 - New blocks
-- Blocks have a ... if there's more than they can show without clicking on them
+- Blocks have an elipsis if there's more than they can show without clicking on them
+- Add block button
+- delete block button
 
 Items for v0.1
 - Basic scheduling page - WILL WORKING
-- Add block button - KEVIN WORKING
-- Edit blocks
-- Remove blocks
 
 Items for v0.2
+- sidebar
 - User settings menu
     - Something with color?
-- Move empty blocks to end
+
+Items for v0.3
+- Move empty blocks to end? (hide them?)
 - Change tasks to NOT list description unless clicked on
     - Have it show due and do date on one line and then priority and duration on another
 - Reorder blocks
+- Edit blocks
 
-Items for v0.3
+Items for v0.4
 - Delete old tasks (how long till it does it?)
 - Max tasks per block (user setting?)
 
-Items for v0.4
+Items for v0.5
 - Create schedule blocks
 - Create graph blocks
 
-Items for v0.5
+Items for v0.6
 - Tags
     - Each tag has a name and color and index in config file
     - Any task that has that tag merely references it's index
     - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
 
-Items for v0.6
+Items for v0.7
 - Subtasks
 
-Items for v0.7
+Items for v0.8
 - Repeating tasks
 
 Items for v1.0

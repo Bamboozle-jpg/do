@@ -12,10 +12,10 @@ import 'firebase/firestore';
 import Popup from 'reactjs-popup';
 import { collection, addDoc, Timestamp, doc, setDoc } from "firebase/firestore"; 
 import { db, auth } from "../Firebase/Firebase";
-import "./addTask.css"
-import dots from "./../assets/info.svg"
+import "./addTask.css";
+import dots from "./../assets/info.svg";
 
-const AddBlock = (blocks, blockType = 1, block = null) => {
+const AddBlock = (blocks, blockType = 1) => {
 
     let [optionsDiv, setOptions] = useState(<div></div>)
     const [taskLimit, setTaskLimit] = useState(8);
@@ -104,7 +104,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
                 { taskLimitDiv }
                 { priorityDiv }
             </>
-            initBlockName = "By Due Date"
+            initBlockName = "By Priority"
             break;
         // Today
         case 3:
@@ -118,7 +118,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
         // Due Overdue
         case 4:
             optionsDiv = <>
-                { completesDiv }
+                { detailsDiv }
                 { taskLimitDiv }
             </>
             initBlockName = "Due Now or Overdue"
@@ -181,6 +181,40 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
         }
     }
 
+    var blockTitle = "";
+   
+    switch (blockType) {
+        case 0:
+            blockTitle = "By Due Date";
+            break;
+        case 1:
+            blockTitle = "By Do Date";
+            break;
+        case 2:
+            blockTitle = "By Priority";
+            break;
+        case 3:
+            blockTitle = "By Completes";
+            break;
+        case 4:
+            blockTitle = "Due Now or Overdue";
+            break;
+        case 5:
+            blockTitle = "Missing Do Date";
+            break;
+        case 6:
+            blockTitle = "TASK NAME HERE";
+            break;
+        case 7:
+            blockTitle = "Completed Tasks";
+            break;
+        default:
+            blockTitle = "By Due Date";
+            break;
+    }
+
+// Rest of the code...
+
     const [blockName, setName] = useState(initBlockName);
 
     const addBlockSubmit = async () => {
@@ -218,7 +252,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
                 try {
                     let priorityCutoff = document.getElementById("prioritySelector");
                     console.log(priorityCutoff);
-                    priorityCutoffStr = priorityCutoff.toString();
+                    priorityCutoffStr = priorityCutoff.value.toString();
                 } catch (error) {}
 
                 switch (blockType) {
@@ -229,7 +263,6 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
                         // B = show incomplete tasks
                         // C = show details
                         // D = tasks limit
-                        console.log("detailsStr : ", detailsStr)
                         newItem = "000" + showCompletesStr + detailsStr + taskLimitStr + blockName;
                         break;
                     // By Do Date
@@ -239,11 +272,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
                         // B = show incomplete tasks
                         // C = show details
                         // D = tasks limit
-                        console.log("detailsStr : ", detailsStr)
-                        console.log("showCompletesStr : ", showCompletesStr)
-                        console.log("taskLimitStr : ", taskLimitStr)
                         newItem = "001" + showCompletesStr + detailsStr + taskLimitStr + blockName;
-                        console.log("newItem : ", newItem)
                         break;
                     // By Priority
                     case 2:
@@ -322,7 +351,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
     var color = getComputedStyle(document.documentElement).getPropertyValue('--userColor');
     return (
         <div>
-            <Popup trigger= { <div class ="wideButton" > Add Block </div> }
+            <Popup trigger= {  <div class ="wideButton" style={{marginLeft: 100 + "px", marginRight: 100 + "px", fontSize: 30 + "px", textAlign: 'center'}} > {blockTitle} </div> }
                 modal nested onOpen={() => reset()}
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {
@@ -347,11 +376,7 @@ const AddBlock = (blocks, blockType = 1, block = null) => {
                                     </div>
                                     { optionsDiv }
                                     <div class="centerContents">
-                                        {block == null ? 
-                                            <button class="addTaskButton" onClick={() => addBlockSubmit().then( () => close())}>Add Block</button> : 
-                                            // <button class="addTaskButton" onClick={() => updateTaskItem(task).then( () => close())}>Update Task</button>
-                                            <></>
-                                        }
+                                        <button class="addTaskButton" onClick={() => addBlockSubmit().then( () => close())}>Add Block</button> : 
                                         <button class="addTaskButton" onClick=
                                         {() => close()}>
                                             Cancel

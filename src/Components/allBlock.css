@@ -50,7 +50,7 @@ main {
     border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
-    width: 80vw;
+    width: 90vw;
 }
 
 [data-glow-popup] {
@@ -60,6 +60,7 @@ main {
     position: relative;
     touch-action: none;
     max-height: 80vh;
+    min-width: 60vw;
     /* align-items: center; */
 }
 
@@ -103,6 +104,16 @@ main {
     background-color: transparent;
     border-color: transparent;
     text-decoration: underline;
+}
+
+.blockTitleDelete {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+    margin: auto
 }
 
 .blockTitle:hover {
