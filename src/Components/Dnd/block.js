@@ -30,15 +30,18 @@ function Tasks( props ){
     return(
         <Draggable key = {Key} draggableId= {Key} index={index} >
             {(provided, snapshot) => (
-                <div className = "task" style={{ 
-                    backgroundColor: snapshot.isDragging ? 'blue' : 'white'
-                 }}
-                {...provided.draggableProps} {...provided.dragHandleProps} 
-                ref={provided.innerRef} >
+                <div className = "task" 
+                {...provided.draggableProps} 
+                {...provided.dragHandleProps} 
+                ref={provided.innerRef} 
+                style={{
+                    ...provided.draggableProps.style,
+                    backgroundColor: snapshot.isDragging ? "lightgreen" : "white"}}>
                     <div class = "title">{title}</div>
-                    <div class = "field">{desc}</div>
+                    <div class = "field">Desc: {desc}</div>
                     <div class = "field">{priority}</div>
                     { due != "1/1/3000" ? <div>Due : {due}</div> : <div>NO DUE DATE</div> }
+                    {console.log("Provided Style:", provided.draggableProps.style)}
                 </div>
             )}
         </Draggable>
@@ -62,8 +65,12 @@ function block(tasksList) {
         //the div that contains the incompleted tasks
         //droppableId needs to be made to scale with future blocks, probably with calendar ids
             <Droppable droppableId='NoDo'>
-                {(provided) => (
-                    <div class = "tasks" className='tasks' {...provided.droppableProps} ref={provided.innerRef}>
+                {(provided, snapshot) => (
+                    <div class = "tasks" className='tasks' {...provided.droppableProps} ref={provided.innerRef}
+                    style={{
+                        ...provided.droppableProps.style,
+                        backgroundColor: snapshot.isDraggingOver ? "skyblue" : "white",
+                        transition: 'background-color 0.4s ease'}}>
                         <h4>No Do</h4>
                         <div>
                         { NewList && NewList.map( (tsk, index) => <Tasks

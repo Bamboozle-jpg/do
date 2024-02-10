@@ -17,6 +17,7 @@ function Dnd() {
   const [user, setUser] = useState('');
   const [items, setItems] = useState([]);
 
+
   //these two logs return null on refresh, so it shows onAuthStateChanged 
   //is working correctly, but in allBlock, log(user.email) is null. Why?
   //to see null user.email log, change line 29 here back to allBlock = AllBlock(user)
@@ -140,10 +141,12 @@ const onDragEnd = async (result) => {
 
 };
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-    <Days tasksList = {items} />
-    { layout }
-    </DragDropContext>
+
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Days tasksList = {items} />
+        { layout }
+      </DragDropContext>
+
   )
 }
 

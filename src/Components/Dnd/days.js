@@ -38,7 +38,11 @@ function Days({tasksList}) {
             <Droppable droppableId = {formattedDate}>
                 {(provided, snapshot) => (
                     <div class = "day" className = 'day' key = {i} 
-                    day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}>
+                    day = {formattedDate} {...provided.droppableProps} ref={provided.innerRef}
+                    style={{
+                        ...provided.droppableProps.style,
+                        backgroundColor: snapshot.isDraggingOver ? "skyblue" : "white",
+                        transition: 'background-color 0.4s ease'}}>
                             <h4 style={{textAlign: 'center'}}>{formattedDate}</h4>
                             <div>
                                 { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
