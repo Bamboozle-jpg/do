@@ -1,0 +1,75 @@
+.noDo{
+width: 12%;
+height: 80vh;
+position: relative;
+float: right;
+min-height: 200px;
+}
+
+.task{
+    width: 150px;
+    padding-left: 6px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border: 2px dotted black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.task:hover {
+    background-color: lightgray; 
+  }
+
+
+.field{
+    font-size: 17px;
+}
+
+.tasks {
+    height: 80vh;
+    width: 100px;
+    padding: 10px;
+}
+
+.days{
+    float: left;
+    width: 88%;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.day{
+    flex-grow: 1;
+    border: 1px solid black; 
+    overflow-y: auto; 
+    max-height: 800px; 
+    width: 0; 
+    min-width: 0; 
+    margin-right: 5px;
+    border-radius: 5px;
+
+}
+
+.title{
+    font-size: 20px;
+    font-style: italic;
+}
+
+.bruhcontainer{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+}
+.bruh{
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: aliceblue;
+}

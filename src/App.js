@@ -8,6 +8,7 @@ import MainPage from './pages/Home';
 import SignIn from './pages/SignIn';
 import Landing from './pages/Landing'
 import Layout1 from './pages/Layout1'
+import Dnd from './pages/Dnd'
 
 
 
@@ -27,6 +28,8 @@ function App() {
             <Route path="/" element={ <Landing/> } />
             <Route path="/signIn" element={ <SignIn/> } />
             <Route path='/layout1' element={ <Layout1/> } />
+            <Route path='/calendar' element={ <Dnd/> } />
+
           </Routes>
         </BrowserRouter>
         // <div>hi!</div>
