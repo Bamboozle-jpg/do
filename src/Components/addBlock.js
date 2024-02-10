@@ -15,43 +15,139 @@ import { db, auth } from "../Firebase/Firebase";
 import "./addTask.css"
 import dots from "./../assets/info.svg"
 
-const AddBlock = (blocks, blockType = 0, block = null) => {
+const AddBlock = (blocks, blockType = 1, block = null) => {
 
     let [optionsDiv, setOptions] = useState(<div></div>)
     const [taskLimit, setTaskLimit] = useState(8);
+    const [itemID, setItemID] = useState("XXXXXXXXXXXXXXXXXXXX");
+
     let initBlockName;
 
+    const completesDiv = 
+    <div class="rowWrapperClose">
+        <div class="popupBlockSubtitle">Show Completed Item: </div>
+        <label class="switch" for="completesCheckbox">
+            <input type="checkbox" id="completesCheckbox" />
+            <div class="slider round"></div>
+        </label>
+    </div>
+    const detailsDiv = 
+    <div class="rowWrapperClose">
+        <div class="popupBlockSubtitle">Show Details: </div>
+        <label class="switch" for="detailsCheckbox">
+            <input type="checkbox" id="detailsCheckbox" />
+            <div class="slider round"></div>
+        </label>
+    </div>
+    const taskLimitDiv =
+    <div class="rowWrapperClose">
+        <div class="popupBlockSubtitle">Main View Task Limit: </div>
+        <input 
+            class = "defaultNum"
+            type = "number"
+            min = "1"
+            step = "1"
+            value = {taskLimit}
+            onChange = {(e) => setTaskLimit(e.target.value)}
+            placeholder="#"
+        />
+    </div>
+    const priorityDiv = 
+    <div class="rowWrapperClose">
+        <div class="popupBlockSubtitle">Priority Cutoff: </div>
+        <select class="defaultSelector" name="dropdown" id="prioritySelector">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected="selected">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    const itemIDDiv = 
+    <div class="rowWrapperClose">
+        <div class="popupBlockSubtitle">Item ID:   </div>
+        <input 
+            class = "defaultInput"
+            contenteditable="true"
+            type = "text"
+            value = {itemID}
+            onChange = {(e) => setItemID(e.target.value)}
+            placeholder="20 Character ID"
+            id = "IDInput"
+        />
+    </div>
+
     switch(blockType) {
+        // By Due
         case 0:
             optionsDiv = <>
-                <div class="rowWrapperClose">
-                    <div class="popupBlockSubtitle">Show Completed Item: </div>
-                    <label class="switch" for="completesCheckbox">
-                        <input type="checkbox" id="completesCheckbox" />
-                        <div class="slider round"></div>
-                    </label>
-                </div>
-                <div class="rowWrapperClose">
-                    <div class="popupBlockSubtitle">Show Details: </div>
-                    <label class="switch" for="detailsCheckbox">
-                        <input type="checkbox" id="detailsCheckbox" />
-                        <div class="slider round"></div>
-                    </label>
-                </div>
-                <div class="rowWrapperClose">
-                    <div class="popupBlockSubtitle">Main View Task Limit: </div>
-                    <input 
-                        class = "defaultNum"
-                        type = "number"
-                        min = "1"
-                        step = "1"
-                        value = {taskLimit}
-                        onChange = {(e) => setTaskLimit(e.target.value)}
-                        placeholder="#"
-                    />
-                </div>
+                { completesDiv }
+                { detailsDiv }
+                { taskLimitDiv }
             </>
             initBlockName = "By Due Date"
+            break;
+        // By Do
+        case 1:
+            optionsDiv = <>
+                { completesDiv }
+                { detailsDiv }
+                { taskLimitDiv }
+            </>
+            initBlockName = "By Do Date"
+            break;
+        // Priority 
+        case 2:
+            optionsDiv = <>
+                { completesDiv }
+                { detailsDiv }
+                { taskLimitDiv }
+                { priorityDiv }
+            </>
+            initBlockName = "By Due Date"
+            break;
+        // Today
+        case 3:
+            optionsDiv = <>
+                { completesDiv }
+                { detailsDiv }
+                { taskLimitDiv }
+            </>
+            initBlockName = "Today"
+            break;
+        // Due Overdue
+        case 4:
+            optionsDiv = <>
+                { completesDiv }
+                { taskLimitDiv }
+            </>
+            initBlockName = "Due Now or Overdue"
+            break;
+        // Missing Do
+        case 5:
+            optionsDiv = <>
+                { completesDiv }
+                { detailsDiv }
+                { taskLimitDiv }
+            </>
+            initBlockName = "Missing Do Date"
+            break;
+        // Item ID
+        case 6:
+            optionsDiv = <>
+                { completesDiv }
+                { detailsDiv }
+                { itemIDDiv }
+            </>
+            initBlockName = "TASK NAME HERE"
+            break;
+        // Only Completes
+        case 7:
+            optionsDiv = <>
+                { detailsDiv }
+                { taskLimitDiv }
+            </>
+            initBlockName = "Completed Tasks"
             break;
         default:
             optionsDiv = <div>{blockType}</div>
@@ -76,17 +172,54 @@ const AddBlock = (blocks, blockType = 0, block = null) => {
         } catch (error) {
             console.log("details not found")
         }
+
+        try {
+            let priority = document.getElementById("prioritySelector");
+            priority = 3;
+        } catch (error) {
+            console.log("priority not found")
+        }
     }
 
     const [blockName, setName] = useState(initBlockName);
 
     const addBlockSubmit = async () => {
+        let priorityCutoffStr = null;
+        let showCompletesStr = null;
+        let detailsStr = null;
+        let taskLimitStr = null;
+
         if (blockName.trim() !== ''){
             try{
                 const user = auth.currentUser
                 const userEmail = user ? user.email : '';
                 const taskRef = doc(db, userEmail, 'webConfig');
                 let newItem;
+
+                try {
+                    const showCompletes = document.getElementById("completesCheckbox").checked;
+                    showCompletesStr = showCompletes ? "1" : "0";
+                } catch (error) {}
+
+                try {
+                    const details = document.getElementById("detailsCheckbox").checked;
+                    detailsStr = details ? "1" : "0";
+                } catch (error) {
+                    console.log("no details?")
+                }
+
+                try {
+                    taskLimitStr = Math.min(Math.max(Math.floor(taskLimit), 1), 999);
+                    taskLimitStr = taskLimit.toString().padStart(3, "0");
+                } catch (error) {
+                    console.log(error.message)
+                }
+
+                try {
+                    let priorityCutoff = document.getElementById("prioritySelector");
+                    console.log(priorityCutoff);
+                    priorityCutoffStr = priorityCutoff.toString();
+                } catch (error) {}
 
                 switch (blockType) {
                     // By Due Date
@@ -96,14 +229,77 @@ const AddBlock = (blocks, blockType = 0, block = null) => {
                         // B = show incomplete tasks
                         // C = show details
                         // D = tasks limit
-                        const showCompletes = document.getElementById("completesCheckbox").checked;
-                        let showCompletesStr = showCompletes ? "1" : "0";
-                        const details = document.getElementById("detailsCheckbox").checked;
-                        let detailsStr = details ? "1" : "0";
-                        let taskLimitStr = Math.min(Math.max(Math.floor(taskLimit), 1), 999);
-                        taskLimitStr = taskLimit.padStart(3, "0");
-
+                        console.log("detailsStr : ", detailsStr)
                         newItem = "000" + showCompletesStr + detailsStr + taskLimitStr + blockName;
+                        break;
+                    // By Do Date
+                    case 1:
+                        // Takes for AAA B C DDD nameAsString
+                        // A = block type = 001
+                        // B = show incomplete tasks
+                        // C = show details
+                        // D = tasks limit
+                        console.log("detailsStr : ", detailsStr)
+                        console.log("showCompletesStr : ", showCompletesStr)
+                        console.log("taskLimitStr : ", taskLimitStr)
+                        newItem = "001" + showCompletesStr + detailsStr + taskLimitStr + blockName;
+                        console.log("newItem : ", newItem)
+                        break;
+                    // By Priority
+                    case 2:
+                        // Takes for AAA B C DDD E nameAsString
+                        // A = block type = 002
+                        // B = show incomplete tasks
+                        // C = show details
+                        // D = tasks limit
+                        // E = Priority cutoff
+                        newItem = "002" + showCompletesStr + detailsStr + taskLimitStr + priorityCutoffStr + blockName
+                        break;
+                    // Today
+                    case 3:
+                        // Takes for AAA B C DDD nameAsString
+                        // A = block type = 003
+                        // B = show incomplete tasks
+                        // C = show details
+                        // D = tasks limit
+                        newItem = "003" + showCompletesStr + detailsStr + taskLimitStr + blockName;
+                        break;
+                    // Due Now or Overdue
+                    case 4:
+                        // Takes for AAA B CCC nameAsString
+                        // A = block type = 004
+                        // B = show details
+                        // C = tasks limit
+                        newItem = "004" + detailsStr + taskLimitStr + blockName;
+                        break;
+                    // Missing Do Date
+                    case 5:
+                        // Takes for AAA B C DDD nameAsString
+                        // A = block type = 005
+                        // B = show incomplete tasks
+                        // C = show details
+                        // D = tasks limit
+                        newItem = "005" + showCompletesStr + detailsStr + taskLimitStr + blockName;
+                        break;
+                    // Only Item
+                    case 6:
+                        // Takes for AAA B C XXXXXXXXXXXXXXXXXXXX (x20) nameAsString
+                        // A = block type = 006
+                        // B = show incomplete tasks
+                        // C = show details
+                        // X = item ID
+                        newItem = "006" + showCompletesStr + detailsStr + itemID + blockName;
+                        break;
+                    // Only Completes
+                    case 7:
+                        // Takes for AAA B CCC nameAsString
+                        // A = block type = 007
+                        // B = show details
+                        // C = tasks limit
+                        newItem = "007" + detailsStr + taskLimitStr + blockName;
+                        break;
+                    default:
+                        break;
                 }
                 
                 let layout1 = blocks;

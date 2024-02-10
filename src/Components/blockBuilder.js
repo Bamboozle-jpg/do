@@ -196,7 +196,12 @@ function buildDiv(tasksList, name, showDetails, tasksLimit, i, detail) {
                     showDetails={showDetails}
                     detail={detail}
                 /> ) }
-                { cutOff ? <div class="uncompleteTitle" style= {{fontSize: 150 + "px", marginTop: -120 + "px", marginBottom: -20 + "px", marginLeft: 5 + "px"}}>. . . </div> : <></> }
+                { cutOff ? <div class="rowWrapperClose" style={{marginTop: -15 + "px", marginBottom: -15 + "px"}}>
+                    <div class="uncompleteTitle" style= {{fontSize: 20 + "px", marginTop: -30 + "px", marginBottom: -20 + "px", marginLeft: 5 + "px", marginRight: 15 + "px"}}>⬤</div>
+                    <div class="uncompleteTitle" style= {{fontSize: 20 + "px", marginTop: -30 + "px", marginBottom: -20 + "px", marginLeft: 5 + "px", marginRight: 15 + "px"}}>⬤</div>
+                    <div class="uncompleteTitle" style= {{fontSize: 20 + "px", marginTop: -30 + "px", marginBottom: -20 + "px", marginLeft: 5 + "px", marginRight: 15 + "px"}}>⬤</div>
+
+                </div> : <></> }
             </article>
         </div>
     )
