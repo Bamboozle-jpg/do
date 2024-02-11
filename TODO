@@ -18,6 +18,9 @@ Items for v0.2
 - sidebar
 - User settings menu
     - Something with color?
+- User setting for task size scale factor
+- Arrow pointing to how many tasks you have offscreen on either side
+- Fix scrollbars and visuals for assign do dates
 
 Items for v0.3
 - Move empty blocks to end? (hide them?)
