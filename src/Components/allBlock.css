@@ -2,7 +2,7 @@
   --backdrop: hsl(0 0% 60% / 0.12);
   --backup-border: var(--backdrop);
   --size: 200;
-  --userColor: 100
+  --userColor: 310
 }
 
 body {
