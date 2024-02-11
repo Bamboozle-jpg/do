@@ -194,7 +194,7 @@ const AddBlock = (blocks, blockType = 1) => {
             blockTitle = "By Priority";
             break;
         case 3:
-            blockTitle = "By Completes";
+            blockTitle = "Today";
             break;
         case 4:
             blockTitle = "Due Now or Overdue";
