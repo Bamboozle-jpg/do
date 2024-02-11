@@ -7,7 +7,7 @@ body{
 }
 
 :root {
-    --backdrop: hsl(0 0% 60% / 0.12);
+    --backdrop: hsla(0, 100%, 50%, 0.12);
     --backup-border: var(--backdrop);
     --size: 200;
     --userColor: 100
