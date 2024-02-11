@@ -12,13 +12,16 @@ Complete
 v0.1 published
 
 Items for v0.2
+- Fix scrolling
 - Duration totals for each day on calendar screen
+- More padding to delete screen
 - sidebar
 - User settings menu
     - Something with color?
 
 Items for v0.3
 - Move empty blocks to end? (hide them?)
+- sort/reorder blocks
 - Change tasks to NOT list description unless clicked on
     - Have it show due and do date on one line and then priority and duration on another
 - Reorder blocks
@@ -26,7 +29,6 @@ Items for v0.3
 
 Items for v0.4
 - Delete old tasks (how long till it does it?)
-- Max tasks per block (user setting?)
 
 Items for v0.5
 - Create schedule blocks
