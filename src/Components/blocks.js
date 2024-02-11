@@ -139,7 +139,7 @@ const DueOverdue = (incompleteTasks, showDetails, tasksLimit, name, i) => {
     var today = dayjs(now).startOf('day')
     retTasks = retTasks.filter(task => dayjs(task.Due.toDate()).isSameOrBefore(today));
 
-    return (buildDiv(retTasks, name, showDetails, tasksLimit, i, null));
+    return (buildDiv(retTasks, name, showDetails, tasksLimit, i, "due"));
 }
 
 // 005
