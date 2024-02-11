@@ -312,7 +312,7 @@ main {
 
 .scrolling {
     max-height: 800px;
-    overflow-y: auto;
+    overflow-y: scroll;
     grid-template-rows: 1fr auto;
     gap: 1rem;
     display: grid;  
