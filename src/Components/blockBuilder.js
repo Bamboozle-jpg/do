@@ -41,7 +41,6 @@ function TaskPretty(props) {
     // See what we add to title
     switch(detail) {
         case "due":
-
             title = title + " | Due : " + (due.toString() == "1/1/3000" ? "NO DUE DATE" : due.toString())
             break;
         case "do":
