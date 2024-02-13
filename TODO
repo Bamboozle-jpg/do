@@ -11,7 +11,18 @@ Complete
 - Basic task organization page
 v0.1 published
 
+Items for v0.1.1
+- Update name and icon for website
+- Add title and version to top of layout1
+- Move buttons on calendar screen to top
+- Change overdue to overdue, due now or do in past
+- Add block descriptions
+- Fix no do block on assign do dates page not scrolling
+- Constrain titles to 1 line for assign do dates page
+
 Items for v0.2
+- Link to progress page
+- Add task focus/display screen
 - Fix scrolling
 - Duration totals for each day on calendar screen
 - More padding to delete screen
