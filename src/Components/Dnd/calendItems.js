@@ -30,7 +30,8 @@ function Tasks( props ){
 
     const short = length < 50
     const shortish = length < 75
-    const long = length > 149
+    const medium = length >= 100
+    const long = length >= 125
     console.log(long, length)
 
     return(
@@ -44,10 +45,11 @@ function Tasks( props ){
                     style={{
                         ...provided.draggableProps.style,
                         backgroundColor: snapshot.isDragging ? "hsl(var(--userColor), 10%, 40%)" : "hsl(var(--userColor), 10%, 60%)",
-                        height: Math.max(25, duration*100)
+                        height: Math.max(25, duration*100),
+                        width: 10 + "vw",
                     }}
                 >
-                    <div class="title" style={{overflow: "hidden"}}>{title}</div>
+                    <div class="title" style={{overflow: "clip", height: medium ? long ? 69 : 46 : 23}}>{title}</div>
                     {short ? <></> : <div class = "field"> Priority: {priority}</div>}
                     {shortish ? <></> : (due != "1/1/3000" ? <div class = "field">Due : {due}</div> : <div>NO DUE DATE</div>)}
                 </div>

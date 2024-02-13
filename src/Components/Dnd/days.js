@@ -55,7 +55,7 @@ function Days({tasksList}) {
                         transition: 'background-color 0.4s ease'}}>
                             <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-20px'}}>{dayOfWeek}</h4>
                             <h4 style={{textAlign: 'center', fontSize: '20px'}}>{formattedDate}</h4>
-                            <div>
+                            <div style={{display: 'flex', flexDirection: "column", alignItems: 'center', justifyContent: 'center'}}>
                                 { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
                                 firestoreKey = {tsk.Key}
                                 index = {index}
@@ -90,7 +90,7 @@ function Days({tasksList}) {
                 </div>
                 <button className='navButton' onClick={ () => nav( "/layout1" )}>Layout</button>
                 {days} 
-             </div>
+            </div>
     )
 }
 
