@@ -9,18 +9,21 @@ Complete
 - Add block button
 - delete block button
 - Basic task organization page
-v0.1 published
-
-Items for v0.1.1
+v0.1.0 published
 - Update name and icon for website
 - Add title and version to top of layout1
+v0.1.1 published
+
+Items for v0.2
+- Image for add task
+- Add link to view this list
 - Move buttons on calendar screen to top
 - Change overdue to overdue, due now or do in past
 - Add block descriptions
 - Fix no do block on assign do dates page not scrolling
 - Constrain titles to 1 line for assign do dates page
 
-Items for v0.2
+Items for v0.3
 - Link to progress page
 - Add task focus/display screen
 - Fix scrolling
@@ -33,7 +36,7 @@ Items for v0.2
 - Arrow pointing to how many tasks you have offscreen on either side
 - Fix scrollbars and visuals for assign do dates
 
-Items for v0.3
+Items for v0.4
 - Move empty blocks to end? (hide them?)
 - sort/reorder blocks
 - Change tasks to NOT list description unless clicked on
@@ -41,23 +44,23 @@ Items for v0.3
 - Reorder blocks
 - Edit blocks
 
-Items for v0.4
+Items for v0.5
 - Delete old tasks (how long till it does it?)
 
-Items for v0.5
+Items for v0.6
 - Create schedule blocks
 - Create graph blocks
 
-Items for v0.6
+Items for v0.7
 - Tags
     - Each tag has a name and color and index in config file
     - Any task that has that tag merely references it's index
     - For adding tags, have all tags visible and unselected, and when adding a task you can turn any of them on
 
-Items for v0.7
+Items for v0.8
 - Subtasks
 
-Items for v0.8
+Items for v0.9
 - Repeating tasks
 
 Items for v1.0

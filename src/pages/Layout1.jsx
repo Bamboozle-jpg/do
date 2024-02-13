@@ -19,6 +19,7 @@ import "./Layout.css"
 import AddTask from "../Components/addTask"
 import ChooseBlock from '../Components/chooseBlock';
 import SetUp from '../Components/setupNew';
+import logo from "./../assets/do.png"
 
 function Layout1() {
 
@@ -186,9 +187,15 @@ function Layout1() {
             // Return the blocks
             return (
                 <div>
-                    <div class="rowWrapperSplit">
-                        {task}
-                        <button class="defaultButton" onClick={ () => nav( "/calendar" ) }>Assign Do Dates</button>
+                    <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px"}}>
+                        <div class="rowWrapperClose">
+                            <img src={logo} width="100" height="100"/>
+                            <div class="popupBlockTitle" style={{marginBottom: -25 + "px"}}>v0.1.1 (Alpha)</div>
+                        </div>
+                        <div class="rowWrapperClose">
+                            {task}
+                            <button class="defaultButton" style={{marginLeft: 20 + "px"}} onClick={ () => nav( "/calendar" ) }>Assign Do Dates</button>
+                        </div>
                     </div>
                     <br></br>
                     <div id="blocksContainer">
