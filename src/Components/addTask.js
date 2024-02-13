@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import "./addTask.css"
 import { newTheme } from "./dateTheme"
 import dots from "./../assets/info.svg"
+import addTaskImage from "./../assets/addTask.svg"
 
 const AddTask = (task = null) => {
 
@@ -247,10 +248,16 @@ const AddTask = (task = null) => {
         });
     }
 
+
+
     return (
         <div>
             <Popup trigger= 
-                {task ? <img class="dots" width="60" height="16" src={dots} /> : <div class ="defaultButton" > Add Task </div> } 
+                {task ? <img class="dots" width="60" height="16" src={dots} /> : 
+                <div class="defaultButton" style={{display: "flex", flexDirection: "row"}}> 
+                    <img width="40" height="50" src={addTaskImage} />
+                    <div class="popupBlockTitle" style={{paddingLeft: 15 + "px", marginRight: -10 + "px"}} >Add Task</div>
+                </div>} 
                 modal nested onOpen={() => reset()}
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {
