@@ -42,6 +42,7 @@ function Days({tasksList}) {
             return formattedDate === formattedDate1;
         });
         //for having a unique color for the current day
+        // yiipepe
         console.log(formattedDate)
         days.push(
             <Droppable droppableId = {formattedDate}>

@@ -29,7 +29,7 @@ function SignIn() {
         <h1>
           Sign in here!
         </h1>
-        <button className="sign-in" onClick= { handleGoogle }>Sign in with Google</button>
+        <button className="defaultButton" onClick= { handleGoogle }>Sign in with Google</button>
       </div>
     ) 
   } else {

@@ -141,12 +141,12 @@ const onDragEnd = async (result) => {
 
 };
   return (
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Days tasksList = {items} />
-        { layout }
-      </DragDropContext>
-
+      <div class="noScrollRoot"> 
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Days tasksList = {items} />
+            { layout }
+        </DragDropContext>
+      </div>
   )
 }
 
