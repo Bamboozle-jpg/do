@@ -1,9 +1,8 @@
 * {
     color: #ffffff
-  }
+}
 
 body{
-    overflow: auto;
 }
 
 .noScrollRoot {
@@ -15,7 +14,7 @@ body{
     --backup-border: var(--backdrop);
     --size: 200;
     --userColor: 100
-  }
+}
 
 .noDo{
 width: 12%;
@@ -94,13 +93,13 @@ border-color: hsl(var(--userColor), 100%, 14%);
 }
 
 .bruhcontainer {
-    position: fixed;
-    width: calc(84%); /* Adjusted width to fit four items with gaps */
+    width: 40vw; /* Adjusted width to fit four items with gaps */
     bottom: 10vh;
-    left: 50%;
-    transform: translateX(-57.1%);
+    /* left: 50%; */
+    /* transform: translateX(-57.1%); */
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-content: center;
 }
 
 
@@ -111,10 +110,8 @@ border-color: hsl(var(--userColor), 100%, 14%);
 }
 
 .navButton {
-    position: fixed;
     bottom: 10vh;
     right: 0%;
-    transform: translateX(-80%);
     height: 30px; /* Adjust the height as needed */
     font-size: 12px;
     padding: 5px 10px;
