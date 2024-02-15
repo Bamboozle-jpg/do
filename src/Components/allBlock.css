@@ -50,7 +50,7 @@ main {
     border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
-    width: 90vw;
+    width: 1fr;
 }
 
 [data-glow-popup] {
