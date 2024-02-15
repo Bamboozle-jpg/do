@@ -173,12 +173,14 @@ function Layout1() {
                         var itemID = blockString.substring(5, 25);
                         var name = blockString.substring(25);
                         layout.push(<div id={id} onClick={scrollTo} >{OnlyItem(compTasksList, incompTasksList, showComp, showDetails, itemID, name, blockString)}</div>);
+                        break
                     case 7:
                         // OnlyCompletes
                         var showDetails = parseInt(blockString.substring(3, 4));
                         var tasksLimit = parseInt(blockString.substring(4, 7));
                         var name = blockString.substring(7);
                         layout.push(<div id={id} onClick={scrollTo} >{onlyCompletes(compTasksList, showDetails, tasksLimit, name, blockString)}</div>);
+                        break;
                     default:
                         break;
                 }
