@@ -191,7 +191,7 @@ function Layout1() {
                     <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px", paddingRight: 0}}>
                         <div class="rowWrapperClose">
                             <img src={logo} width="100" height="100"/>
-                            <div class="popupBlockTitle" style={{marginBottom: -25 + "px"}}>v0.1.1 (Alpha)</div>
+                            <div class="popupBlockTitle" style={{marginBottom: -25 + "px"}}>v0.1.2 (Alpha)</div>
                         </div>
                         <div class="rowWrapperClose" style={{paddingRight: 0}}>
                             {task}
