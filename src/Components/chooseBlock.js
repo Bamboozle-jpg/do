@@ -32,7 +32,7 @@ const ChooseBlock = (blocks) => {
     var color = getComputedStyle(document.documentElement).getPropertyValue('--userColor');
     return (
         <div>
-            <Popup trigger= {  <div class ="wideButton" style={{width: 90 + "vw", fontSize: 30 + "px", textAlign: 'center'}} > Add Block </div> }
+            <Popup trigger= {  <div class ="wideButton" style={{width: 100 + "%", paddingRight: 0, paddingLeft: 0, fontSize: 30 + "px", textAlign: 'center'}} > Add Block </div> }
                 modal nested 
                 {...{contentStyle, overlayStyle}} contentStyle={{ width: '70%', backgroundColor: 'transparent', borderColor: 'transparent' }}>
                 {

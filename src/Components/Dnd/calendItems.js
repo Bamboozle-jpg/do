@@ -25,24 +25,31 @@ function Tasks( props ){
     const Dday = doDate.getDate();
     const Dyear = doDate.getFullYear();
     const Do = `${Dmonth}/${Dday}/${Dyear}`;
+    const length = duration * 100
     //different bg color if it is overdue/urgent/not urgent
 
-    const short = duration < 0.5
-    const shortish = duration < 0.75
+    const short = length < 50
+    const shortish = length < 75
+    const medium = length >= 100
+    const long = length >= 125
+    console.log(long, length)
 
     return(
         <Draggable key = {Key} draggableId= {Key} index={index} >
             {(provided, snapshot) => (
                 
                 <div className = "task" 
-                {...provided.draggableProps} 
-                {...provided.dragHandleProps} 
-                ref={provided.innerRef} 
-                style={{
-                    ...provided.draggableProps.style,
-                    backgroundColor: snapshot.isDragging ? "hsl(var(--userColor), 10%, 40%)" : "hsl(var(--userColor), 10%, 60%)",
-                    height: Math.max(25, duration*100)}}>
-                    <div class = "title">{title}</div>
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps} 
+                    ref={provided.innerRef} 
+                    style={{
+                        ...provided.draggableProps.style,
+                        backgroundColor: snapshot.isDragging ? "hsl(var(--userColor), 10%, 40%)" : "hsl(var(--userColor), 10%, 60%)",
+                        height: Math.max(25, duration*100),
+                        width: snapshot.isDragging ? 10 + "vw" : 90 + "%",
+                    }}
+                >
+                    <div class="title" style={{overflow: "clip", maxHeight: medium ? long ? 69 : 46 : 23}}>{title}</div>
                     {short ? <></> : <div class = "field"> Priority: {priority}</div>}
                     {shortish ? <></> : (due != "1/1/3000" ? <div class = "field">Due : {due}</div> : <div>NO DUE DATE</div>)}
                 </div>
@@ -74,10 +81,16 @@ function block(tasksList) {
                         backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 60%)" : "hsl(var(--userColor), 20%, 40%)",
                         transition: 'background-color 0.4s ease',
                         borderRadius: '5px',
+                        height: '100%',
                         minWidth: '100%'}}>
                         <h4 style={{textAlign: 'center',
                         fontSize: '20px'}}>No Do</h4>
-                        <div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>
                         { NewList && NewList.map( (tsk, index) => <Tasks
                             firestoreKey = {tsk.Key}
                             index = {index}

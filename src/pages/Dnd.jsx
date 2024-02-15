@@ -17,6 +17,7 @@ function Dnd() {
   const [user, setUser] = useState('');
   const [items, setItems] = useState([]);
 
+  const nav = useNavigate();
 
   //these two logs return null on refresh, so it shows onAuthStateChanged 
   //is working correctly, but in allBlock, log(user.email) is null. Why?
@@ -53,100 +54,105 @@ function Dnd() {
     );
   const [tasks, loadingInc, error] = useCollection(q)
 
-if(!loadingInc) {
-  if (error) {
-    console.log("ERROR : ", error.message);
-  }
-  var TaskList = addKeys(tasks);
+  if(!loadingInc) {
+    if (error) {
+      console.log("ERROR : ", error.message);
+    }
+    var TaskList = addKeys(tasks);
 
-  //get list of tasks with no do date
+    //get list of tasks with no do date
 
-  //should replace this with on input/on change
-  if (items.length == 0) {
-    setItems(TaskList)
+    //should replace this with on input/on change
+    if (items.length == 0) {
+      setItems(TaskList)
+    }
+    if (loading) {
+      return (
+          <h1 class="uncomplete">Loading</h1>
+      )
+    } else{
+      var root = document.querySelector(':root');
+      root.style.setProperty('--userColor', webConfig.data().color)
+      var layout = []
+    }
+    layout.push(<div class = "noDo">{block(items)}</div>);
   }
-  if (loading) {
-    return (
-        <h1 class="uncomplete">Loading</h1>
-    )
-  } else{
-    var root = document.querySelector(':root');
-    root.style.setProperty('--userColor', webConfig.data().color)
-    var layout = []
-  }
-  layout.push(<div class = "noDo">{block(items)}</div>);
-}
-const onDragEnd = async (result) => {
-  const{destination, source, draggableId} = result;
-  if(!destination) {
+  const onDragEnd = async (result) => {
+    const{destination, source, draggableId} = result;
+    if(!destination) {
+        return;
+    }
+
+    if(
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+    ){
+        return;
+    }   
+
+    const start = source.droppableId;
+    const finish = destination.droppableId;
+
+    const newItems = Array.from(items);
+
+    if(start === finish){
+      const [removed] = newItems.splice(source.index, 1);
+      newItems.splice(destination.index, 0, removed);
+      setItems(newItems);
       return;
-  }
+    }
+    //upon dropping into a day block, update the task's Do field
+    else if (finish != "NoDo"){ 
+      const taskId = draggableId;
+      const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
+        await updateDoc(taskRef, {
+          Do: strToTimestamp(finish)
+        });
+      const finishTime = strToTimestamp(finish)
+      setItems(TaskList)
+      const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
+      TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
 
-  if(
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-  ){
+      console.log("new Item : ", newTerm[0])
+      newTerm[0]["Do"] = finishTime
+      TaskList.push(newTerm)
+      //console.log(TaskList)
+      //console.log(items)
+      //console.log(draggableId)
+      //console.log(destination.droppableId)
       return;
-  }   
-
-  const start = source.droppableId;
-  const finish = destination.droppableId;
-
-  const newItems = Array.from(items);
-
-  if(start === finish){
-    const [removed] = newItems.splice(source.index, 1);
-    newItems.splice(destination.index, 0, removed);
-    setItems(newItems);
-    return;
-  }
-  //upon dropping into a day block, update the task's Do field
-  else if (finish != "NoDo"){ 
-    const taskId = draggableId;
-    const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
+    }
+    
+    else if (finish == "NoDo"){
+      const taskId = draggableId;
+      const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
       await updateDoc(taskRef, {
-        Do: strToTimestamp(finish)
+        Do: strToTimestamp("1/1/3000")
       });
-    const finishTime = strToTimestamp(finish)
-    setItems(TaskList)
-    const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
-    TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
+      const finishTime = strToTimestamp("1/1/3000")
+      setItems(TaskList)
+      const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
+      TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
 
-    console.log("new Item : ", newTerm[0])
-    newTerm[0]["Do"] = finishTime
-    TaskList.push(newTerm)
-    //console.log(TaskList)
-    //console.log(items)
-    //console.log(draggableId)
-    //console.log(destination.droppableId)
-    return;
-  }
-  
-  else if (finish == "NoDo"){
-    const taskId = draggableId;
-    const taskRef = doc(db, userEmail, 'tasks', 'tasksCollection', taskId);
-    await updateDoc(taskRef, {
-      Do: strToTimestamp("1/1/3000")
-    });
-    const finishTime = strToTimestamp("1/1/3000")
-    setItems(TaskList)
-    const newTerm = TaskList.filter((tsk) => tsk.Key == draggableId);
-    TaskList = TaskList.filter((tsk) => tsk.Key != draggableId);
+      console.log("new Item : ", newTerm[0])
+      newTerm[0]["Do"] = finishTime
+      TaskList.push(newTerm)
+      return;
+    }
 
-    console.log("new Item : ", newTerm[0])
-    newTerm[0]["Do"] = finishTime
-    TaskList.push(newTerm)
-    return;
-  }
-
-};
+  };
   return (
-      <div class="noScrollRoot"> 
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Days tasksList = {items} />
+    <div style={{paddingTop: 30 + "px", paddingLeft: 30 + "px", paddingRight: 30 + "px", }}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div style={{display: "grid", gridTemplateColumns: "7fr 1fr"}}>
+          <Days tasksList = {items} />
+          <div style={{display: "flex", flexDirection: "column"}}>
+            <button className='navButton' onClick={ () => nav( "/layout1" )}>Layout</button>
             { layout }
-        </DragDropContext>
-      </div>
+          </div>
+        </div>
+      </DragDropContext>
+    </div>
   )
 }
 

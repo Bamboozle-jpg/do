@@ -13,15 +13,16 @@ v0.1.0 published
 - Update name and icon for website
 - Add title and version to top of layout1
 v0.1.1 published
+- Image for add task
+- Move buttons on calendar screen to top
+- Constrain titles to 1 line for assign do dates page
+v0.1.2
 
 Items for v0.2
-- Image for add task
 - Add link to view this list
-- Move buttons on calendar screen to top
 - Change overdue to overdue, due now or do in past
 - Add block descriptions
 - Fix no do block on assign do dates page not scrolling
-- Constrain titles to 1 line for assign do dates page
 
 Items for v0.3
 - Link to progress page
@@ -72,3 +73,5 @@ Items for v1.0
 Ideas
 - How long until it deletes completed items?
     - Paid users can say infinite?
+- Differentiate add block and add task visually
+- Don't allow for add block, instead have a dashboard editing screen?

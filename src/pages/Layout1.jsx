@@ -20,6 +20,7 @@ import AddTask from "../Components/addTask"
 import ChooseBlock from '../Components/chooseBlock';
 import SetUp from '../Components/setupNew';
 import logo from "./../assets/do.png"
+import calendarImage from "./../assets/calendar.svg"
 
 function Layout1() {
 
@@ -173,12 +174,14 @@ function Layout1() {
                         var itemID = blockString.substring(5, 25);
                         var name = blockString.substring(25);
                         layout.push(<div id={id} onClick={scrollTo} >{OnlyItem(compTasksList, incompTasksList, showComp, showDetails, itemID, name, blockString)}</div>);
+                        break
                     case 7:
                         // OnlyCompletes
                         var showDetails = parseInt(blockString.substring(3, 4));
                         var tasksLimit = parseInt(blockString.substring(4, 7));
                         var name = blockString.substring(7);
                         layout.push(<div id={id} onClick={scrollTo} >{onlyCompletes(compTasksList, showDetails, tasksLimit, name, blockString)}</div>);
+                        break;
                     default:
                         break;
                 }
@@ -186,15 +189,18 @@ function Layout1() {
 
             // Return the blocks
             return (
-                <div>
-                    <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px"}}>
+                <div style={{padding: 30}}>
+                    <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px", paddingRight: 0}}>
                         <div class="rowWrapperClose">
                             <img src={logo} width="100" height="100"/>
-                            <div class="popupBlockTitle" style={{marginBottom: -25 + "px"}}>v0.1.1 (Alpha)</div>
+                            <div class="popupBlockTitle" style={{marginBottom: -25 + "px"}}>v0.1.2 (Alpha)</div>
                         </div>
-                        <div class="rowWrapperClose">
+                        <div class="rowWrapperClose" style={{paddingRight: 0}}>
                             {task}
-                            <button class="defaultButton" style={{marginLeft: 20 + "px"}} onClick={ () => nav( "/calendar" ) }>Assign Do Dates</button>
+                            <div class="defaultButton" style={{display: "flex", flexDirection: "row", alignContent: "center", marginLeft: 20 + "px"}} onClick={ () => nav( "/calendar" ) }> 
+                                <img width="40" height="40" src={calendarImage} />
+                                <div class="popupBlockTitle" style={{paddingLeft: 15 + "px", marginRight: -10 + "px", paddingTop: 5 + "px"}} >Assign Do Dates</div>
+                            </div> 
                         </div>
                     </div>
                     <br></br>
