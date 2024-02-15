@@ -189,7 +189,7 @@ function Layout1() {
 
             // Return the blocks
             return (
-                <div>
+                <div style={{padding: 30}}>
                     <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px", paddingRight: 0}}>
                         <div class="rowWrapperClose">
                             <img src={logo} width="100" height="100"/>
