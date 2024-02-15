@@ -23,6 +23,7 @@ import logo from "./../assets/do.png"
 import calendarImage from "./../assets/calendar.svg"
 
 function Layout1() {
+    const nav = useNavigate();
 
     SetUp();
 
@@ -45,7 +46,11 @@ function Layout1() {
     },[])
 
     // User email shenanigans
-    const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+    const userEmail = user ? user.email : 'emptyUser';
+    if (userEmail == 'emptyUser') {
+        nav("/")
+    }
+
 
     // Get config doc
     const configDocRef = doc(db, userEmail, 'webConfig');
@@ -75,7 +80,6 @@ function Layout1() {
     // Convert querys to snapshots
     const [tasks, loadingInc, error] = useCollection(q)
     const [compTasks, loadingC, errorComp] = useCollection(qComp)
-    const nav = useNavigate();
 
     // Once the snapshot has returned
     if (!loadingInc && !loadingC) {
