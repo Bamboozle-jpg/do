@@ -144,12 +144,13 @@ function Dnd() {
   return (
     <div style={{paddingTop: 30 + "px", paddingLeft: 30 + "px", paddingRight: 30 + "px", }}>
       <DragDropContext onDragEnd={onDragEnd}>
-            <Days tasksList = {items} />
-            <div>
-              <button className='navButton' onClick={ () => nav( "/layout1" )}>Layout</button>
-              { layout }
-            </div>
-         
+        <div style={{display: "grid", gridTemplateColumns: "7fr 1fr"}}>
+          <Days tasksList = {items} />
+          <div style={{display: "flex", flexDirection: "column"}}>
+            <button className='navButton' onClick={ () => nav( "/layout1" )}>Layout</button>
+            { layout }
+          </div>
+        </div>
       </DragDropContext>
     </div>
   )

@@ -17,16 +17,15 @@ body{
 }
 
 .noDo{
-width: 12%;
-height: 80vh;
-position: relative;
-float: right;
-min-height: 200px;
-display: flex;
-border-radius: 5px;
-border: 1px solid var(--backup-border);
-border-color: hsl(var(--userColor), 100%, 14%);
-
+    width: 12vw;
+    height: 80vh;
+    position: relative;
+    float: right;
+    min-height: 200px;
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid var(--backup-border);
+    border-color: hsl(var(--userColor), 100%, 14%);
 }
 
 .task{
@@ -36,7 +35,6 @@ border-color: hsl(var(--userColor), 100%, 14%);
     margin-top: 5px;
     margin-bottom: 10px;
     margin-right: 10px;
-
     border-radius: 10px;
     box-shadow: 0px 0px 8px 1px hsl(var(--userColor), 50%, 10%);    
 }
@@ -58,19 +56,13 @@ border-color: hsl(var(--userColor), 100%, 14%);
 
 .days{
     float: left;
-    width: 87.8%;
     height: 80vh;
     display: flex;
     flex-direction: row;
 }
 
-.outerWrapper{
-    
-}
-
 .day{
     flex-grow: 1;
-    border: 1px solid black; 
     overflow-y: clip; 
     max-height: 800px; 
     width: 0; 
@@ -78,8 +70,7 @@ border-color: hsl(var(--userColor), 100%, 14%);
     margin-right: 5px;
     border-radius: 5px;
     background-color: hsl(var(--userColor), 10%, 16%);
-    border: 1px solid var(--backup-border);
-    border-color: hsl(var(--userColor), 100%, 14%);
+    border: 2px solid hsl(var(--userColor), 100%, 14%);
     align-items: center;
     justify-content: center;
 }
@@ -87,18 +78,17 @@ border-color: hsl(var(--userColor), 100%, 14%);
 .title{
     font-size: 20px;
     font-style: italic;
-    height: 30px;
     align-items: start;
     line-height: 1.05;
 }
 
-.bruhcontainer {
-    width: 40vw; /* Adjusted width to fit four items with gaps */
+.directionButtonContainer {
+    width: 100%; /* Adjusted width to fit four items with gaps */
     bottom: 10vh;
     /* left: 50%; */
     /* transform: translateX(-57.1%); */
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-content: center;
 }
 
@@ -112,22 +102,23 @@ border-color: hsl(var(--userColor), 100%, 14%);
 .navButton {
     bottom: 10vh;
     right: 0%;
-    height: 30px; /* Adjust the height as needed */
-    font-size: 12px;
-    padding: 5px 10px;
-    border: 1px solid black;
+    height: 40px; /* Adjust the height as needed */
+    font-size: 27px;
+    font-weight: bold;
+    border: 2px solid hsl(var(--userColor), 100%, 14%);
     cursor: pointer;
     border-radius: 5px;
+    margin-bottom: 10px;
     background-color: hsl(var(--userColor), 10%, 16%);
+    color: hsl(0, 0%, 80%);
 }
 
-
-.bruhcontainer button {
-    width: 100%; /* Make buttons fill their respective grid cells */
-    height: 30px; /* Adjust the height as needed */
-    font-size: 12px;
-    padding: 5px 10px;
-    border: 1px solid black;
+.directionButtonContainer button {
+    width: 8%; /* Make buttons fill their respective grid cells */
+    height: 40px; /* Adjust the height as needed */
+    font-size: 24px;
+    margin-bottom: 10px;
+    border: 2px solid hsl(var(--userColor), 100%, 14%);
     cursor: pointer;
     border-radius: 5px;
     background-color: hsl(var(--userColor), 10%, 16%);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { collection, doc, updateDoc, Timestamp, toDate } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom'
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from '../../Firebase/Firebase';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -10,7 +9,6 @@ import './block.css'
 function Days({tasksList}) {
     
     const [currentDate, setCurrentDate] = useState(new Date());
-    const nav = useNavigate();
     const changeDate = (increment) => {
         const newDate = new Date(currentDate);
         newDate.setDate(newDate.getDate() + increment);
@@ -53,8 +51,8 @@ function Days({tasksList}) {
                         ...provided.droppableProps.style,
                         backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : (fcurrDate == formattedDate ?  "hsl(var(--userColor), 40%, 20%)" :"hsl(var(--userColor), 10%, 20%)") ,
                         transition: 'background-color 0.4s ease'}}>
-                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-20px'}}>{dayOfWeek}</h4>
-                            <h4 style={{textAlign: 'center', fontSize: '20px'}}>{formattedDate}</h4>
+                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-20px', marginTop: '5px'}}>{dayOfWeek}</h4>
+                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '5px'}}>{formattedDate}</h4>
                             <div style={{display: 'flex', flexDirection: "column", alignItems: 'center', justifyContent: 'center'}}>
                                 { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
                                 firestoreKey = {tsk.Key}
@@ -75,22 +73,23 @@ function Days({tasksList}) {
 
     }
     return (
-            <div class = 'days'>
-                <div class = 'bruhcontainer'>
-                    <div class = "left-buttons">
-                        <button class = 'bruh' onClick={() => changeDate(-7)}>&#8592;&#8592;</button>
-                        <button class = 'bruh' onClick={() => changeDate(-1)}>&#8592;</button>
+        <div style={{display: "flex", flexDirection: "column"}}>
+            <div class = 'directionButtonContainer'>
+                {/* <div class = "left-buttons"> */}
+                    <button class = 'directionButton' onClick={() => changeDate(-7)}>&#8592;&#8592;</button>
+                    <button class = 'directionButton' onClick={() => changeDate(-1)}>&#8592;</button>
 
-                    </div>               
-                    <div class = "right-buttons">
-                        <button class = 'bruh' onClick={() => changeDate(1)}>&#8594;</button> 
-                        <button class = 'bruh' onClick={() => changeDate(7)}>&#8594;&#8594;</button> 
-                    </div>
-
-                </div>
-                <button className='navButton' onClick={ () => nav( "/layout1" )}>Layout</button>
-                {days} 
+                {/* </div>                */}
+                {/* <div class = "right-buttons"> */}
+                    <button class = 'directionButton' onClick={() => changeDate(1)}>&#8594;</button> 
+                    <button class = 'directionButton' onClick={() => changeDate(7)}>&#8594;&#8594;</button> 
+                {/* </div> */}
             </div>
+            
+            <div class = 'days'>
+                {days} 
+            </div> 
+        </div>
     )
 }
 

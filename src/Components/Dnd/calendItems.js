@@ -49,7 +49,7 @@ function Tasks( props ){
                         width: 10 + "vw",
                     }}
                 >
-                    <div class="title" style={{overflow: "clip", height: medium ? long ? 69 : 46 : 23}}>{title}</div>
+                    <div class="title" style={{overflow: "clip", maxHeight: medium ? long ? 69 : 46 : 23}}>{title}</div>
                     {short ? <></> : <div class = "field"> Priority: {priority}</div>}
                     {shortish ? <></> : (due != "1/1/3000" ? <div class = "field">Due : {due}</div> : <div>NO DUE DATE</div>)}
                 </div>
