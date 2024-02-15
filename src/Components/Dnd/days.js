@@ -40,8 +40,11 @@ function Days({tasksList}) {
             return formattedDate === formattedDate1;
         });
         //for having a unique color for the current day
-        // yiipepe
-        console.log(formattedDate)
+        let total = 0;
+        for (let i = 0; i < newList.length; i++) {
+            total += parseFloat(newList[i].Duration)
+            console.log(parseInt(newList[i].Duration))
+        }
         days.push(
             <Droppable droppableId = {formattedDate}>
                 {(provided, snapshot) => (
@@ -52,7 +55,9 @@ function Days({tasksList}) {
                         backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 50%)" : (fcurrDate == formattedDate ?  "hsl(var(--userColor), 40%, 20%)" :"hsl(var(--userColor), 10%, 20%)") ,
                         transition: 'background-color 0.4s ease'}}>
                             <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-20px', marginTop: '5px'}}>{dayOfWeek}</h4>
-                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '5px'}}>{formattedDate}</h4>
+                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '-25px'}}>{formattedDate}</h4>
+                            <h4 style={{textAlign: 'center', fontSize: '20px', marginBottom: '5px'}}>{total} hours</h4>
+                            
                             <div style={{display: 'flex', flexDirection: "column", alignItems: 'center', justifyContent: 'center'}}>
                                 { Array.isArray(newList) && newList.map( (tsk, index) => <Tasks
                                 firestoreKey = {tsk.Key}

@@ -16,7 +16,9 @@ v0.1.1 published
 - Image for add task
 - Move buttons on calendar screen to top
 - Constrain titles to 1 line for assign do dates page
-v0.1.2
+v0.1.2 published
+- fix scrolling
+- Add total duration of day to top of day block
 
 Items for v0.2
 - Add link to view this list
@@ -25,9 +27,17 @@ Items for v0.2
 - Fix no do block on assign do dates page not scrolling
 
 Items for v0.3
+- Page for block customization
+- Move empty blocks to end? (hide them?)
+- sort/reorder blocks
+- Change tasks to NOT list description unless clicked on
+    - Have it show due and do date on one line and then priority and duration on another
+- Reorder blocks
+- Edit blocks
+
+Items for v0.2
 - Link to progress page
-- Add task focus/display screen
-- Fix scrolling
+- Task focus/display screen
 - Duration totals for each day on calendar screen
 - More padding to delete screen
 - sidebar
@@ -36,14 +46,6 @@ Items for v0.3
 - User setting for task size scale factor
 - Arrow pointing to how many tasks you have offscreen on either side
 - Fix scrollbars and visuals for assign do dates
-
-Items for v0.4
-- Move empty blocks to end? (hide them?)
-- sort/reorder blocks
-- Change tasks to NOT list description unless clicked on
-    - Have it show due and do date on one line and then priority and duration on another
-- Reorder blocks
-- Edit blocks
 
 Items for v0.5
 - Delete old tasks (how long till it does it?)
