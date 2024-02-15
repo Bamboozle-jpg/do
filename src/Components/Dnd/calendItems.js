@@ -46,7 +46,7 @@ function Tasks( props ){
                         ...provided.draggableProps.style,
                         backgroundColor: snapshot.isDragging ? "hsl(var(--userColor), 10%, 40%)" : "hsl(var(--userColor), 10%, 60%)",
                         height: Math.max(25, duration*100),
-                        width: 10 + "vw",
+                        width: snapshot.isDragging ? 10 + "vw" : 90 + "%",
                     }}
                 >
                     <div class="title" style={{overflow: "clip", maxHeight: medium ? long ? 69 : 46 : 23}}>{title}</div>
@@ -81,10 +81,16 @@ function block(tasksList) {
                         backgroundColor: snapshot.isDraggingOver ? "hsl(var(--userColor), 10%, 60%)" : "hsl(var(--userColor), 20%, 40%)",
                         transition: 'background-color 0.4s ease',
                         borderRadius: '5px',
+                        height: '100%',
                         minWidth: '100%'}}>
                         <h4 style={{textAlign: 'center',
                         fontSize: '20px'}}>No Do</h4>
-                        <div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>
                         { NewList && NewList.map( (tsk, index) => <Tasks
                             firestoreKey = {tsk.Key}
                             index = {index}
