@@ -49,7 +49,7 @@ main {
     border-color: hsl(var(--userColor), 100%, 14%);
     position: relative;
     touch-action: none;
-    width: 90vw;
+    width: 1fr;
 }
 
 [data-glow-popup] {
@@ -158,7 +158,7 @@ main {
     padding-bottom: 10px;
     width: fit-content;
     border-radius: 10px;
-    border-width: 3px;
+    border-width: 2px;
     border: solid 2px hsl(var(--userColor), 100%, 20%);
     color: hsl(0, 0%, 80%);
     background-image: linear-gradient(to bottom right, hsl(var(--userColor), 10%, 26%), hsl(var(--userColor), 10%, 16%));
