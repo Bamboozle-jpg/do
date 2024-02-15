@@ -25,7 +25,13 @@ function Home() {
         });
         return unsubscribe;
     },[])
-    const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+
+    // User email shenanigans
+    const userEmail = user ? user.email : 'emptyUser';
+    if (userEmail == 'emptyUser') {
+        nav("/")
+    }
+
     const configDocRef = doc(db, userEmail, 'webConfig');
     const [webConfig, loading] = useDocument(configDocRef)
     if (!loading) {
