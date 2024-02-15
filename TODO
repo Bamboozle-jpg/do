@@ -19,8 +19,11 @@ v0.1.1 published
 v0.1.2 published
 - fix scrolling
 - Add total duration of day to top of day block
+v0.1.3 published
+
 
 Items for v0.2
+- view block as TITLE----------- without the block itself if it's empty
 - Add link to view this list
 - Change overdue to overdue, due now or do in past
 - Add block descriptions
@@ -35,12 +38,12 @@ Items for v0.3
 - Reorder blocks
 - Edit blocks
 
-Items for v0.2
+Items for v0.4
 - Link to progress page
 - Task focus/display screen
-- Duration totals for each day on calendar screen
 - More padding to delete screen
-- sidebar
+- multiple pages
+    - tab at top with logo and a link to each page highlighting the one you're on
 - User settings menu
     - Something with color?
 - User setting for task size scale factor
@@ -68,6 +71,7 @@ Items for v0.9
 
 Items for v1.0
 - Better visuals
+    - cards?
 - Different pages
     - Diff page for just generally all tasks
 - Cool css animation for marking task as complete?

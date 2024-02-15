@@ -46,7 +46,6 @@ function Home() {
                 <button onClick={ () => nav( "/" ) }>Landing Page</button>
                 <button onClick={ () => nav( "/layout1" ) }>Layout1</button>
               <button onClick={ () => nav( "/calendar" ) }>calendar</button>
-
     </div>
         )
     } else {
