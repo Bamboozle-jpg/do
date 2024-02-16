@@ -33,9 +33,12 @@ function Dnd() {
       });
       return unsubscribe;
   },[])
-
+  
   // User email shenanigans
-  const userEmail = user ? user.email : 'kevin@bachelorclan.com';
+  const userEmail = user ? user.email : 'emptyUser';
+  if (userEmail == 'emptyUser') {
+      nav("/")
+  }
 
   // Get config doc
   const configDocRef = doc(db, userEmail, 'webConfig');
