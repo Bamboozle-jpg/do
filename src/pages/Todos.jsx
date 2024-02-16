@@ -4,20 +4,19 @@ import AddTask from "../Components/addTask"
 import { doc } from 'firebase/firestore'
 import { db, auth } from "../Firebase/Firebase";
 import SetUp from "../Components/setupNew"
+import "./Todos.css"
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
+import textFile from "./../TODO.txt"
+import { getAuth } from "firebase/auth";
 
-function Home() {
+function Todos() {
     const nav = useNavigate();
-    const task = AddTask();
-
-    // Get user settings
+    const auth = getAuth();
     const [user, setUser] = useState('');
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-                console.log('Current user:', user);
-                console.log('User UID:', user.uid);
-                console.log('User email:', user.email);
                 setUser(user)
             } else {
                 console.log('No user is currently signed in.');
@@ -26,11 +25,21 @@ function Home() {
         return unsubscribe;
     },[])
 
-    // User email shenanigans
+    fetch(textFile)
+    .then((r) => r.text())
+    .then(text  => {
+        console.log(text)
+        sleep(10000).then(
+            document.getElementById("text").innerHTML = text
+        )
+    })
+
     const userEmail = user ? user.email : 'emptyUser';
     if (userEmail == 'emptyUser') {
         nav("/")
     }
+    // Get config doc
+
 
     const configDocRef = doc(db, userEmail, 'webConfig');
     const [webConfig, loading] = useDocument(configDocRef)
@@ -39,26 +48,23 @@ function Home() {
         root.style.setProperty('--userColor', webConfig.data().color)
     }
 
-    // Sets up new user if necessary
-    SetUp();
-
-    if (!loading) {
-        return (
-            <div>
+    return (
+        <div style={{margin:10 + "px"}}>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center", }}>
                 <h1>
-                    Main Page
+                    Version history and plans
                 </h1>
-                {task}
-                <button onClick={ () => nav( "/" ) }>Landing Page</button>
-                <button onClick={ () => nav( "/layout1" ) }>Layout1</button>
-              <button onClick={ () => nav( "/calendar" ) }>calendar</button>
-    </div>
-        )
-    } else {
-        return (
-            <h1 class="uncomplete">Loading</h1>
-        )
-    }
+                <button style={{marginLeft: 30 + "px", height: 50 + "px"}}class="greyDefaultButton" onClick={ () => nav( "/layout1" ) }>Back</button>
+            </div>
+            <div class="text" id="text" style={{whiteSpace: "pre-wrap"}} >
+                loading...
+            </div>
+        </div>
+    )
 }
 
-export default Home
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}  
+
+export default Todos

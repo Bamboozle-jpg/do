@@ -1,0 +1,32 @@
+.greyDefaultButton {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 2px;
+    border: solid 2px hsl(0, 0%, 20%);
+    color: hsl(0, 0%, 80%);
+    background-image: linear-gradient(to bottom right, hsl(0, 0%, 26%), hsl(0, 0%, 16%));
+    font-size: 17px;
+    font-weight: bold;
+    outline: none;
+}
+
+.greyDefaultButton:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 0%, 26%), hsl(var(--userColor), 0%, 20%))
+}
+
+.greyDefaultButton:active {
+    background-image: linear-gradient(to bottom right, hsl(var(--userColor), 0%, 16%), hsl(var(--userColor), 0%, 22%));
+}
+
+.text {
+    color: hsl(0, 0%, 80%);
+    padding-left: 10px;
+    font-size: 37px;
+    width: 90%;
+    height: 1000%;
+}

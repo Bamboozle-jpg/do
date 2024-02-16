@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { BrowserRouter } from "react-router-dom";
 
 import { AuthContextProvider } from './Firebase/Context';
-import MainPage from './pages/Home';
+import Todos from './pages/Todos';
 import SignIn from './pages/SignIn';
 import Landing from './pages/Landing'
 import Layout1 from './pages/Layout1'
@@ -24,7 +24,7 @@ function App() {
         // </AuthContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/home" element={ <MainPage/> } />
+            <Route path="/todos" element={ <Todos/> } />
             <Route path="/" element={ <Landing/> } />
             <Route path="/signIn" element={ <SignIn/> } />
             <Route path='/layout1' element={ <Layout1/> } />

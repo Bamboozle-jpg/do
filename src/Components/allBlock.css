@@ -130,6 +130,21 @@ main {
     border-color: transparent;
 }
 
+.version {
+    color: hsl(0, 0%, 80%);
+    padding-top: 10px;
+    padding-right: 20px;
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.version:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .popupBackground {
     border-left: 10px;
     border-bottom: 10px;
