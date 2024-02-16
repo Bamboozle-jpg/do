@@ -20,11 +20,12 @@ v0.1.2 published
 - fix scrolling
 - Add total duration of day to top of day block
 v0.1.3 published
+- Add link to view this list
+v0.1.4 published
 
 
 Items for v0.2
 - view block as TITLE----------- without the block itself if it's empty
-- Add link to view this list
 - Change overdue to overdue, due now or do in past
 - Add block descriptions
 - Fix no do block on assign do dates page not scrolling
@@ -78,6 +79,7 @@ Items for v1.0
 
 Ideas
 - How long until it deletes completed items?
-    - Paid users can say infinite?
+    - Will keeping so much in firestore start to cost us money?
+    - Do people get to say never?
 - Differentiate add block and add task visually
 - Don't allow for add block, instead have a dashboard editing screen?
