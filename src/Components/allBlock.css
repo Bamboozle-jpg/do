@@ -130,6 +130,16 @@ main {
     border-color: transparent;
 }
 
+.emptyBlock {
+    color: hsl(var(--userColor), 10%, 80%);
+    font-size: 27px;
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent;
+    margin-right: 20px;
+    margin-left: 25px;
+}
+
 .version {
     color: hsl(0, 0%, 80%);
     padding-top: 10px;

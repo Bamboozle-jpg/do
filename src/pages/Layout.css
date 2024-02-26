@@ -35,3 +35,21 @@
     justify-content: space-between;
     align-items: flex-start;
 }
+
+.blocksContainer1 {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    flex-grow: 1;
+    overflow-y: hidden;
+    max-height: 100%;
+}
+
+.blocksContainer2 {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    max-height: 100%;
+}

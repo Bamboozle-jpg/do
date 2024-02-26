@@ -193,8 +193,8 @@ function Layout1() {
 
             // Return the blocks
             return (
-                <div style={{padding: 30}}>
-                    <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px", paddingRight: 0}}>
+                <div style={{padding: 0, display: "flex", flexDirection: "column", height: 100 + "vh"}}>
+                    <div class="rowWrapperSplit" style={{marginTop: 5 + "px", marginBottom: 10 + "px", paddingRight: 30 + "px", paddingLeft: 10 + "px"}}>
                         <div class="rowWrapperClose">
                             <img src={logo} width="100" height="100"/>
                             <div class="version" style={{marginBottom: -25 + "px"}} onClick={() => nav('/todos')}>v0.1.5 (Alpha)</div>
@@ -208,10 +208,12 @@ function Layout1() {
                         </div>
                     </div>
                     <br></br>
-                    <div id="blocksContainer">
-                        { layout }
-                        
-                        { block }
+                    <div class = "blocksContainer1" style = {{paddingRight: 10 + "px"}}>
+                        <div id="blocksContainer" class = "blocksContainer2">
+                            { layout }
+                            
+                            { block }
+                        </div>
                     </div>
                     
                 </div>
