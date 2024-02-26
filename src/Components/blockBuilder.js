@@ -140,6 +140,22 @@ function buildDiv(tasksList, name, showDetails, tasksLimit, itemString, detail) 
     const cutOff = limitedTasks.length < tasksList.length ? true : false;
     const trash = RemoveBlock(itemString, name)
 
+    if (tasksList.length == 0) {
+        const emptyTitle = name + " (empty)"
+        return (
+            <div style={{    
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 30 + "px",
+                marginTop: -20 + "px", 
+                padding: 0}}>
+                <div class="emptyBlock">{emptyTitle}</div>
+                <hr style={{flexGrow: 1, marginRight: 25 + "px"}}></hr>
+            </div>
+        )
+    } 
+
     return (
         <div class="glow-holder">
             <article data-glow>
