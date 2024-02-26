@@ -197,7 +197,7 @@ function Layout1() {
                     <div class="rowWrapperSplit" style={{marginTop: -20 + "px", marginBottom: 10 + "px", paddingRight: 0}}>
                         <div class="rowWrapperClose">
                             <img src={logo} width="100" height="100"/>
-                            <div class="version" style={{marginBottom: -25 + "px"}} onClick={() => nav('/todos')}>v0.1.4 (Alpha)</div>
+                            <div class="version" style={{marginBottom: -25 + "px"}} onClick={() => nav('/todos')}>v0.1.5 (Alpha)</div>
                         </div>
                         <div class="rowWrapperClose" style={{paddingRight: 0}}>
                             {task}
